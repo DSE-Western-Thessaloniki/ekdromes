@@ -14,12 +14,13 @@ use Subfission\Cas\Middleware\CASAuth;
 
 // CAS Login - redirects to CAS server
 Route::get('/', function () {
-    return redirect()->route('dashboard');
+    return view('welcome');
 })->name('login');
 
 // CAS Logout
 Route::get('/logout', function () {
     app('cas')->logout();
+
     return redirect('/');
 })->name('logout');
 

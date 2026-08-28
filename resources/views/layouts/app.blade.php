@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="el">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,46 +20,57 @@
             background: linear-gradient(to bottom, #ffffff, rgb(255, 122, 89));
             min-height: 100vh;
         }
+
         .navbar-custom {
             background-color: rgb(255, 122, 89);
             border-color: #e74c3c;
         }
+
         .navbar-custom .navbar-brand,
         .navbar-custom .navbar-text {
             color: #fff;
         }
-        .navbar-custom .navbar-nav > li > a {
+
+        .navbar-custom .navbar-nav>li>a {
             color: #fff;
         }
-        .navbar-custom .navbar-nav > li > a:hover,
-        .navbar-custom .navbar-nav > li > a:focus {
+
+        .navbar-custom .navbar-nav>li>a:hover,
+        .navbar-custom .navbar-nav>li>a:focus {
             color: #ffe0d6;
         }
+
         .content-wrapper {
             padding: 20px;
             min-height: calc(100vh - 180px);
         }
+
         .footer {
             background-color: rgb(255, 122, 89);
             color: #fff;
             padding: 15px 0;
             text-align: center;
         }
+
         .bus-logo {
             height: 40px;
             margin-right: 10px;
         }
+
         .panel-primary {
             border-color: rgb(255, 122, 89);
         }
-        .panel-primary > .panel-heading {
+
+        .panel-primary>.panel-heading {
             background-color: rgb(255, 122, 89);
             border-color: rgb(255, 122, 89);
         }
+
         .btn-primary {
             background-color: rgb(255, 122, 89);
             border-color: rgb(255, 122, 89);
         }
+
         .btn-primary:hover {
             background-color: #ff6b52;
             border-color: #ff6b52;
@@ -67,6 +79,7 @@
 
     @yield('styles')
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar navbar-custom navbar-static-top">
@@ -85,20 +98,20 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    @auth('cas')
+                    @auth
                         <li><a href="{{ route('dashboard') }}">Αρχική</a></li>
                         <li><a href="{{ route('excursion.create') }}">Νέα Εκδρομή</a></li>
-                        @if($isAdmin ?? false)
+                        @if ($isAdmin ?? false)
                             <li><a href="{{ route('admin.index') }}">Διαχείριση</a></li>
                         @endif
                     @endauth
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    @auth('cas')
+                    @auth
                         <li>
                             <a href="#">
                                 {{ $currentYear->sxoliko_etos ?? '' }}
-                                @if($currentSchool ?? null)
+                                @if ($currentSchool ?? null)
                                     - {{ $currentSchool->displayname }}
                                 @endif
                             </a>
@@ -116,14 +129,14 @@
 
     <!-- Main Content -->
     <div class="container content-wrapper">
-        @if(session('success'))
+        @if (session('success'))
             <div class="alert alert-success alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
                 {{ session('success') }}
             </div>
         @endif
 
-        @if(session('error'))
+        @if (session('error'))
             <div class="alert alert-danger alert-dismissible" role="alert">
                 <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
                 {{ session('error') }}
@@ -149,4 +162,5 @@
 
     @yield('scripts')
 </body>
+
 </html>
