@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Services\CasService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 
@@ -14,7 +12,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(CasService::class);
+        //
     }
 
     /**
@@ -22,11 +20,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Auth::extend('cas', function ($app, $name, array $config) {
-            $provider = Auth::createUserProvider($config['provider'] ?? 'cas');
-            return new \App\Guards\CasGuard($provider, $app);
-        });
-
         // Share CAS user data with all views
         view()->composer('*', function ($view) {
             $view->with('casUser', Session::get('cas_user'));

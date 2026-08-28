@@ -2,37 +2,53 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\School;
 use App\Models\SchoolYear;
-use App\Services\CasService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
 {
-    public function __construct(
-        protected CasService $casService
-    ) {}
-
     public function index()
     {
-        $user = Session::get('cas_user');
-        $isAdmin = Session::get('cas_is_admin', false);
+        $cas = app('cas');
+        $userEmail = $cas->user();
         $currentYear = SchoolYear::getCurrent();
 
         if (!$currentYear) {
-            return redirect()->route('login')->with('error', 'Δεν υπάρχει διαθέσιμο σχολικό έτος');
+            return redirect('/')->with('error', 'Δεν υπάρχει διαθέσιμο σχολικό έτος');
         }
 
+        // Store current year in session
+        Session::put('current_school_year', $currentYear);
+
+        // Check if user is admin
+        $adminEmails = config('cas.admin_emails', []);
+        $isAdmin = in_array($userEmail, $adminEmails);
+
         if ($isAdmin) {
+            Session::put('cas_is_admin', true);
+            Session::put('cas_school', null);
+
             $excursions = \App\Models\Excursion::where('school_year_id', $currentYear->id)
                 ->with('school')
                 ->orderBy('id', 'desc')
                 ->get();
         } else {
-            $school = Session::get('cas_school');
+            Session::put('cas_is_admin', false);
+
+            // Find school by email
+            $school = School::where('school_year_id', $currentYear->id)
+                ->where('email', $userEmail)
+                ->first();
+
             if (!$school) {
-                return redirect()->route('login')->with('error', 'Δεν βρέθηκε σχολείο');
+                return redirect('/')->with('error', 'Το email δεν αντιστοιχεί σε εγγεγραμμένο σχολείο');
             }
+
+            Session::put('cas_school', $school);
+            Session::put('cas_school_id', $school->id);
+
             $excursions = $school->excursions()
                 ->where('school_year_id', $currentYear->id)
                 ->orderBy('id', 'desc')

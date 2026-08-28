@@ -1,10 +1,10 @@
 <?php
 
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExcursionController;
 use Illuminate\Support\Facades\Route;
+use Subfission\Cas\Middleware\CASAuth;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,13 +12,19 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// Authentication routes
-Route::get('/', [AuthController::class, 'showLogin'])->name('login');
-Route::post('/login', [AuthController::class, 'login'])->name('login.post');
-Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+// CAS Login - redirects to CAS server
+Route::get('/', function () {
+    return redirect()->route('dashboard');
+})->name('login');
+
+// CAS Logout
+Route::get('/logout', function () {
+    app('cas')->logout();
+    return redirect('/');
+})->name('logout');
 
 // Protected routes
-Route::middleware('auth:cas')->group(function () {
+Route::middleware([CASAuth::class])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
