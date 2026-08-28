@@ -1,0 +1,14 @@
+{
+    "name": "Ekdromes Laravel",
+    "dockerComposeFile": "../docker-compose.yaml",
+    "service": "laravel.test",
+    "workspaceFolder": "/var/www/html",
+    "forwardPorts": [
+        80,
+        3306,
+        5173
+    ],
+    // "postCreateCommand": "cp .env.example .env && php artisan key:generate && php artisan migrate --force && php artisan boost:install || true",
+    "customizations": {},
+    "remoteUser": "sail"
+}
