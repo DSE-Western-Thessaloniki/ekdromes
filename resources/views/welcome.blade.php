@@ -30,7 +30,8 @@
         <table class="bg-white">
             <tr>
                 <td colspan="2" class="text-center">
-                    <img src="./icons8-bus.gif" width="128" height="128" class="mx-auto">
+                    <img src="{{ Vite::asset('resources/images/icons8-bus.gif') }}" width="128" height="128"
+                        class="mx-auto">
                 </td>
             </tr>
             <tr>
@@ -51,7 +52,7 @@
         </table>
         <p class="mt-4">
             <input type="submit" value="Σύνδεση" name="submitButton" id="submitButton"
-                   class="text-lg px-6 py-2 bg-coral text-white rounded hover:bg-coral-dark cursor-pointer">
+                class="text-lg px-6 py-2 bg-coral text-white rounded hover:bg-coral-dark cursor-pointer">
         </p>
         <br>
         <noscript>
