@@ -7,129 +7,69 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Σχολικές Εκδρομές-Σύνδεση</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    @vite(['resources/css/app.css'])
     <link href="{{ asset('js/datatables.min.css') }}" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <style>
-        body {
-            font-family: Verdana, Arial, Helvetica, sans-serif;
-            font-size: 16px;
-            background: linear-gradient(to bottom, #ffffff, rgb(255, 122, 89));
-            min-height: 100vh;
-        }
-
-        .navbar-custom {
-            background-color: rgb(255, 122, 89);
-            border-color: #e74c3c;
-        }
-
-        .navbar-custom .navbar-brand,
-        .navbar-custom .navbar-text {
-            color: #fff;
-        }
-
-        .navbar-custom .navbar-nav>li>a {
-            color: #fff;
-        }
-
-        .navbar-custom .navbar-nav>li>a:hover,
-        .navbar-custom .navbar-nav>li>a:focus {
-            color: #ffe0d6;
-        }
-
-        .content-wrapper {
-            padding: 20px;
-            min-height: calc(100vh - 180px);
-        }
-
-        .footer {
-            background-color: rgb(255, 122, 89);
-            color: #fff;
-            padding: 15px 0;
-            text-align: center;
-        }
-
-        .bus-logo {
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        .panel-primary {
-            border-color: rgb(255, 122, 89);
-        }
-
-        .panel-primary>.panel-heading {
-            background-color: rgb(255, 122, 89);
-            border-color: rgb(255, 122, 89);
-        }
-
-        .btn-primary {
-            background-color: rgb(255, 122, 89);
-            border-color: rgb(255, 122, 89);
-        }
-
-        .btn-primary:hover {
-            background-color: #ff6b52;
-            border-color: #ff6b52;
-        }
-    </style>
-
-    @yield('styles')
 </head>
 
-<body>
+<body class="font-sans">
 
-    <p align=center style='text-align:center'><span style='font-size:14.0pt'>
-            <a href="http://dide-v.thess.sch.gr" title="http://dide-v.thess.sch.gr">Διεύθυνση
-                Δευτεροβάθμιας Εκπαίδευσης Δυτικής Θεσσαλονίκης</a></span> </p>
-
-    <noscript>
-        <center><b><span style="color:red">Δεν είναι ενεργοποιημένη η υποστήριξη javascript! <br>
-                    Για να συνδεθείτε απαιτείται να είναι ενεργοποιημένη η υποστήριξη javascript.</span></b></center>
-    </noscript>
-
-    <form id="identity" action="login.php" method="post">
-        <center>
-            <table style="background-color:#FFFFFF;">
-                <tr>
-                    <td colspan=2>
-                        <center><img src="./icons8-bus.gif" width="128" height="128"></center>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan=2>
-                        <h4 style='text-align:center;font-size:125%'>Σχολικές Εκδρομές</h4>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan=2> </td>
-                </tr>
-
-                <tr>
-                    <td colspan=2>
-                        <center> <u>Απαιτείται πιστοποίηση χρήστη:</u><br>
-                            Χρησιμοποιήστε το λογαριασμό του σχολείου στο
-                            Πανελλήνιο Σχολικό Δίκτυο για να συνδεθείτε<br>
-                    </td>
-                </tr>
-            </table>
-            <p><INPUT TYPE="submit" VALUE="Σύνδεση" name="submitButton" id="submitButton" style="font-size:125%"> </p>
-            <br>
-            <noscript><b><span style="color:red">Δεν είναι ενεργοποιημένη η υποστήριξη javascript! <br>
-                        Για να συνδεθείτε απαιτείται να είναι ενεργοποιημένη η υποστήριξη javascript.</span></b>
-            </noscript>
-
-        </center>
-    </form>
-    <p style='text-align:center'>
-        <center>Εάν η εφαρμογή δεν αποκρίνεται, δοκιμάστε λίγα λεπτά αργότερα.<br>Εάν αντιμετωπίσετε κάποιο πρόβλημα
-            επικοινωνήστε με το τμήμα Πληροφορικής της Δ/νσης<br> <br>
+    <p class="text-center mt-4">
+        <a href="http://dide-v.thess.sch.gr" title="http://dide-v.thess.sch.gr" class="text-coral hover:underline">
+            Διεύθυνση Δευτεροβάθμιας Εκπαίδευσης Δυτικής Θεσσαλονίκης
+        </a>
     </p>
 
-    <center><span style='font-size:10.0pt'><i> Τμήμα Πληροφορικής ΔΔΕ Δυτ. Θεσσαλονίκης &copy; 2023- $yearnow
-            </i></span></center>
+    <noscript>
+        <div class="text-center text-red-600 font-bold mt-4">
+            Δεν είναι ενεργοποιημένη η υποστήριξη javascript!<br>
+            Για να συνδεθείτε απαιτείται να είναι ενεργοποιημένη η υποστήριξη javascript.
+        </div>
+    </noscript>
+
+    <form id="identity" action="login.php" method="post" class="flex flex-col items-center mt-8">
+        <table class="bg-white">
+            <tr>
+                <td colspan="2" class="text-center">
+                    <img src="./icons8-bus.gif" width="128" height="128" class="mx-auto">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center">
+                    <h4 class="text-lg">Σχολικές Εκδρομές</h4>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-center">
+                    <u>Απαιτείται πιστοποίηση χρήστη:</u><br>
+                    Χρησιμοποιήστε το λογαριασμό του σχολείου στο<br>
+                    Πανελλήνιο Σχολικό Δίκτυο για να συνδεθείτε
+                </td>
+            </tr>
+        </table>
+        <p class="mt-4">
+            <input type="submit" value="Σύνδεση" name="submitButton" id="submitButton"
+                   class="text-lg px-6 py-2 bg-coral text-white rounded hover:bg-coral-dark cursor-pointer">
+        </p>
+        <br>
+        <noscript>
+            <div class="text-center text-red-600 font-bold">
+                Δεν είναι ενεργοποιημένη η υποστήριξη javascript!<br>
+                Για να συνδεθείτε απαιτείται να είναι ενεργοποιημένη η υποστήριξη javascript.
+            </div>
+        </noscript>
+    </form>
+
+    <p class="text-center mt-4 text-sm text-gray-500">
+        Εάν η εφαρμογή δεν αποκρίνεται, δοκιμάστε λίγα λεπτά αργότερα.<br>
+        Εάν αντιμετωπίσετε κάποιο πρόβλημα επικοινωνήστε με το τμήμα Πληροφορικής της Δ/νσης
+    </p>
+
+    <p class="text-center mt-4 text-xs text-gray-400">
+        <em>Τμήμα Πληροφορικής ΔΔΕ Δυτ. Θεσσαλονίκης &copy; 2023-{{ date('Y') }}</em>
+    </p>
 </body>
 
 </html>

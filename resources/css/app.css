@@ -2,8 +2,20 @@
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
+@source '../../resources/views/**/*.blade.php';
 
 @theme {
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
+
+    --color-coral: rgb(255, 122, 89);
+    --color-coral-dark: #ff6b52;
+    --color-coral-light: #ffe0d6;
+}
+
+body {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    background: linear-gradient(to bottom, #ffffff, var(--color-coral));
+    min-height: 100vh;
 }

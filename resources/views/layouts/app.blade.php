@@ -7,138 +7,107 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Ekdromes - DDE DYT Thessalonikis')</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="{{ asset('js/datatables.min.css') }}" rel="stylesheet">
     <link href="{{ asset('js/dropzone5.min.css') }}" rel="stylesheet">
-
-    <!-- Custom CSS -->
-    <style>
-        body {
-            font-family: Verdana, Arial, Helvetica, sans-serif;
-            font-size: 16px;
-            background: linear-gradient(to bottom, #ffffff, rgb(255, 122, 89));
-            min-height: 100vh;
-        }
-
-        .navbar-custom {
-            background-color: rgb(255, 122, 89);
-            border-color: #e74c3c;
-        }
-
-        .navbar-custom .navbar-brand,
-        .navbar-custom .navbar-text {
-            color: #fff;
-        }
-
-        .navbar-custom .navbar-nav>li>a {
-            color: #fff;
-        }
-
-        .navbar-custom .navbar-nav>li>a:hover,
-        .navbar-custom .navbar-nav>li>a:focus {
-            color: #ffe0d6;
-        }
-
-        .content-wrapper {
-            padding: 20px;
-            min-height: calc(100vh - 180px);
-        }
-
-        .footer {
-            background-color: rgb(255, 122, 89);
-            color: #fff;
-            padding: 15px 0;
-            text-align: center;
-        }
-
-        .bus-logo {
-            height: 40px;
-            margin-right: 10px;
-        }
-
-        .panel-primary {
-            border-color: rgb(255, 122, 89);
-        }
-
-        .panel-primary>.panel-heading {
-            background-color: rgb(255, 122, 89);
-            border-color: rgb(255, 122, 89);
-        }
-
-        .btn-primary {
-            background-color: rgb(255, 122, 89);
-            border-color: rgb(255, 122, 89);
-        }
-
-        .btn-primary:hover {
-            background-color: #ff6b52;
-            border-color: #ff6b52;
-        }
-    </style>
 
     @yield('styles')
 </head>
 
-<body>
+<body class="font-sans">
     <!-- Navigation -->
-    <nav class="navbar navbar-custom navbar-static-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{{ route('dashboard') }}">
-                    <img src="{{ asset('icons8-bus-64.png') }}" alt="Logo" class="bus-logo">
-                    Εκδρομές - ΔΔΕ ΔΥΤ Θεσσαλονίκης
-                </a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
+    <nav class="bg-coral shadow-lg" x-data="{ open: false }">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <a href="{{ route('dashboard') }}" class="flex items-center text-white font-bold text-lg">
+                        <img src="{{ asset('icons8-bus-64.png') }}" alt="Logo" class="h-10 mr-3">
+                        Εκδρομές - ΔΔΕ ΔΥΤ Θεσσαλονίκης
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button @click="open = !open" class="text-white hover:text-coral-light p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+
+                <!-- Desktop menu -->
+                <div class="hidden md:flex items-center space-x-4">
                     @auth
-                        <li><a href="{{ route('dashboard') }}">Αρχική</a></li>
-                        <li><a href="{{ route('excursion.create') }}">Νέα Εκδρομή</a></li>
+                        <a href="{{ route('dashboard') }}" class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium">Αρχική</a>
+                        <a href="{{ route('excursion.create') }}" class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium">Νέα Εκδρομή</a>
                         @if ($isAdmin ?? false)
-                            <li><a href="{{ route('admin.index') }}">Διαχείριση</a></li>
+                            <a href="{{ route('admin.index') }}" class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium">Διαχείριση</a>
                         @endif
                     @endauth
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
+                </div>
+
+                <div class="hidden md:flex items-center space-x-4">
                     @auth
-                        <li>
-                            <a href="#">
-                                {{ $currentYear->sxoliko_etos ?? '' }}
-                                @if ($currentSchool ?? null)
-                                    - {{ $currentSchool->displayname }}
-                                @endif
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('logout') }}">
-                                <span class="glyphicon glyphicon-log-out"></span> Αποσύνδεση
-                            </a>
-                        </li>
+                        <span class="text-white text-sm">
+                            {{ $currentYear->sxoliko_etos ?? '' }}
+                            @if ($currentSchool ?? null)
+                                - {{ $currentSchool->displayname }}
+                            @endif
+                        </span>
+                        <a href="{{ route('logout') }}" class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium">
+                            <i class="fas fa-sign-out-alt"></i> Αποσύνδεση
+                        </a>
                     @endauth
-                </ul>
+                </div>
+            </div>
+
+            <!-- Mobile menu -->
+            <div x-show="open" x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 transform -translate-y-2"
+                 x-transition:enter-end="opacity-100 transform translate-y-0"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100 transform translate-y-0"
+                 x-transition:leave-end="opacity-0 transform -translate-y-2"
+                 class="md:hidden pb-4" @click.away="open = false">
+                @auth
+                    <a href="{{ route('dashboard') }}" class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">Αρχική</a>
+                    <a href="{{ route('excursion.create') }}" class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">Νέα Εκδρομή</a>
+                    @if ($isAdmin ?? false)
+                        <a href="{{ route('admin.index') }}" class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">Διαχείριση</a>
+                    @endif
+                    <div class="border-t border-white/20 my-2"></div>
+                    <span class="block text-white/80 px-3 py-2 text-sm">
+                        {{ $currentYear->sxoliko_etos ?? '' }}
+                        @if ($currentSchool ?? null)
+                            - {{ $currentSchool->displayname }}
+                        @endif
+                    </span>
+                    <a href="{{ route('logout') }}" class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">
+                        <i class="fas fa-sign-out-alt"></i> Αποσύνδεση
+                    </a>
+                @endauth
             </div>
         </div>
     </nav>
 
     <!-- Main Content -->
-    <div class="container content-wrapper">
+    <div class="max-w-7xl mx-auto px-4 py-6 min-h-[calc(100vh-180px)]">
         @if (session('success'))
-            <div class="alert alert-success alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+            <div x-data="{ show: true }" x-show="show" x-transition
+                 class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <button @click="show = false" class="absolute top-2 right-2 text-green-700 hover:text-green-900">
+                    <i class="fas fa-times"></i>
+                </button>
                 {{ session('success') }}
             </div>
         @endif
 
         @if (session('error'))
-            <div class="alert alert-danger alert-dismissible" role="alert">
-                <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+            <div x-data="{ show: true }" x-show="show" x-transition
+                 class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <button @click="show = false" class="absolute top-2 right-2 text-red-700 hover:text-red-900">
+                    <i class="fas fa-times"></i>
+                </button>
                 {{ session('error') }}
             </div>
         @endif
@@ -147,15 +116,15 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
+    <footer class="bg-coral text-white py-4 text-center">
+        <div class="max-w-7xl mx-auto px-4">
             <p>&copy; {{ date('Y') }} Τμήμα Πληροφορικής - ΔΔΕ ΔΥΤ Θεσσαλονίκης</p>
         </div>
     </footer>
 
     <!-- JavaScript -->
     <script src="{{ asset('js/3.6.4_jquery.min.js') }}"></script>
-    <script src="{{ asset('js/3.4.1_bootstrap.min.js') }}"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="{{ asset('js/datatables.min.js') }}"></script>
     <script src="{{ asset('js/dropzone5.min.js') }}"></script>
     <script src="{{ asset('js/ekdromes_funcs.js') }}"></script>
