@@ -42,6 +42,7 @@ Route::middleware([CASAuth::class])->group(function () {
     Route::post('/excursion/{excursion}/files', [ExcursionController::class, 'uploadFile'])->name('excursion.upload-file');
     Route::get('/excursion/{excursion}/files/{filename}/download', [ExcursionController::class, 'downloadFile'])->name('excursion.download-file');
     Route::delete('/excursion/{excursion}/files/{filename}', [ExcursionController::class, 'deleteFile'])->name('excursion.delete-file');
+    Route::post('/excursion/{excursion}/submit', [ExcursionController::class, 'submit'])->name('excursion.submit');
 
     // Admin routes
     Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {

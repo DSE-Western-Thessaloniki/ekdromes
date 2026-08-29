@@ -5,14 +5,13 @@ namespace App\Services;
 use App\Models\Excursion;
 use App\Models\School;
 use App\Models\SchoolYear;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Collection;
 
 class ExcursionService
 {
-    public function __construct(
-        protected SchoolYear $currentYear
-    ) {
-        $this->currentYear = SchoolYear::getCurrent();
+    public function __construct(?SchoolYear $currentYear = null)
+    {
+        $this->currentYear = $currentYear ?? SchoolYear::getCurrent();
     }
 
     public function getCurrentYear(): SchoolYear
@@ -110,7 +109,7 @@ class ExcursionService
         ];
     }
 
-    public function getExcursionsForSchool(School $school): \Illuminate\Database\Eloquent\Collection
+    public function getExcursionsForSchool(School $school): Collection
     {
         return Excursion::where('school_id', $school->id)
             ->where('school_year_id', $this->currentYear->id)
@@ -118,7 +117,7 @@ class ExcursionService
             ->get();
     }
 
-    public function getAllExcursions(): \Illuminate\Database\Eloquent\Collection
+    public function getAllExcursions(): Collection
     {
         return Excursion::where('school_year_id', $this->currentYear->id)
             ->with('school')
@@ -137,15 +136,44 @@ class ExcursionService
     public function update(Excursion $excursion, array $data): Excursion
     {
         $excursion->update($data);
+
         return $excursion->fresh();
     }
 
     public function delete(Excursion $excursion): bool
     {
-        if ($excursion->isDraft() && !$excursion->hasProtocol()) {
+        if ($excursion->isDraft() && ! $excursion->hasProtocol()) {
             return $excursion->delete();
         }
+
         return false;
+    }
+
+    public function validateSubmissionRequirements(Excursion $excursion): array
+    {
+        $required = [
+            'ar_prot_sxoleiou',
+            'onoma_ypografonta',
+            'prosfonisi_ypografonta',
+            'hmera_diavivastikou',
+        ];
+
+        $missing = [];
+
+        foreach ($required as $field) {
+            $value = trim((string) ($excursion->{$field} ?? ''));
+
+            if ($value === '') {
+                $missing[] = $field;
+            }
+        }
+
+        return $missing;
+    }
+
+    public function canSubmit(Excursion $excursion): bool
+    {
+        return empty($this->validateSubmissionRequirements($excursion));
     }
 
     public function submit(Excursion $excursion, string $protocolNumber): Excursion

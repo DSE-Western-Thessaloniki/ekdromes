@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SchoolYear extends Model
 {
+    protected $table = 'schoolyears';
+
     protected $fillable = [
         'sxoliko_etos',
         'is_current',

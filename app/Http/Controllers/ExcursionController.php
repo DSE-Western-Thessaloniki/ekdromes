@@ -6,6 +6,8 @@ use App\Models\Excursion;
 use App\Models\SchoolYear;
 use App\Services\ExcursionService;
 use App\Services\FileService;
+use App\Services\PdfService;
+use App\Services\ProtocolService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -13,7 +15,9 @@ class ExcursionController extends Controller
 {
     public function __construct(
         protected ExcursionService $excursionService,
-        protected FileService $fileService
+        protected FileService $fileService,
+        protected PdfService $pdfService,
+        protected ProtocolService $protocolService
     ) {}
 
     public function index()
@@ -36,6 +40,7 @@ class ExcursionController extends Controller
     public function create()
     {
         $types = $this->excursionService->getExcursionTypes();
+
         return view('excursion.create', compact('types'));
     }
 
@@ -53,7 +58,7 @@ class ExcursionController extends Controller
         ]);
 
         $school = Session::get('cas_school');
-        if (!$school) {
+        if (! $school) {
             return redirect()->back()->with('error', 'Δεν επιτρέπεται η δημιουργία εκδρομής');
         }
 
@@ -107,6 +112,7 @@ class ExcursionController extends Controller
     public function files(Excursion $excursion)
     {
         $files = $this->fileService->getFiles($excursion);
+
         return view('excursion.files', compact('excursion', 'files'));
     }
 
@@ -142,5 +148,42 @@ class ExcursionController extends Controller
         }
 
         return redirect()->back()->with('error', 'Αποτυχία διαγραφής αρχείου');
+    }
+
+    public function submit(Excursion $excursion)
+    {
+        if ($excursion->isSubmitted()) {
+            return redirect()->route('excursion.edit', $excursion)
+                ->with('error', 'Η εκδρομή έχει ήδη υποβληθεί');
+        }
+
+        $missing = $this->excursionService->validateSubmissionRequirements($excursion);
+        if (! empty($missing)) {
+            return redirect()->route('excursion.edit', $excursion)
+                ->with('error', 'Δεν είναι δυνατή η υποβολή. Λείπουν απαιτούμενα πεδία: '.implode(', ', $missing));
+        }
+
+        $files = $this->fileService->getFiles($excursion);
+        if (empty($files)) {
+            return redirect()->route('excursion.files', $excursion)
+                ->with('error', 'Δεν βρέθηκαν αρχεία για υποβολή. Προσθέστε τα απαιτούμενα έγγραφα πρώτα.');
+        }
+
+        $pdfPath = $this->pdfService->generateTransmittalLetter($excursion);
+        if (! $pdfPath) {
+            return redirect()->route('excursion.files', $excursion)
+                ->with('error', 'Απέτυχε η δημιουργία του διαβιβαστικού PDF.');
+        }
+
+        $protocolNumber = $this->protocolService->submitToProtocol($excursion, $files);
+        if (! $protocolNumber) {
+            return redirect()->route('excursion.files', $excursion)
+                ->with('error', 'Η υποβολή στο πρωτόκολλο απέτυχε. Παρακαλούμε δοκιμάστε ξανά αργότερα.');
+        }
+
+        $this->excursionService->submit($excursion, $protocolNumber);
+
+        return redirect()->route('excursion.edit', $excursion)
+            ->with('success', 'Η εκδρομή υποβλήθηκε επιτυχώς με πρωτόκολλο: '.$protocolNumber);
     }
 }
