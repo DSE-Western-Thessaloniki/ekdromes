@@ -163,24 +163,28 @@ class ExcursionController extends Controller
                 ->with('error', 'Δεν είναι δυνατή η υποβολή. Λείπουν απαιτούμενα πεδία: '.implode(', ', $missing));
         }
 
-        $files = $this->fileService->getFiles($excursion);
+        // Get list of uploaded files for protocol submission
+        $files = $this->fileService->getFileList($excursion);
         if (empty($files)) {
             return redirect()->route('excursion.files', $excursion)
                 ->with('error', 'Δεν βρέθηκαν αρχεία για υποβολή. Προσθέστε τα απαιτούμενα έγγραφα πρώτα.');
         }
 
+        // Generate transmittal letter PDF
         $pdfPath = $this->pdfService->generateTransmittalLetter($excursion);
         if (! $pdfPath) {
             return redirect()->route('excursion.files', $excursion)
                 ->with('error', 'Απέτυχε η δημιουργία του διαβιβαστικού PDF.');
         }
 
+        // Submit to e-protocol system
         $protocolNumber = $this->protocolService->submitToProtocol($excursion, $files);
         if (! $protocolNumber) {
             return redirect()->route('excursion.files', $excursion)
                 ->with('error', 'Η υποβολή στο πρωτόκολλο απέτυχε. Παρακαλούμε δοκιμάστε ξανά αργότερα.');
         }
 
+        // Update excursion status to submitted with protocol number
         $this->excursionService->submit($excursion, $protocolNumber);
 
         return redirect()->route('excursion.edit', $excursion)
