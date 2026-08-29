@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Excursion;
 use App\Models\SchoolYear;
+use App\Services\ExcursionFieldMap;
 use App\Services\ExcursionService;
 use App\Services\FileService;
 use App\Services\PdfService;
@@ -17,7 +18,8 @@ class ExcursionController extends Controller
         protected ExcursionService $excursionService,
         protected FileService $fileService,
         protected PdfService $pdfService,
-        protected ProtocolService $protocolService
+        protected ProtocolService $protocolService,
+        protected ExcursionFieldMap $fieldMap
     ) {}
 
     public function index()
@@ -40,22 +42,21 @@ class ExcursionController extends Controller
     public function create()
     {
         $types = $this->excursionService->getExcursionTypes();
+        $fieldMap = $this->fieldMap;
 
-        return view('excursion.create', compact('types'));
+        return view('excursion.create', compact('types', 'fieldMap'));
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'eidos_ekdromis' => 'required|string',
-            'proorismos' => 'required|string',
-            'hmera_ekdromis_anaxorisis' => 'required|date',
-            'hmera_epistrofis' => 'required|date',
-            'ora_anaxorisis' => 'required|string',
-            'ora_epistrofis' => 'required|string',
-            'ar_mathiton' => 'required|integer|min:0',
-            'onoma_arxigos' => 'required|string',
-        ]);
+        $eidos = $request->input('eidos_ekdromis', '');
+        $types = $this->excursionService->getExcursionTypes();
+
+        if (! isset($types[$eidos])) {
+            return redirect()->back()->withInput()->withErrors(['eidos_ekdromis' => 'Μη έγκυρο είδος εκδρομής']);
+        }
+
+        $validated = $request->validate($this->fieldMap->getValidationRules($eidos));
 
         $school = Session::get('cas_school');
         if (! $school) {
@@ -64,6 +65,7 @@ class ExcursionController extends Controller
 
         $validated['school_id'] = $school->id;
         $validated['kodikos_sxoleiou'] = $school->kodikos_sxoleiou;
+        $validated['eidos_ekdromis'] = $types[$eidos]['name'];
 
         $excursion = $this->excursionService->create($validated);
 
@@ -75,22 +77,20 @@ class ExcursionController extends Controller
     {
         $types = $this->excursionService->getExcursionTypes();
         $files = $this->fileService->getFiles($excursion);
+        $fieldMap = $this->fieldMap;
 
-        return view('excursion.edit', compact('excursion', 'types', 'files'));
+        return view('excursion.edit', compact('excursion', 'types', 'files', 'fieldMap'));
     }
 
     public function update(Request $request, Excursion $excursion)
     {
-        $validated = $request->validate([
-            'proorismos' => 'required|string',
-            'hmera_ekdromis_anaxorisis' => 'required|date',
-            'hmera_epistrofis' => 'required|date',
-            'ora_anaxorisis' => 'required|string',
-            'ora_epistrofis' => 'required|string',
-            'ar_mathiton' => 'required|integer|min:0',
-            'onoma_arxigos' => 'required|string',
-            'paratiriseis' => 'nullable|string',
-        ]);
+        $eidosKey = $this->findTypeKey($excursion->eidos_ekdromis);
+
+        if (! $eidosKey) {
+            return redirect()->back()->with('error', 'Μη έγκυρο είδος εκδρομής');
+        }
+
+        $validated = $request->validate($this->fieldMap->getValidationRules($eidosKey));
 
         $excursion = $this->excursionService->update($excursion, $validated);
 
@@ -163,31 +163,40 @@ class ExcursionController extends Controller
                 ->with('error', 'Δεν είναι δυνατή η υποβολή. Λείπουν απαιτούμενα πεδία: '.implode(', ', $missing));
         }
 
-        // Get list of uploaded files for protocol submission
         $files = $this->fileService->getFileList($excursion);
         if (empty($files)) {
             return redirect()->route('excursion.files', $excursion)
                 ->with('error', 'Δεν βρέθηκαν αρχεία για υποβολή. Προσθέστε τα απαιτούμενα έγγραφα πρώτα.');
         }
 
-        // Generate transmittal letter PDF
         $pdfPath = $this->pdfService->generateTransmittalLetter($excursion);
         if (! $pdfPath) {
             return redirect()->route('excursion.files', $excursion)
                 ->with('error', 'Απέτυχε η δημιουργία του διαβιβαστικού PDF.');
         }
 
-        // Submit to e-protocol system
         $protocolNumber = $this->protocolService->submitToProtocol($excursion, $files);
         if (! $protocolNumber) {
             return redirect()->route('excursion.files', $excursion)
                 ->with('error', 'Η υποβολή στο πρωτόκολλο απέτυχε. Παρακαλούμε δοκιμάστε ξανά αργότερα.');
         }
 
-        // Update excursion status to submitted with protocol number
         $this->excursionService->submit($excursion, $protocolNumber);
 
         return redirect()->route('excursion.edit', $excursion)
             ->with('success', 'Η εκδρομή υποβλήθηκε επιτυχώς με πρωτόκολλο: '.$protocolNumber);
+    }
+
+    private function findTypeKey(?string $typeName): ?string
+    {
+        $types = $this->excursionService->getExcursionTypes();
+
+        foreach ($types as $key => $type) {
+            if ($type['name'] === $typeName) {
+                return $key;
+            }
+        }
+
+        return null;
     }
 }

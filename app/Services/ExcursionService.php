@@ -50,6 +50,27 @@ class ExcursionService
                 'min_files' => 3,
                 'legislation' => 'Π.Δ. 54/2017',
             ],
+            'ekp_exotiko' => [
+                'name' => 'Εκπαιδευτική Εκδρομή στο Εξωτερικό',
+                'description' => 'Εκπαιδευτική εκδρομή στο εξωτερικό',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 4,
+                'legislation' => 'Π.Δ. 54/2017',
+            ],
+            'programma_esoteriko' => [
+                'name' => 'Εκπαιδευτική Επίσκεψη μέσω Προγράμματος Εσωτερικού',
+                'description' => 'Εκπαιδευτική επίσκεψη μέσω προγράμματος στο εσωτερικό',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 3,
+                'legislation' => 'Π.Δ. 54/2017',
+            ],
+            'programma_exotiko' => [
+                'name' => 'Εκπαιδευτική Επίσκεψη μέσω Προγράμματος Εξωτερικού',
+                'description' => 'Εκπαιδευτική επίσκεψη μέσω προγράμματος στο εξωτερικό',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 5,
+                'legislation' => 'Π.Δ. 54/2017',
+            ],
             'europ' => [
                 'name' => 'Ευρωπαϊκό Πρόγραμμα',
                 'description' => 'Συμμετοχή σε ευρωπαϊκό πρόγραμμα',
@@ -59,14 +80,14 @@ class ExcursionService
             ],
             'erasmus1' => [
                 'name' => 'Erasmus+ ΚΑ1',
-                'description' => 'Εκπαιδευτικό μετακίνηση προσωπικού',
+                'description' => 'Μετακίνηση εκπαιδευτικών',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
                 'min_files' => 4,
                 'legislation' => 'Erasmus+ KA1',
             ],
             'erasmus2' => [
                 'name' => 'Erasmus+ ΚΑ2',
-                'description' => 'Στρατηγικές συνεργασίες',
+                'description' => 'Μετακίνηση μαθητών και εκπαιδευτικών',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
                 'min_files' => 4,
                 'legislation' => 'Erasmus+ KA2',
@@ -90,13 +111,6 @@ class ExcursionService
                 'description' => 'Συμμετοχή σε διαγωνισμό ή έκθεση',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
                 'min_files' => 2,
-                'legislation' => 'Π.Δ. 54/2017',
-            ],
-            'programma_esoteriko' => [
-                'name' => 'Πρόγραμμα Εσωτερικού',
-                'description' => 'Εκπαιδευτική εκδρομή βάσει προγράμματος',
-                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 3,
                 'legislation' => 'Π.Δ. 54/2017',
             ],
             'didaktikes' => [
