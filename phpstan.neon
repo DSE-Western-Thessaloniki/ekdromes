@@ -5,13 +5,13 @@ parameters:
         - bootstrap
         - config
         - database
-        - lang
         - resources
         - routes
         - tests
     parseModelCastsMethod: true
     excludePaths:
         - app/legacy
+        - bootstrap/cache
 
 includes:
     - vendor/pestphp/pest-plugin-phpstan/extension.neon
