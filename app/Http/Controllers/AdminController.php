@@ -42,7 +42,7 @@ class AdminController extends Controller
             $selectedSchool = School::where('kodikos_sxoleiou', $selectedSchoolCode)->first();
         }
 
-        return view('admin.index', compact('currentYear', 'allExcursions', 'selectedSchool'));
+        return view('admin.index', ['currentYear' => $currentYear, 'allExcursions' => $allExcursions, 'selectedSchool' => $selectedSchool]);
     }
 
     public function switchYear(Request $request)
@@ -121,7 +121,7 @@ class AdminController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
-        return view('admin.excursions-by-school', compact('school', 'excursions', 'currentYear'));
+        return view('admin.excursions-by-school', ['school' => $school, 'excursions' => $excursions, 'currentYear' => $currentYear]);
     }
 
     public function schools()
@@ -133,6 +133,6 @@ class AdminController extends Controller
         $currentYear = SchoolYear::getCurrent();
         $schools = $this->schoolService->getSchoolsForYear($currentYear);
 
-        return view('admin.schools', compact('schools', 'currentYear'));
+        return view('admin.schools', ['schools' => $schools, 'currentYear' => $currentYear]);
     }
 }

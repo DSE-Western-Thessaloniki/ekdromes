@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Services;
 
 class ExcursionFieldMap
@@ -138,7 +140,7 @@ class ExcursionFieldMap
                     $fields[$fieldName] = self::FIELD_DEFINITIONS[$fieldName];
                 }
             }
-            if (! empty($fields)) {
+            if ($fields !== []) {
                 $result[$sectionKey] = $fields;
             }
         }

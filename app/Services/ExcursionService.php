@@ -9,6 +9,10 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ExcursionService
 {
+    /**
+     * @var \App\Models\SchoolYear|null
+     */
+    public $currentYear;
     public function __construct(?SchoolYear $currentYear = null)
     {
         $this->currentYear = $currentYear ?? SchoolYear::getCurrent();

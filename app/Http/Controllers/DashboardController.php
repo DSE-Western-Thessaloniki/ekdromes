@@ -28,7 +28,7 @@ class DashboardController extends Controller
 
         if ($isAdmin) {
             Session::put('cas_is_admin', true);
-            Session::put('cas_school', null);
+            Session::put('cas_school');
 
             $excursions = \App\Models\Excursion::where('school_year_id', $currentYear->id)
                 ->with('school')
@@ -55,6 +55,6 @@ class DashboardController extends Controller
                 ->get();
         }
 
-        return view('dashboard.index', compact('excursions', 'currentYear', 'isAdmin'));
+        return view('dashboard.index', ['excursions' => $excursions, 'currentYear' => $currentYear, 'isAdmin' => $isAdmin]);
     }
 }

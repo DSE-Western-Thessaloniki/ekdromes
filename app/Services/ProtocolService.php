@@ -158,7 +158,7 @@ class ProtocolService
             // Build protocol title
             $protocolTitle = 'Ενημέρωση-Έγκριση εκδρομής ('.$excursion->eidos_ekdromis.')';
             $protocolTitle = mb_substr($protocolTitle, 0, 200);
-            if (empty($protocolTitle) || mb_strlen($protocolTitle) < 20) {
+            if (mb_strlen($protocolTitle) < 20) {
                 $protocolTitle = 'Αίτημα Ενημέρωσης-Έγκρισης εκδρομής';
             }
 
@@ -250,7 +250,7 @@ class ProtocolService
         // Format: {school_code}-{year}-{date}-{sequence}
         $year = date('Y');
         $date = date('dmy');
-        $sequence = str_pad((int) ($excursion->id % 1000), 3, '0', STR_PAD_LEFT);
+        $sequence = str_pad($excursion->id % 1000, 3, '0', STR_PAD_LEFT);
 
         return "{$excursion->school->kodikos_sxoleiou}-{$year}-{$date}-{$sequence}";
     }

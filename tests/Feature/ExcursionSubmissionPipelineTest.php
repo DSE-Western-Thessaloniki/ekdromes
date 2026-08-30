@@ -151,7 +151,7 @@ class ExcursionSubmissionPipelineTest extends TestCase
         $this->assertEmpty($missing);
 
         // Step 2: Check if files exist (in test, folder may not exist)
-        $files = $fileService->getFileList($this->excursion);
+        $fileService->getFileList($this->excursion);
         // Files list structure is validated, even if empty
 
         // Step 3: Validate submission can proceed

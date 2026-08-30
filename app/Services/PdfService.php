@@ -187,9 +187,8 @@ HTML;
             $html = str_replace('{proorismos}', $excursion->proorismos ?? 'ΝΑ', $html);
             $html = str_replace('{date_ekdromi}', $dateEkdromi ?? 'ΝΑ', $html);
             $html = str_replace('{prosfonisi_ypografonta}', $excursion->prosfonisi_ypografonta ?? 'ΝΑ', $html);
-            $html = str_replace('{onoma_ypografonta}', $excursion->onoma_ypografonta ?? 'ΝΑ', $html);
 
-            return $html;
+            return str_replace('{onoma_ypografonta}', $excursion->onoma_ypografonta ?? 'ΝΑ', $html);
         } catch (\Exception $e) {
             Log::error('HTML generation exception: '.$e->getMessage());
 

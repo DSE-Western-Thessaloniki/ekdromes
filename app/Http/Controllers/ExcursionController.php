@@ -37,7 +37,7 @@ class ExcursionController extends Controller
             $excursions = collect();
         }
 
-        return view('excursion.index', compact('excursions', 'currentYear', 'isAdmin'));
+        return view('excursion.index', ['excursions' => $excursions, 'currentYear' => $currentYear, 'isAdmin' => $isAdmin]);
     }
 
     public function create(): View
@@ -45,7 +45,7 @@ class ExcursionController extends Controller
         $types = $this->excursionService->getExcursionTypes();
         $fieldMap = $this->fieldMap;
 
-        return view('excursion.create', compact('types', 'fieldMap'));
+        return view('excursion.create', ['types' => $types, 'fieldMap' => $fieldMap]);
     }
 
     public function store(Request $request)
@@ -80,7 +80,7 @@ class ExcursionController extends Controller
         $files = $this->fileService->getFiles($excursion);
         $fieldMap = $this->fieldMap;
 
-        return view('excursion.edit', compact('excursion', 'types', 'files', 'fieldMap'));
+        return view('excursion.edit', ['excursion' => $excursion, 'types' => $types, 'files' => $files, 'fieldMap' => $fieldMap]);
     }
 
     public function update(Request $request, Excursion $excursion)
@@ -114,7 +114,7 @@ class ExcursionController extends Controller
     {
         $files = $this->fileService->getFiles($excursion);
 
-        return view('excursion.files', compact('excursion', 'files'));
+        return view('excursion.files', ['excursion' => $excursion, 'files' => $files]);
     }
 
     public function uploadFile(Request $request, Excursion $excursion)
@@ -124,7 +124,7 @@ class ExcursionController extends Controller
         ]);
 
         $file = $request->file('file');
-        $filename = $this->fileService->uploadFile($excursion, $file);
+        $this->fileService->uploadFile($excursion, $file);
 
         return redirect()->route('excursion.files', $excursion)
             ->with('success', 'Το αρχείο ανέβηκε επιτυχώς');
@@ -159,13 +159,13 @@ class ExcursionController extends Controller
         }
 
         $missing = $this->excursionService->validateSubmissionRequirements($excursion);
-        if (! empty($missing)) {
+        if ($missing !== []) {
             return redirect()->route('excursion.edit', $excursion)
                 ->with('error', 'Δεν είναι δυνατή η υποβολή. Λείπουν απαιτούμενα πεδία: '.implode(', ', $missing));
         }
 
         $files = $this->fileService->getFileList($excursion);
-        if (empty($files)) {
+        if ($files === []) {
             return redirect()->route('excursion.files', $excursion)
                 ->with('error', 'Δεν βρέθηκαν αρχεία για υποβολή. Προσθέστε τα απαιτούμενα έγγραφα πρώτα.');
         }

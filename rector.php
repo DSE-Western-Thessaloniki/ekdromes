@@ -22,11 +22,11 @@ return RectorConfig::configure()
     ->withPreparedSets(
         typeDeclarations: true,
         typeDeclarationDocblocks: true,
+        deadCode: true,
+        codeQuality: true,
     )
     // uncomment to reach your current PHP version
     ->withPhpSets(php84: true)
     ->withFluentCallNewLine()
     ->withComposerBased(laravel: true)
-    ->withTreatClassesAsFinal()
-    ->withDeadCodeLevel(0)
-    ->withCodeQualityLevel(0);
+    ->withTreatClassesAsFinal();
