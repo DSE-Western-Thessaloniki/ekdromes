@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExcursionController;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Route;
 use Subfission\Cas\Middleware\CASAuth;
 
@@ -13,7 +14,7 @@ use Subfission\Cas\Middleware\CASAuth;
 */
 
 // CAS Login - redirects to CAS server
-Route::get('/', fn() => view('welcome'))->name('login');
+Route::get('/', fn (): View => view('welcome'))->name('login');
 
 // CAS Logout
 Route::get('/logout', function () {

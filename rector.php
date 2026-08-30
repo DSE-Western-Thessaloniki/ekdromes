@@ -21,6 +21,10 @@ return RectorConfig::configure()
     ])
     // uncomment to reach your current PHP version
     ->withPhpSets(php84: true)
-    ->withTypeCoverageLevel(0)
+    ->withFluentCallNewLine()
+    ->withComposerBased(laravel: true)
+    ->withTreatClassesAsFinal()
+    ->withTypeCoverageLevel(10)
+    ->withTypeCoverageDocblockLevel(0)
     ->withDeadCodeLevel(0)
     ->withCodeQualityLevel(0);
