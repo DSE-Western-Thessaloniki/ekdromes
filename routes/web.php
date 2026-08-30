@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExcursionController;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
 use Subfission\Cas\Middleware\CASAuth;
 
@@ -17,7 +18,7 @@ use Subfission\Cas\Middleware\CASAuth;
 Route::get('/', fn (): View => view('welcome'))->name('login');
 
 // CAS Logout
-Route::get('/logout', function () {
+Route::get('/logout', function (): RedirectResponse {
     app('cas')->logout();
 
     return redirect('/');

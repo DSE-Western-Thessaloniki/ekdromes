@@ -24,7 +24,7 @@ return RectorConfig::configure()
     ->withFluentCallNewLine()
     ->withComposerBased(laravel: true)
     ->withTreatClassesAsFinal()
-    ->withTypeCoverageLevel(10)
+    ->withTypeCoverageLevel(50)
     ->withTypeCoverageDocblockLevel(0)
     ->withDeadCodeLevel(0)
     ->withCodeQualityLevel(0);

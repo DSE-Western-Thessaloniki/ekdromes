@@ -9,6 +9,7 @@ use App\Services\ExcursionService;
 use App\Services\FileService;
 use App\Services\PdfService;
 use App\Services\ProtocolService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -22,7 +23,7 @@ class ExcursionController extends Controller
         protected ExcursionFieldMap $fieldMap
     ) {}
 
-    public function index()
+    public function index(): View
     {
         $currentYear = SchoolYear::getCurrent();
         $isAdmin = Session::get('cas_is_admin', false);
@@ -39,7 +40,7 @@ class ExcursionController extends Controller
         return view('excursion.index', compact('excursions', 'currentYear', 'isAdmin'));
     }
 
-    public function create()
+    public function create(): View
     {
         $types = $this->excursionService->getExcursionTypes();
         $fieldMap = $this->fieldMap;
@@ -73,7 +74,7 @@ class ExcursionController extends Controller
             ->with('success', 'Η εκδρομή δημιουργήθηκε επιτυχώς');
     }
 
-    public function edit(Excursion $excursion)
+    public function edit(Excursion $excursion): View
     {
         $types = $this->excursionService->getExcursionTypes();
         $files = $this->fileService->getFiles($excursion);
@@ -109,7 +110,7 @@ class ExcursionController extends Controller
             ->with('error', 'Δεν επιτρέπεται η διαγραφή αυτής της εκδρομής');
     }
 
-    public function files(Excursion $excursion)
+    public function files(Excursion $excursion): View
     {
         $files = $this->fileService->getFiles($excursion);
 
