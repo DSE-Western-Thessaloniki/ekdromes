@@ -19,12 +19,14 @@ return RectorConfig::configure()
         __DIR__.'/app/legacy',
         __DIR__.'/bootstrap/cache',
     ])
+    ->withPreparedSets(
+        typeDeclarations: true,
+        typeDeclarationDocblocks: true,
+    )
     // uncomment to reach your current PHP version
     ->withPhpSets(php84: true)
     ->withFluentCallNewLine()
     ->withComposerBased(laravel: true)
     ->withTreatClassesAsFinal()
-    ->withTypeCoverageLevel(50)
-    ->withTypeCoverageDocblockLevel(0)
     ->withDeadCodeLevel(0)
     ->withCodeQualityLevel(0);

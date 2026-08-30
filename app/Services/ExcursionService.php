@@ -19,6 +19,9 @@ class ExcursionService
         return $this->currentYear;
     }
 
+    /**
+     * @return array<string, array<string, string|int|string[]>>
+     */
     public function getExcursionTypes(): array
     {
         return [
@@ -139,6 +142,9 @@ class ExcursionService
             ->get();
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function create(array $data): Excursion
     {
         $data['school_year_id'] = $this->currentYear->id;
@@ -163,6 +169,9 @@ class ExcursionService
         return false;
     }
 
+    /**
+     * @return 'ar_prot_sxoleiou'[]|'onoma_ypografonta'[]|'prosfonisi_ypografonta'[]|'hmera_diavivastikou'[]
+     */
     public function validateSubmissionRequirements(Excursion $excursion): array
     {
         $required = [

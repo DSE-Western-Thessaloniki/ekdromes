@@ -98,6 +98,7 @@ class FileService
      * Get list of files for an excursion.
      * Ported from legacy GetFileList function.
      * Filters files by patterns: {id}U_, {id}F_, {id}A_
+     * @return string[]
      */
     public function getFileList(Excursion $excursion): array
     {

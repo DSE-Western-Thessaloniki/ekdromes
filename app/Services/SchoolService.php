@@ -57,6 +57,9 @@ class SchoolService
         return $count;
     }
 
+    /**
+     * @return array<int, string>
+     */
     public function getSchoolTypes(): array
     {
         return [
