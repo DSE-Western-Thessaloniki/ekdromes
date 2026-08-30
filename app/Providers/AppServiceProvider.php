@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         // Share CAS user data with all views
         // Only share session values when the controller hasn't already passed them
-        view()->composer('*', function ($view) {
+        view()->composer('*', function ($view): void {
             $data = $view->getData();
 
             $view->with('casUser', Session::get('cas_user'));

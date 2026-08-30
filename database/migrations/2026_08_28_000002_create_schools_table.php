@@ -8,7 +8,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('schools', function (Blueprint $table) {
+        Schema::create('schools', function (Blueprint $table): void {
             $table->id();
             $table->foreignId('school_year_id')->constrained('schoolyears')->cascadeOnDelete();
             $table->string('kodikos_sxoleiou', 10); // school code

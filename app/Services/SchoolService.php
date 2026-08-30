@@ -17,7 +17,7 @@ class SchoolService
 
     public function findSchoolByCode(string $code, ?SchoolYear $year = null): ?School
     {
-        $year = $year ?? SchoolYear::getCurrent();
+        $year ??= SchoolYear::getCurrent();
 
         return School::where('school_year_id', $year->id)
             ->where('kodikos_sxoleiou', $code)
@@ -26,7 +26,7 @@ class SchoolService
 
     public function findSchoolByEmail(string $email, ?SchoolYear $year = null): ?School
     {
-        $year = $year ?? SchoolYear::getCurrent();
+        $year ??= SchoolYear::getCurrent();
 
         return School::where('school_year_id', $year->id)
             ->where('email', $email)

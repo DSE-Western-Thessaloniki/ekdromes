@@ -4,7 +4,7 @@ namespace App\Services;
 
 class ExcursionFieldMap
 {
-    private const FIELD_DEFINITIONS = [
+    private const array FIELD_DEFINITIONS = [
         'ar_prajis_syllogou' => ['label' => 'Αρ. και ημ. πράξης συλλόγου', 'type' => 'text', 'placeholder' => 'Αριθμός και ημερομηνία'],
         'a_arithmos' => ['label' => 'Αύξων αριθμός εκδρομής', 'type' => 'number', 'min' => 1],
         'proorismos' => ['label' => 'Προορισμός', 'type' => 'text', 'placeholder' => 'Πόλη ή τοποθεσία'],
@@ -46,14 +46,14 @@ class ExcursionFieldMap
         'erasmus_lista_mathites_kaitaji' => ['label' => 'Ονομαστική λίστα μαθητών', 'type' => 'textarea', 'placeholder' => 'Επώνυμο Ονομα της Χ\' τάξης'],
     ];
 
-    private const SIGNER_FIELDS = [
+    private const array SIGNER_FIELDS = [
         'prosfonisi_ypografonta' => ['label' => 'Προσφώνηση υπογραφής', 'type' => 'text'],
         'onoma_ypografonta' => ['label' => 'Ονοματεπώνυμο υπογράφοντα', 'type' => 'text', 'placeholder' => 'Όνοματεπώνυμο Δντη/ντριας'],
         'ar_prot_sxoleiou' => ['label' => 'Αρ. Πρωτ. σχολείου', 'type' => 'text', 'placeholder' => 'Αρ. Πρωτ.'],
         'hmera_diavivastikou' => ['label' => 'Ημερομηνία διαβιβαστικού', 'type' => 'date'],
     ];
 
-    private const TYPE_SECTIONS = [
+    private const array TYPE_SECTIONS = [
         'peripatos' => [
             'general' => ['ar_prajis_syllogou', 'a_arithmos', 'proorismos', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis'],
@@ -182,7 +182,7 @@ class ExcursionFieldMap
 
         $sections = self::TYPE_SECTIONS[$type] ?? [];
 
-        foreach ($sections as $sectionKey => $fieldNames) {
+        foreach ($sections as $fieldNames) {
             foreach ($fieldNames as $fieldName) {
                 if (isset($baseRules[$fieldName])) {
                     continue;
@@ -209,9 +209,7 @@ class ExcursionFieldMap
         }
 
         foreach (self::SIGNER_FIELDS as $fieldName => $def) {
-            if (! isset($baseRules[$fieldName])) {
-                $baseRules[$fieldName] = 'nullable|string';
-            }
+            $baseRules[$fieldName] ??= 'nullable|string';
         }
 
         $baseRules['paratiriseis'] = 'nullable|string';

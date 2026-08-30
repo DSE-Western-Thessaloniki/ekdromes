@@ -13,9 +13,7 @@ use Subfission\Cas\Middleware\CASAuth;
 */
 
 // CAS Login - redirects to CAS server
-Route::get('/', function () {
-    return view('welcome');
-})->name('login');
+Route::get('/', fn() => view('welcome'))->name('login');
 
 // CAS Logout
 Route::get('/logout', function () {
@@ -25,7 +23,7 @@ Route::get('/logout', function () {
 })->name('logout');
 
 // Protected routes
-Route::middleware([CASAuth::class])->group(function () {
+Route::middleware([CASAuth::class])->group(function (): void {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -45,7 +43,7 @@ Route::middleware([CASAuth::class])->group(function () {
     Route::post('/excursion/{excursion}/submit', [ExcursionController::class, 'submit'])->name('excursion.submit');
 
     // Admin routes
-    Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
+    Route::prefix('admin')->name('admin.')->middleware('admin')->group(function (): void {
         Route::get('/', [AdminController::class, 'index'])->name('index');
         Route::post('/switch-year', [AdminController::class, 'switchYear'])->name('switch-year');
         Route::post('/select-school', [AdminController::class, 'selectSchool'])->name('select-school');

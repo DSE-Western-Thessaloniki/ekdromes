@@ -17,6 +17,7 @@ return RectorConfig::configure()
     ])
     ->withSkip([
         __DIR__.'/app/legacy',
+        __DIR__.'/bootstrap/cache',
     ])
     // uncomment to reach your current PHP version
     ->withPhpSets(php84: true)

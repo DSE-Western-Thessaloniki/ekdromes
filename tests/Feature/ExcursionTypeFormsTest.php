@@ -6,7 +6,7 @@ use App\Models\SchoolYear;
 use App\Services\ExcursionFieldMap;
 use Subfission\Cas\Middleware\CASAuth;
 
-beforeEach(function () {
+beforeEach(function (): void {
     $this->year = SchoolYear::create([
         'sxoliko_etos' => '2026_2027',
         'is_current' => true,
@@ -24,7 +24,7 @@ beforeEach(function () {
     $this->fieldMap = new ExcursionFieldMap;
 });
 
-it('passes field map to create view', function () {
+it('passes field map to create view', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
         ->get(route('excursion.create'));
 
@@ -33,7 +33,7 @@ it('passes field map to create view', function () {
     $response->assertViewHas('types');
 });
 
-it('passes field map to edit view', function () {
+it('passes field map to edit view', function (): void {
     $excursion = Excursion::create([
         'school_year_id' => $this->year->id,
         'school_id' => $this->school->id,
@@ -51,7 +51,7 @@ it('passes field map to edit view', function () {
     $response->assertViewHas('fieldMap');
 });
 
-it('creates excursion with peripatos type fields', function () {
+it('creates excursion with peripatos type fields', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
         ->withSession(['cas_school' => $this->school])
         ->post(route('excursion.store'), [
@@ -71,7 +71,7 @@ it('creates excursion with peripatos type fields', function () {
     ]);
 });
 
-it('validates required fields for peripatos type', function () {
+it('validates required fields for peripatos type', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
         ->post(route('excursion.store'), [
             'eidos_ekdromis' => 'peripatos',
@@ -80,7 +80,7 @@ it('validates required fields for peripatos type', function () {
     $response->assertSessionHasErrors(['proorismos', 'hmera_ekdromis_anaxorisis', 'ar_prajis_syllogou', 'a_arithmos']);
 });
 
-it('validates required fields for hmerisiaxoris type', function () {
+it('validates required fields for hmerisiaxoris type', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
         ->post(route('excursion.store'), [
             'eidos_ekdromis' => 'hmerisiaxoris',
@@ -91,7 +91,7 @@ it('validates required fields for hmerisiaxoris type', function () {
     $response->assertSessionHasErrors(['ar_prajis_syllogou', 'a_arithmos', 'ar_mathiton', 'ar_metakinoumenon', 'plithos_synodoi']);
 });
 
-it('validates required fields for ekp_exotiko type', function () {
+it('validates required fields for ekp_exotiko type', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
         ->post(route('excursion.store'), [
             'eidos_ekdromis' => 'ekp_exotiko',
@@ -104,7 +104,7 @@ it('validates required fields for ekp_exotiko type', function () {
     ]);
 });
 
-it('validates required fields for erasmus2 type', function () {
+it('validates required fields for erasmus2 type', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
         ->post(route('excursion.store'), [
             'eidos_ekdromis' => 'erasmus2',
@@ -115,7 +115,7 @@ it('validates required fields for erasmus2 type', function () {
     $response->assertSessionHasErrors(['plithos_synodoi']);
 });
 
-it('rejects invalid excursion type', function () {
+it('rejects invalid excursion type', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
         ->post(route('excursion.store'), [
             'eidos_ekdromis' => 'invalid_type',
@@ -126,7 +126,7 @@ it('rejects invalid excursion type', function () {
     $response->assertSessionHasErrors(['eidos_ekdromis']);
 });
 
-it('updates excursion with type-specific validation', function () {
+it('updates excursion with type-specific validation', function (): void {
     $excursion = Excursion::create([
         'school_year_id' => $this->year->id,
         'school_id' => $this->school->id,
@@ -156,7 +156,7 @@ it('updates excursion with type-specific validation', function () {
     ]);
 });
 
-it('validates date fields for multi-day types', function () {
+it('validates date fields for multi-day types', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
         ->withSession(['cas_school' => $this->school])
         ->post(route('excursion.store'), [
@@ -175,7 +175,7 @@ it('validates date fields for multi-day types', function () {
     ]);
 });
 
-it('validates erasmus-specific fields for erasmus2', function () {
+it('validates erasmus-specific fields for erasmus2', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
         ->withSession(['cas_school' => $this->school])
         ->post(route('excursion.store'), [
@@ -196,7 +196,7 @@ it('validates erasmus-specific fields for erasmus2', function () {
     ]);
 });
 
-it('finds type key from display name for edit', function () {
+it('finds type key from display name for edit', function (): void {
     $excursion = Excursion::create([
         'school_year_id' => $this->year->id,
         'school_id' => $this->school->id,
@@ -225,7 +225,7 @@ it('finds type key from display name for edit', function () {
     ]);
 });
 
-it('allows empty optional fields for peripatos', function () {
+it('allows empty optional fields for peripatos', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
         ->withSession(['cas_school' => $this->school])
         ->post(route('excursion.store'), [
@@ -242,7 +242,7 @@ it('allows empty optional fields for peripatos', function () {
     ]);
 });
 
-it('allows empty optional fields for programma_esoteriko', function () {
+it('allows empty optional fields for programma_esoteriko', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
         ->withSession(['cas_school' => $this->school])
         ->post(route('excursion.store'), [
