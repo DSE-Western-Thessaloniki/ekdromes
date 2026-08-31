@@ -19,3 +19,4 @@ yarn-error.log
 /.vscode/launch.json
 /.vscode/settings.json
 docker-compose.override.yml
+/_ide_helper*
