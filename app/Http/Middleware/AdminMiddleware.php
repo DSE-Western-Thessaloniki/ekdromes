@@ -10,7 +10,8 @@ class AdminMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if (!Session::get('cas_is_admin', false)) {
+        $cas_model_category = Session::get('cas_model_category', '');
+        if (! $cas_model_category === 'user') {
             abort(403, 'Δεν έχετε δικαιώματα διαχειριστή');
         }
 
