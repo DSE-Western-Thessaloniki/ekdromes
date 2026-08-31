@@ -19,6 +19,7 @@
     "dependencies": {
         "@deltablot/dropzone": "^7.4.4",
         "datatables": "^1.10.18",
+        "fontaine": "^0.8.1",
         "jquery": "^4.0.0"
     }
 }
