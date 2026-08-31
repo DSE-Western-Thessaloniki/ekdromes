@@ -38,7 +38,7 @@ class AdminController extends Controller
             $selectedSchool = School::where('kodikos_sxoleiou', $selectedSchoolCode)->first();
         }
 
-        return view('admin.index', ['currentYear' => $currentYear, 'allExcursions' => $allExcursions, 'selectedSchool' => $selectedSchool]);
+        return view('admin.index', ['currentYear' => $currentYear, 'allExcursions' => $allExcursions, 'selectedSchool' => $selectedSchool, 'isAdmin' => true]);
     }
 
     public function switchYear(Request $request)

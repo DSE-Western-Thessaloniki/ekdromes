@@ -25,9 +25,6 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*', function ($view): void {
             $data = $view->getData();
 
-            $view->with('casUser', Session::get('cas_user'));
-            $view->with('isAdmin', Session::get('cas_is_admin', false));
-
             if (! isset($data['currentSchool'])) {
                 $view->with('currentSchool', Session::get('cas_school'));
             }

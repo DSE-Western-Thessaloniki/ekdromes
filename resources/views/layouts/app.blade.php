@@ -10,8 +10,6 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="{{ asset('js/datatables.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('js/dropzone5.min.css') }}" rel="stylesheet">
 
     @yield('styles')
 </head>
@@ -38,21 +36,17 @@
 
                 <!-- Desktop menu -->
                 <div class="hidden md:flex items-center space-x-4">
-                    @auth
-                        <a href="{{ route('dashboard') }}"
+                    @session('cas_model_category')
+                        <a href="{{ $isAdmin ? route('admin.index') : route('dashboard') }}"
                             class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium">Αρχική</a>
                         <a href="{{ route('excursion.create') }}"
                             class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium">Νέα
                             Εκδρομή</a>
-                        @if ($isAdmin ?? false)
-                            <a href="{{ route('admin.index') }}"
-                                class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium">Διαχείριση</a>
-                        @endif
-                    @endauth
+                    @endsession
                 </div>
 
                 <div class="hidden md:flex items-center space-x-4">
-                    @auth
+                    @session('cas_model_category')
                         <span class="text-white text-sm">
                             {{ $currentYear->sxoliko_etos ?? '' }}
                             @if ($currentSchool ?? null)
@@ -63,7 +57,7 @@
                             class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium">
                             <i class="fas fa-sign-out-alt"></i> Αποσύνδεση
                         </a>
-                    @endauth
+                    @endsession
                 </div>
             </div>
 
@@ -75,16 +69,12 @@
                 x-transition:leave-start="opacity-100 transform translate-y-0"
                 x-transition:leave-end="opacity-0 transform -translate-y-2" class="md:hidden pb-4"
                 @click.away="open = false">
-                @auth
-                    <a href="{{ route('dashboard') }}"
+                @session('cas_model_category')
+                    <a href="{{ $isAdmin ? route('admin.index') : route('dashboard') }}"
                         class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">Αρχική</a>
                     <a href="{{ route('excursion.create') }}"
                         class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">Νέα
                         Εκδρομή</a>
-                    @if ($isAdmin ?? false)
-                        <a href="{{ route('admin.index') }}"
-                            class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">Διαχείριση</a>
-                    @endif
                     <div class="border-t border-white/20 my-2"></div>
                     <span class="block text-white/80 px-3 py-2 text-sm">
                         {{ $currentYear->sxoliko_etos ?? '' }}
@@ -96,7 +86,7 @@
                         class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">
                         <i class="fas fa-sign-out-alt"></i> Αποσύνδεση
                     </a>
-                @endauth
+                @endsession
             </div>
         </div>
     </nav>
