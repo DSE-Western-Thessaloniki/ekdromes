@@ -38,7 +38,7 @@ class AddSchoolYearCommand extends Command implements PromptsForMissingInput
                 label: 'Δώστε το όνομα της νέας σχολικής χρονιάς',
                 placeholder: 'Πχ. 2025_2026',
                 validate: fn (string $value) => match (true) {
-                    strlen($value) > 255 => 'Το όνομα δεν μπορεί να έχει μήκος μεγαλύτερο από 255',
+                    mb_strlen($value) > 255 => 'Το όνομα δεν μπορεί να έχει μήκος μεγαλύτερο από 255',
                     preg_match('/[^a-zA-Z0-9_\p{Greek}]/u', $value) > 0 => 'Το όνομα μπορεί να περιέχει χαρακτήρες πεζούς και κεφαλαίους ελληνικούς, αγγλικούς, αριθμούς ή το χαρακτήρα _',
                     default => null
                 }
