@@ -11,7 +11,7 @@ use Illuminate\Contracts\Console\PromptsForMissingInput;
 use function Laravel\Prompts\select;
 
 #[Signature('school-year:set-current {name}')]
-#[Description('Command description')]
+#[Description('Sets a specific school year as the current')]
 class SetCurrentSchoolYearCommand extends Command implements PromptsForMissingInput
 {
     /**
