@@ -17,10 +17,6 @@ class AdminController extends Controller
 
     public function index()
     {
-        if (! Session::get('cas_is_admin', false)) {
-            return redirect()->route('dashboard')->with('error', 'Δεν έχετε δικαιώματα διαχειριστή');
-        }
-
         $currentYear = SchoolYear::getCurrent();
         if (! $currentYear) {
             $currentYear = SchoolYear::orderBy('sxoliko_etos', 'desc')->first();
@@ -47,10 +43,6 @@ class AdminController extends Controller
 
     public function switchYear(Request $request)
     {
-        if (! Session::get('cas_is_admin', false)) {
-            return redirect()->route('dashboard');
-        }
-
         $request->validate([
             'year_id' => 'required|exists:schoolyears,id',
         ]);
@@ -65,10 +57,6 @@ class AdminController extends Controller
 
     public function selectSchool(Request $request)
     {
-        if (! Session::get('cas_is_admin', false)) {
-            return redirect()->route('dashboard');
-        }
-
         $schoolCode = $request->input('school_code');
         $school = School::where('kodikos_sxoleiou', $schoolCode)->first();
 
@@ -85,10 +73,6 @@ class AdminController extends Controller
 
     public function clearSchoolSelection()
     {
-        if (! Session::get('cas_is_admin', false)) {
-            return redirect()->route('dashboard');
-        }
-
         Session::forget('admin_selected_school');
 
         return redirect()->route('admin.index')
@@ -97,10 +81,6 @@ class AdminController extends Controller
 
     public function excursionsBySchool($schoolCode)
     {
-        if (! Session::get('cas_is_admin', false)) {
-            return redirect()->route('dashboard');
-        }
-
         $school = School::where('kodikos_sxoleiou', $schoolCode)->first();
         if (! $school) {
             return redirect()->route('admin.index')
@@ -126,10 +106,6 @@ class AdminController extends Controller
 
     public function schools()
     {
-        if (! Session::get('cas_is_admin', false)) {
-            return redirect()->route('dashboard');
-        }
-
         $currentYear = SchoolYear::getCurrent();
         $schools = $this->schoolService->getSchoolsForYear($currentYear);
 
