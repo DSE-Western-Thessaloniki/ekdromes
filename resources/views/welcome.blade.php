@@ -25,8 +25,13 @@
             Για να συνδεθείτε απαιτείται να είναι ενεργοποιημένη η υποστήριξη javascript.
         </div>
     </noscript>
+    @session('error')
+        <div class="text-center bg-red-600 text-white font-bold mt-4">
+            {{ Session::get('error') }}
+        </div>
+    @endsession
 
-    <form id="identity" action="login.php" method="post" class="flex flex-col items-center mt-8">
+    <form id="identity" action="{{ route('dashboard') }}" class="flex flex-col items-center mt-8">
         <table class="bg-white">
             <tr>
                 <td colspan="2" class="text-center">
@@ -55,12 +60,6 @@
                 class="text-lg px-6 py-2 bg-coral text-white rounded hover:bg-coral-dark cursor-pointer">
         </p>
         <br>
-        <noscript>
-            <div class="text-center text-red-600 font-bold">
-                Δεν είναι ενεργοποιημένη η υποστήριξη javascript!<br>
-                Για να συνδεθείτε απαιτείται να είναι ενεργοποιημένη η υποστήριξη javascript.
-            </div>
-        </noscript>
     </form>
 
     <p class="text-center mt-4 text-sm text-gray-500">
