@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Excursion;
 use App\Models\School;
 use App\Models\SchoolYear;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 class DashboardController extends Controller
@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $userEmail = $cas->user();
         $currentYear = SchoolYear::getCurrent();
 
-        if (!$currentYear) {
+        if (! $currentYear) {
             return redirect('/')->with('error', 'Δεν υπάρχει διαθέσιμο σχολικό έτος');
         }
 
@@ -30,7 +30,7 @@ class DashboardController extends Controller
             Session::put('cas_is_admin', true);
             Session::put('cas_school');
 
-            $excursions = \App\Models\Excursion::where('school_year_id', $currentYear->id)
+            $excursions = Excursion::where('school_year_id', $currentYear->id)
                 ->with('school')
                 ->orderBy('id', 'desc')
                 ->get();
@@ -42,7 +42,7 @@ class DashboardController extends Controller
                 ->where('email', $userEmail)
                 ->first();
 
-            if (!$school) {
+            if (! $school) {
                 return redirect('/')->with('error', 'Το email δεν αντιστοιχεί σε εγγεγραμμένο σχολείο');
             }
 

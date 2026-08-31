@@ -2,10 +2,13 @@
 
 declare(strict_types=1);
 
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\EnsureCasAccountHasAccess;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
+use Subfission\Cas\Middleware\CASAuth;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -15,7 +18,13 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
-            'admin' => \App\Http\Middleware\AdminMiddleware::class,
+            'admin' => AdminMiddleware::class,
+        ]);
+
+        $middleware->priority([
+            CASAuth::class,
+            EnsureCasAccountHasAccess::class,
+            AdminMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

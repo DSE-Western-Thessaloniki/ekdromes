@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExcursionController;
+use App\Http\Middleware\EnsureCasAccountHasAccess;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
@@ -25,7 +26,7 @@ Route::get('/logout', function (): RedirectResponse {
 })->name('logout');
 
 // Protected routes
-Route::middleware([CASAuth::class])->group(function (): void {
+Route::middleware([CASAuth::class, EnsureCasAccountHasAccess::class])->group(function (): void {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
