@@ -15,8 +15,8 @@ return new class extends Migration
             $table->string('typos_sxoleiou', 50); // ΓΥΜΝΑΣΙΟ, ΛΥΚΕΙΟ, ΕΠΑΛ, ΕΚ
             $table->string('displayname'); // school name
             $table->string('phonenumbers', 20)->nullable();
-            $table->string('usermail')->nullable(); // primary email
-            $table->string('email')->nullable(); // CAS email (login identifier)
+            $table->string('usermail')->nullable(); // CAS returned email
+            $table->string('email')->nullable(); // primary email
             $table->timestamps();
 
             $table->unique(['school_year_id', 'kodikos_sxoleiou']);
