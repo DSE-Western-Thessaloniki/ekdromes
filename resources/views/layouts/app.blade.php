@@ -37,7 +37,7 @@
                 <!-- Desktop menu -->
                 <div class="hidden md:flex items-center space-x-4">
                     @session('cas_model_category')
-                        <a href="{{ $isAdmin ? route('admin.index') : route('dashboard') }}"
+                        <a href="{{ Session::get('cas_model_category') === 'user' ? route('admin.index') : route('dashboard') }}"
                             class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium">Αρχική</a>
                         <a href="{{ route('excursion.create') }}"
                             class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium">Νέα
@@ -70,7 +70,7 @@
                 x-transition:leave-end="opacity-0 transform -translate-y-2" class="md:hidden pb-4"
                 @click.away="open = false">
                 @session('cas_model_category')
-                    <a href="{{ $isAdmin ? route('admin.index') : route('dashboard') }}"
+                    <a href="{{ Session::get('cas_model_category') === 'user' ? route('admin.index') : route('dashboard') }}"
                         class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">Αρχική</a>
                     <a href="{{ route('excursion.create') }}"
                         class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">Νέα
