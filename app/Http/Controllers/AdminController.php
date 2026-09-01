@@ -28,7 +28,6 @@ class AdminController extends Controller
 
         $allExcursions = Excursion::where('school_year_id', $currentYear->id)
             ->with(['school', 'schoolYear'])
-            ->orderBy('kodikos_sxoleiou')
             ->orderBy('id', 'desc')
             ->get();
 
@@ -38,7 +37,7 @@ class AdminController extends Controller
             $selectedSchool = School::where('kodikos_sxoleiou', $selectedSchoolCode)->first();
         }
 
-        return view('admin.index', ['currentYear' => $currentYear, 'allExcursions' => $allExcursions, 'selectedSchool' => $selectedSchool, 'isAdmin' => true]);
+        return view('admin.index', ['currentYear' => $currentYear, 'allExcursions' => $allExcursions, 'selectedSchool' => $selectedSchool]);
     }
 
     public function switchYear(Request $request)
