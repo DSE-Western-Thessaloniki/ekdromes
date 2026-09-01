@@ -46,6 +46,7 @@
         "georgykurian.laravel-ide-helper",
         "open-southeners.laravel-pint",
         "xdebug.php-debug",
-        "vue.volar"
+        "vue.volar",
+        "bradlc.vscode-tailwindcss"
     ]
 }

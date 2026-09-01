@@ -1,0 +1,14 @@
+{
+	"compilerOptions": {
+		"target": "es2022",
+		"module": "es2022",
+		"moduleResolution": "bundler",
+		"baseUrl": "resources/ts",
+		"strict": true, // Enable strict type-checking options
+		"skipLibCheck": true, // Skip type checking of declaration files
+		"noImplicitAny": false // Bypass raising errors on `any` type
+	},
+	"include": [
+		"resources/ts/**/*"
+	] // Frontend paths pattern
+}

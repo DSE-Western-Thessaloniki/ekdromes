@@ -1,9 +1,8 @@
+import DataTable from "datatables.net-dt";
 //
-
-$(document).ready(function () {
-  //----------------------code for epitirites
-
-  var atomatable = $("#ekdromesTable").DataTable({
+document.addEventListener("DOMContentLoaded", function () {
+  // Initialize DataTables
+  new DataTable("#ekdromesTable", {
     stripeClasses: [],
     pagingType: "full_numbers",
     iDisplayLength: 10,
@@ -37,41 +36,5 @@ $(document).ready(function () {
     //		"columnDefs": [
     //			{ "searchable": false, "targets": [0,6,7] } //0,6 and 8 column non-searchable
     //			],
-  });
-  $(".dataTables_length").addClass("bs-select");
-
-  $("#tablewithexport").DataTable({
-    stripeClasses: [],
-    paging: false,
-    ordering: false,
-    info: false,
-    dom: "B",
-    //buttons: [ 'csv', 'excel' ],
-    buttons: ["excel"],
-    initComplete: function () {
-      $("#tablewithexport").hide();
-    },
-  });
-
-  $("table[name='visibletable_excelexport']").DataTable({
-    stripeClasses: [],
-    paging: false,
-    ordering: false,
-    info: false,
-    dom: "Bt",
-    //buttons: [ 'csv', 'excel' ],
-    buttons: [
-      {
-        extend: "excel",
-        text: "Εξαγωγή (excel)",
-        title: "",
-        filename: "Πίνακας επιτηρητών",
-        //messageTop: 'Πίνακας επιτηρητών',
-        customize: function (xlsx) {
-          var sheet = xlsx.xl.worksheets["sheet1.xml"];
-          $("row c", sheet).attr("s", "25"); //bordered cells in excel
-        },
-      },
-    ],
   });
 });
