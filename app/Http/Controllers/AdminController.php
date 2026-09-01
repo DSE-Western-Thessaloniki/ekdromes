@@ -26,16 +26,19 @@ class AdminController extends Controller
             return redirect()->route('dashboard')->with('error', 'Δεν υπάρχει διαθέσιμο σχολικό έτος');
         }
 
-        $allExcursions = Excursion::where('school_year_id', $currentYear->id)
-            ->with(['school', 'schoolYear'])
-            ->orderBy('id', 'desc')
-            ->get();
-
         $selectedSchoolCode = Session::get('admin_selected_school');
         $selectedSchool = null;
         if ($selectedSchoolCode) {
             $selectedSchool = School::where('kodikos_sxoleiou', $selectedSchoolCode)->first();
         }
+
+        $allExcursions = Excursion::where('school_year_id', $currentYear->id)
+            ->when($selectedSchool, function ($query) use ($selectedSchool) {
+                return $query->where('school_id', $selectedSchool->id);
+            })
+            ->with(['school', 'schoolYear'])
+            ->orderBy('id', 'desc')
+            ->get();
 
         return view('admin.index', ['currentYear' => $currentYear, 'allExcursions' => $allExcursions, 'selectedSchool' => $selectedSchool]);
     }
