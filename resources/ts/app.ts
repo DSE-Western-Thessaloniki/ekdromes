@@ -3,12 +3,10 @@ import DataTable from "datatables.net-dt";
 document.addEventListener("DOMContentLoaded", function () {
   // Initialize DataTables
   new DataTable("#ekdromesTable", {
-    stripeClasses: [],
     pagingType: "full_numbers",
-    iDisplayLength: 10,
+    pageLength: 10,
     lengthMenu: [10, 20, 30, 50],
     scrollX: true,
-    scrollY: true,
     language: {
       paginate: {
         next: "Επόμενο",
