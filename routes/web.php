@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExcursionController;
+use App\Http\Controllers\ExcursionWizardController;
 use App\Http\Middleware\EnsureCasAccountHasAccess;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -37,6 +38,7 @@ Route::middleware([CASAuth::class, EnsureCasAccountHasAccess::class])->group(fun
     // Excursion management
     Route::get('/excursion', [ExcursionController::class, 'index'])->name('excursion.index');
     Route::get('/excursion/create', [ExcursionController::class, 'create'])->name('excursion.create');
+    Route::get('/excursion/wizard', ExcursionWizardController::class)->name('excursion.wizard');
     Route::post('/excursion', [ExcursionController::class, 'store'])->name('excursion.store');
     Route::get('/excursion/{excursion}', [ExcursionController::class, 'edit'])->name('excursion.edit');
     Route::put('/excursion/{excursion}', [ExcursionController::class, 'update'])->name('excursion.update');
