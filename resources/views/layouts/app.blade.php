@@ -9,8 +9,6 @@
 
     @vite(['resources/css/app.css', 'resources/ts/app.ts'])
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
     @yield('styles')
 </head>
 
@@ -38,9 +36,14 @@
                 <div class="hidden md:flex items-center space-x-4">
                     @session('cas_model_category')
                         <a href="{{ Session::get('cas_model_category') === 'user' ? route('admin.index') : route('dashboard') }}"
-                            class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium">Αρχική</a>
+                            class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
+                                class="fas fa-home mr-2"></i>Αρχική</a>
+                        <a href="{{ route('info') }}"
+                            class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
+                                class="fas fa-info-circle mr-2"></i>Οδηγίες</a>
                         <a href="{{ route('excursion.create') }}"
-                            class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium">Νέα
+                            class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
+                                class="fas fa-plus-circle mr-2"></i>Νέα
                             Εκδρομή</a>
                     @endsession
                 </div>
@@ -71,9 +74,14 @@
                 @click.away="open = false">
                 @session('cas_model_category')
                     <a href="{{ Session::get('cas_model_category') === 'user' ? route('admin.index') : route('dashboard') }}"
-                        class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">Αρχική</a>
+                        class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium"><i
+                            class="fas fa-home mr-2"></i>Αρχική</a>
+                    <a href="{{ route('info') }}"
+                        class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
+                            class="fas fa-info-circle mr-2"></i>Οδηγίες</a>
                     <a href="{{ route('excursion.create') }}"
-                        class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">Νέα
+                        class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium"><i
+                            class="fas fa-plus-circle mr-2"></i>Νέα
                         Εκδρομή</a>
                     <div class="border-t border-white/20 my-2"></div>
                     <span class="block text-white/80 px-3 py-2 text-sm">

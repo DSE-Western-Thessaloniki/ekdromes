@@ -30,6 +30,10 @@ Route::middleware([CASAuth::class, EnsureCasAccountHasAccess::class])->group(fun
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('/info', function (): View {
+        return view('info');
+    })->name('info');
+
     // Excursion management
     Route::get('/excursion', [ExcursionController::class, 'index'])->name('excursion.index');
     Route::get('/excursion/create', [ExcursionController::class, 'create'])->name('excursion.create');
