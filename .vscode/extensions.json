@@ -47,6 +47,8 @@
         "open-southeners.laravel-pint",
         "xdebug.php-debug",
         "vue.volar",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "davidanson.vscode-markdownlint",
+        "yzhang.markdown-all-in-one"
     ]
 }
