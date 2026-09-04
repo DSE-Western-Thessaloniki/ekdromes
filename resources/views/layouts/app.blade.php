@@ -21,8 +21,15 @@
                     <a href="{{ route('dashboard') }}" class="flex items-center text-white font-bold text-lg">
                         <img src="{{ Vite::asset('resources/images/icons8-bus-64.png') }}" alt="Logo"
                             class="h-10 mr-3">
-                        Εκδρομές - ΔΔΕ ΔΥΤ Θεσσαλονίκης
+                        Σχ. Εκδρομές
                     </a>
+                    <span class="ps-2">
+                        <i class="fas fa-graduation-cap"></i>
+                        {{ $currentYear->sxoliko_etos ?? '' }}
+                        @if ($currentSchool ?? null)
+                            - {{ $currentSchool->displayname }}
+                        @endif
+                    </span>
                 </div>
 
                 <!-- Mobile menu button -->
@@ -50,12 +57,6 @@
 
                 <div class="hidden md:flex items-center space-x-4">
                     @session('cas_model_category')
-                        <span class="text-white text-sm">
-                            {{ $currentYear->sxoliko_etos ?? '' }}
-                            @if ($currentSchool ?? null)
-                                - {{ $currentSchool->displayname }}
-                            @endif
-                        </span>
                         <a href="{{ route('logout') }}"
                             class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium">
                             <i class="fas fa-sign-out-alt"></i> Αποσύνδεση
