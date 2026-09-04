@@ -30,5 +30,17 @@ body {
 }
 
 .btn-primary {
+    @apply bg-blue-500 text-white hover:bg-blue-600;
+}
+
+.btn-info {
+    @apply bg-cyan-500 text-white hover:bg-cyan-600;
+}
+
+.btn-warning {
+    @apply bg-orange-400 text-white hover:bg-orange-500;
+}
+
+.btn-coral {
     @apply bg-coral text-white hover:bg-coral-dark;
 }
