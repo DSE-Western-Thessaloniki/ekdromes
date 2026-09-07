@@ -25,7 +25,8 @@
                 <td class="border p-1">{{ $loop->iteration }}</td>
                 <td class="border p-1 text-center">
                     <a class="btn btn-gray border"
-                        href="{{ route('excursion.create', ['excursionType' => $key]) }}">{{ $key }}</a>
+                        href="{{ route('excursion.create', ['excursionType' => $key]) }}">{{ $key }}
+                        {{ $type['category'] }}</a>
                 </td>
                 <td class="border p-1">
                     @foreach ($type['school_types'] as $school_type)
