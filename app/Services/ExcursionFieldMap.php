@@ -8,10 +8,14 @@ class ExcursionFieldMap
 {
     private const array FIELD_DEFINITIONS = [
         'ar_prajis_syllogou' => ['label' => 'Αρ. και ημ. πράξης συλλόγου', 'type' => 'text', 'placeholder' => 'Αριθμός και ημερομηνία'],
-        'a_arithmos' => ['label' => 'Αύξων αριθμός εκδρομής', 'type' => 'number', 'min' => 1],
+        'a_arithmos' => ['label' => 'Αύξων αριθμός εκδρομής', 'type' => 'number', 'min' => 1, 'value' => 1],
         'proorismos' => ['label' => 'Προορισμός', 'type' => 'text', 'placeholder' => 'Πόλη ή τοποθεσία'],
         'onoma_jenodoxeio' => ['label' => 'Όνομα Ξενοδοχείου', 'type' => 'text', 'placeholder' => 'Επωνυμία'],
         'onoma_praktoreio' => ['label' => 'Όνομα Πρακτορείου', 'type' => 'text', 'placeholder' => 'Επωνυμία'],
+        'metakinisi' => ['label' => 'Τρόπος μετακίνησης', 'type' => 'select', 'options' => [
+            'Πεζή',
+            'Με μεταφορικό μέσο',
+        ], 'default' => 'Πεζή', 'emptyItem' => false],
         'metaforika_mesa' => ['label' => 'Μεταφορικά μέσα', 'type' => 'text', 'placeholder' => 'π.χ. Λεωφορείο'],
         'mathimata' => ['label' => 'Μαθήματα ΑΠ', 'type' => 'textarea', 'placeholder' => '1ο μάθημα, 2ο μάθημα', 'help' => 'διαχωρίστε με κόμματα'],
         'tmimata' => ['label' => 'Τάξεις ή τμήματα', 'type' => 'text', 'placeholder' => 'Α, Β, Γ', 'help' => 'διαχωρίστε με κόμματα αν χρειάζεται'],
@@ -49,15 +53,15 @@ class ExcursionFieldMap
     ];
 
     private const array SIGNER_FIELDS = [
-        'prosfonisi_ypografonta' => ['label' => 'Προσφώνηση υπογραφής', 'type' => 'text'],
+        'prosfonisi_ypografonta' => ['label' => 'Προσφώνηση υπογραφής', 'type' => 'text', 'value' => 'Ο/Η ΔΙΕΥΘΥΝΤΗΣ/ΝΤΡΙΑ ΤΗΣ ΣΧΟΛΙΚΗΣ ΜΟΝΑΔΑΣ'],
         'onoma_ypografonta' => ['label' => 'Ονοματεπώνυμο υπογράφοντα', 'type' => 'text', 'placeholder' => 'Όνοματεπώνυμο Δντη/ντριας'],
         'ar_prot_sxoleiou' => ['label' => 'Αρ. Πρωτ. σχολείου', 'type' => 'text', 'placeholder' => 'Αρ. Πρωτ.'],
-        'hmera_diavivastikou' => ['label' => 'Ημερομηνία διαβιβαστικού', 'type' => 'date'],
+        'hmera_diavivastikou' => ['label' => 'Ημερομηνία διαβιβαστικού', 'type' => 'date', 'default' => 'today'],
     ];
 
     private const array TYPE_SECTIONS = [
         'Σχολικός Περίπατος' => [
-            'general' => ['ar_prajis_syllogou', 'a_arithmos', 'proorismos', 'metaforika_mesa'],
+            'general' => ['ar_prajis_syllogou', 'a_arithmos', 'proorismos', 'metakinisi', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis'],
             'participation' => [],
         ],

@@ -79,6 +79,7 @@
                     'proorismos',
                     'onoma_jenodoxeio',
                     'onoma_praktoreio',
+                    'metakinisi',
                     'metaforika_mesa',
                     'mathimata',
                     'tmimata',
@@ -179,7 +180,8 @@
                 ];
                 $partFieldsToShow = array_filter($partFields, fn($f) => isset($fieldTypeMap[$f]['participation']));
             @endphp
-            <div class="border-2 border-gray-300 rounded-lg p-4 mb-6" x-show="selectedType !== ''" x-transition.opacity>
+            <div class="border-2 border-gray-300 rounded-lg p-4 mb-6"
+                x-show="selectedType !== '' && selectedType !== 'Σχολικός Περίπατος'" x-transition.opacity>
                 <h4 class="font-semibold text-gray-700 mb-4">Συμμετοχές</h4>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     @foreach ($partFieldsToShow as $fieldName)
@@ -233,7 +235,7 @@
             {{-- Remarks --}}
             <div class="mb-6">
                 <label for="paratiriseis" class="block text-sm font-medium text-gray-700 mb-1">Παρατηρήσεις</label>
-                <textarea name="paratiriseis" id="paratiriseis" rows="3"
+                <textarea name="paratiriseis" id="paratiriseis" rows="3" placeholder="Σημειώσεις (που δεν θα εκτυπωθούν πουθενά)"
                     class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-coral focus:border-transparent">{{ $isEdit ? $excursion->paratiriseis ?? '' : '' }}</textarea>
             </div>
 
