@@ -42,14 +42,20 @@ class ExcursionController extends Controller
 
     public function create(): View
     {
-        if (request()->query('IKnowWhatIAmDoing') || request()->query('excursionType', false)) {
+        if (request()->query('excursionType', false)) {
             $types = $this->excursionService->getExcursionTypes();
             $fieldMap = $this->fieldMap;
 
             return view('excursion.create', ['types' => $types, 'fieldMap' => $fieldMap, 'IKnowWhatIAmDoing' => true]);
         }
 
-        return view('excursion.create', ['IKnowWhatIAmDoing' => request()->query('IKnowWhatIAmDoing', false)]);
+        if (request()->query('IKnowWhatIAmDoing', false)) {
+            $types = $this->excursionService->getExcursionTypes();
+
+            return view('excursion.show-all', ['types' => $types]);
+        }
+
+        return view('excursion.create', ['IKnowWhatIAmDoing' => false]);
 
     }
 

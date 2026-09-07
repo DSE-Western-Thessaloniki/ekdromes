@@ -44,3 +44,11 @@ body {
 .btn-coral {
     @apply bg-coral text-white hover:bg-coral-dark;
 }
+
+.btn-success {
+    @apply bg-green-600 text-white hover:bg-green-700;
+}
+
+.btn-gray {
+    @apply bg-gray-300 hover:bg-gray-400;
+}
