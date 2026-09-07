@@ -8,7 +8,8 @@
     <div class="flex flex-col items-center gap-4 pb-4">
         Με βάση τις προηγούμενες απαντήσεις, καταχωρήστε νέα εκδρομή:
         <!-- TODO: Add a form to create a new excursion -->
-        <a class='btn btn-primary' value='Αδελφοποιήσεων'>Αδελφοποιήσεων</a>
+        <a class='btn btn-primary'
+            href="{{ route('excursion.create', ['excursionType' => 'Αδελφοποιήσεων']) }}">Αδελφοποιήσεων</a>
     </div>
 
     <p><a href="{{ route('excursion.wizard', ['step' => '>ΕΔ>ΟΧΙΒΡΑΒΕΥΣΗ']) }}" class='btn btn-warning'> <i

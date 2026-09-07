@@ -8,11 +8,13 @@
     <div class="flex flex-col items-center gap-4 pb-4">
         Με βάση τις προηγούμενες απαντήσεις, επιλέξτε το είδος της νέας εκδρομής για καταχώρηση από τις παρακάτω επιλογές:
         <!-- TODO: Add a form to create a new excursion -->
-        <a class='btn btn-primary' value='Διδακτική επίσκεψη'>Διδακτική
+        <a class='btn btn-primary' href="{{ route('excursion.create', ['excursionType' => 'Διδακτική επίσκεψη']) }}">Διδακτική
             επίσκεψη</a>
-        <a class='btn btn-primary' value='Επίσκεψη στη Βουλή των Ελλήνων'>Επίσκεψη στη Βουλή
+        <a class='btn btn-primary'
+            href="{{ route('excursion.create', ['excursionType' => 'Επίσκεψη στη Βουλή των Ελλήνων']) }}">Επίσκεψη στη Βουλή
             των Ελλήνων</a>
-        <a class='btn btn-primary' value='Συμμετοχή μαθητών/τριών σε διαγωνισμούς/εκδηλώσεις εσωτερικού'>Συμμετοχή
+        <a class='btn btn-primary'
+            href="{{ route('excursion.create', ['excursionType' => 'Συμμετοχή μαθητών/τριών σε διαγωνισμούς/εκδηλώσεις εσωτερικού']) }}">Συμμετοχή
             μαθητών/τριών σε διαγωνισμούς/εκδηλώσεις εσωτερικού</a>
     </div>
 

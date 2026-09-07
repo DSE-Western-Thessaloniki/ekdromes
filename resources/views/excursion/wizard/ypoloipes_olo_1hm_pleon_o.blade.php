@@ -8,7 +8,9 @@
     <div class="flex flex-col items-center gap-4 pb-4">
         Με βάση τις προηγούμενες απαντήσεις, καταχωρήστε νέα εκδρομή:
         <!-- TODO: Add a form to create a new excursion -->
-        <a class='btn btn-primary' value='Ημερήσια δίχως διανυκτέρευση'>Ημερήσια δίχως διανυκτέρευση</a>
+        <a class='btn btn-primary'
+            href="{{ route('excursion.create', ['excursionType' => 'Ημερήσια δίχως διανυκτέρευση']) }}">Ημερήσια δίχως
+            διανυκτέρευση</a>
     </div>
 
     <p><a href="{{ route('excursion.wizard', ['step' => '>ΥΠΟΛΟΙΠΕΣ>ΟΛΟ>1ΗΜ']) }}" class='btn btn-warning'> <i

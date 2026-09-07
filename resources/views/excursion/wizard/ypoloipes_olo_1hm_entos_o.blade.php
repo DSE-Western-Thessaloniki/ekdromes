@@ -8,9 +8,10 @@
     <div class="flex flex-col items-center gap-4 pb-4">
         Με βάση τις προηγούμενες απαντήσεις, έχετε δύο (2) επιλογές για καταχώρηση νέας εκδρομής:
         <!-- TODO: Add a form to create a new excursion -->
-        <a class='btn btn-primary' value='Σχολικός Περίπατος'>Απλός Σχολικός
-            Περίπατος</a>
-        <a class='btn btn-primary' value='Διδακτική επίσκεψη'>Διδακτική επίσκεψη</a>
+        <a class='btn btn-primary' href="{{ route('excursion.create', ['excursionType' => 'Σχολικός Περίπατος']) }}">Απλός
+            Σχολικός Περίπατος</a>
+        <a class='btn btn-primary' href="{{ route('excursion.create', ['excursionType' => 'Διδακτική επίσκεψη']) }}">Διδακτική
+            επίσκεψη</a>
     </div>
 
     <p><a href="{{ route('excursion.wizard', ['step' => '>ΥΠΟΛΟΙΠΕΣ>ΟΛΟ>1ΗΜ']) }}" class='btn btn-warning'> <i
