@@ -6,13 +6,15 @@ use App\Models\Excursion;
 use App\Models\School;
 use App\Models\SchoolYear;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Storage;
 
 class ExcursionService
 {
     /**
-     * @var \App\Models\SchoolYear|null
+     * @var SchoolYear|null
      */
     public $currentYear;
+
     public function __construct(?SchoolYear $currentYear = null)
     {
         $this->currentYear = $currentYear ?? SchoolYear::getCurrent();
@@ -29,103 +31,173 @@ class ExcursionService
     public function getExcursionTypes(): array
     {
         return [
-            'peripatos' => [
-                'name' => 'Σχολικός Περίπατος',
-                'description' => 'Σχολικός περίπατος εντός ή εκτός Περιφερειακής Ενότητας',
+            'Σχολικός Περίπατος' => [
+                'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 2,
-                'legislation' => 'Π.Δ. 54/2017',
+                'min_files' => 1,
+                'legislation' => 'Άρθρο 1 Υ.Α. 20883/ΓΔ4/12-2-2020 (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/peripatos/'),
             ],
-            'hmerisiaxoris' => [
-                'name' => 'Ημερήσια Εκδρομή χωρίς διανυκτέρευση',
-                'description' => 'Ημερήσια εκδρομή χωρίς διανυκτέρευση',
+            'Ημερήσια δίχως διανυκτέρευση' => [
+                'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 2,
-                'legislation' => 'Π.Δ. 54/2017',
+                'min_files' => 1,
+                'legislation' => 'Άρθρο 2, § 1,2,3,4 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/hmerisiaxoris/'),
             ],
-            'pollesesjot' => [
-                'name' => 'Πολλήμερη Εκδρομή εκτός Τόπου Εκπαίδευσης',
-                'description' => 'Πολλήμερη εκδρομή με διανυκτέρευση',
-                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 4,
-                'legislation' => 'Π.Δ. 54/2017',
+            'Πολυήμερη τελευταίας τάξης στο εσωτερικό' => [
+                'category' => '',
+                'school_types' => ['ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 1,
+                'legislation' => 'Άρθρο 2 § 5 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/pollesesot/'),
             ],
-            'ekp_esoteriko' => [
-                'name' => 'Εκπαιδευτική Εκδρομή Εσωτερικού',
-                'description' => 'Εκπαιδευτική εκδρομή εντός χώρας',
-                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+            'Πολυήμερη τελευταίας τάξης στο εξωτερικό' => [
+                'category' => '',
+                'school_types' => ['ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
                 'min_files' => 3,
-                'legislation' => 'Π.Δ. 54/2017',
+                'legislation' => 'Άρθρο 2 § 5 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/pollesejot/'),
             ],
-            'ekp_exotiko' => [
-                'name' => 'Εκπαιδευτική Εκδρομή στο Εξωτερικό',
-                'description' => 'Εκπαιδευτική εκδρομή στο εξωτερικό',
+            'Εκπαιδευτική επίσκεψη μέσω προγράμματος(περιβαλλοντικό/πολιτισμικό) στο εσωτερικό' => [
+                'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 4,
-                'legislation' => 'Π.Δ. 54/2017',
+                'min_files' => 1,
+                'legislation' => '"Άρθρο 3  § 1  Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/programma_esoteriko/'),
             ],
-            'programma_esoteriko' => [
-                'name' => 'Εκπαιδευτική Επίσκεψη μέσω Προγράμματος Εσωτερικού',
-                'description' => 'Εκπαιδευτική επίσκεψη μέσω προγράμματος στο εσωτερικό',
-                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 3,
-                'legislation' => 'Π.Δ. 54/2017',
-            ],
-            'programma_exotiko' => [
-                'name' => 'Εκπαιδευτική Επίσκεψη μέσω Προγράμματος Εξωτερικού',
-                'description' => 'Εκπαιδευτική επίσκεψη μέσω προγράμματος στο εξωτερικό',
+            'Εκπαιδευτικές επισκέψεις στο ΕΞΩΤΕΡΙΚΟ στο πλαίσιο εγκεκριμένων εκπαιδευτικών προγραμμάτων σχολικών δραστηριοτήτων' => [
+                'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
                 'min_files' => 5,
-                'legislation' => 'Π.Δ. 54/2017',
+                'legislation' => 'Άρθρο 3 § 1 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/programma_ejoteriko/'),
             ],
-            'europ' => [
-                'name' => 'Ευρωπαϊκό Πρόγραμμα',
-                'description' => 'Συμμετοχή σε ευρωπαϊκό πρόγραμμα',
+            'Εκπαιδευτική εκδρομή στο εσωτερικό' => [
+                'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 5,
-                'legislation' => 'Ευρωπαϊκό πλαίσιο',
+                'min_files' => 1,
+                'legislation' => 'Άρθρο 3 § 2 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/ekp_esoteriko/'),
             ],
-            'erasmus1' => [
-                'name' => 'Erasmus+ ΚΑ1',
-                'description' => 'Μετακίνηση εκπαιδευτικών',
-                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 4,
-                'legislation' => 'Erasmus+ KA1',
-            ],
-            'erasmus2' => [
-                'name' => 'Erasmus+ ΚΑ2',
-                'description' => 'Μετακίνηση μαθητών και εκπαιδευτικών',
-                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 4,
-                'legislation' => 'Erasmus+ KA2',
-            ],
-            'adel' => [
-                'name' => 'Αδελφοποίηση',
-                'description' => 'Προγράμματα αδελφοποίησης',
+            'Εκπαιδευτική εκδρομή στο εξωτερικό' => [
+                'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
                 'min_files' => 3,
-                'legislation' => 'Π.Δ. 54/2017',
+                'legislation' => 'Άρθρο 3 § 2 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/ekp_ejot/'),
             ],
-            'vouli' => [
-                'name' => 'Επίσκεψη στη Βουλή',
-                'description' => 'Επίσκεψη στο Ελληνικό Κοινοβούλιο',
+            'Διδακτική επίσκεψη' => [
+                'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 2,
-                'legislation' => 'Π.Δ. 54/2017',
+                'min_files' => 1,
+                'legislation' => 'Άρθρο 4 της Y.A. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/didaktikes/'),
             ],
-            'diagon' => [
-                'name' => 'Διαγωνισμός/Έκθεση/Εκδήλωση',
-                'description' => 'Συμμετοχή σε διαγωνισμό ή έκθεση',
+            'Επίσκεψη στη Βουλή των Ελλήνων' => [
+                'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 2,
-                'legislation' => 'Π.Δ. 54/2017',
+                'min_files' => 1,
+                'legislation' => 'Άρθρο 7 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/vouli/'),
             ],
-            'didaktikes' => [
-                'name' => 'Διδακτική Επίσκεψη',
-                'description' => 'Διδακτική επίσκεψη σε θεσμό',
+            'Συμμετοχή μαθητών/τριών σε διαγωνισμούς/εκδηλώσεις εσωτερικού' => [
+                'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 2,
-                'legislation' => 'Π.Δ. 54/2017',
+                'min_files' => 1,
+                'legislation' => 'Άρθρο 8 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/diagon/'),
+            ],
+            'Εκπαιδευτικών ανταλλαγών σε συνέχεια διακρατικών συμφωνιών/μνημονίων συνεργασίας/εκτελεστικών προγραμμάτων' => [
+                'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 5,
+                'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/europ/'),
+            ],
+            'Αδελφοποιήσεων' => [
+                'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 5,
+                'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/adel/'),
+            ],
+            'Εκπαιδευτικών προγραμμάτων της Γενικής Γραμματείας Θρησκευμάτων' => [
+                'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 5,
+                'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/europ/'),
+            ],
+            'Ευρωπαϊκών προγραμμάτων δραστηριοτήτων/προγραμμάτων που δε γίνονται στο πλαίσιο του ευρωπαϊκού προγράμματος Erasmus' => [
+                'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 5,
+                'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/europ/'),
+            ],
+            'Προγραμμάτων διεθνών οργανισμών' => [
+                'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 5,
+                'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/europ/'),
+            ],
+            'Συμμετοχών σε διεθνείς συναντήσεις, συνέδρια, ημερίδες, διαγωνισμούς, μαθητικές επιστημονικές ολυμπιάδες και άλλες διεθνής εκδηλώσεις' => [
+                'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 5,
+                'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/europ/'),
+            ],
+            'Προσκλήσεις σχολείων της περ.α του άρθρου 3 του ν. 4415/2016 (Α΄ 159)' => [
+                'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 5,
+                'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/europ/'),
+            ],
+            'Βράβευσης με ταξίδι στο εξωτερικό κατόπιν συμμετοχής σε διαγωνιστική διαδικασία εγκεκριμένη από το Υπουργείο Παιδείας' => [
+                'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 5,
+                'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/europ/'),
+            ],
+            'Πιλοτικών προγραμμάτων διεθνών σχολικών δικτύων που εγκρίνονται ή συντονίζονται από το Υπουργείο Παιδείας' => [
+                'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 5,
+                'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/europ/'),
+            ],
+            'Επισκέψεων σε ερευνητικά κέντρα, εκπαιδευτικά ιδρύματα, πανεπιστήμια, κέντρα πολιτισμού και/ή αθλητισμού' => [
+                'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 5,
+                'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/europ/'),
+            ],
+            'Επισκέψεων σε ευρωπαϊκούς θεσμούς/διεθνείς οργανώσεις κατόπιν σχετικής πρόσκλησης και αποδοχής τυχόν αιτήματος από το διεθνή οργανισμό' => [
+                'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 5,
+                'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/europ/'),
+            ],
+            'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' => [
+                'category' => '',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 6,
+                'legislation' => 'Υ.Α.25735/Η1/20-02-2020 (ΦΕΚ 625/τ.Β\'/27-02-2020) και Υ.Α.20883/ΓΔ4/12-02-2020 (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/erasmus2/'),
+            ],
+            'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' => [
+                'category' => '',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 6,
+                'legislation' => 'Υ.Α.25735/Η1/20-02-2020 (ΦΕΚ 625/τ.Β\'/27-02-2020) και Υ.Α.20883/ΓΔ4/12-02-2020 (ΦΕΚ 456/τ.Β\'/13-02-2020)',
+                'legislation_files' => Storage::disk('local')->path('nomoi/erasmus1/'),
             ],
         ];
     }
@@ -147,7 +219,7 @@ class ExcursionService
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param  array<string, mixed>  $data
      */
     public function create(array $data): Excursion
     {

@@ -56,75 +56,125 @@ class ExcursionFieldMap
     ];
 
     private const array TYPE_SECTIONS = [
-        'peripatos' => [
+        'Σχολικός Περίπατος' => [
             'general' => ['ar_prajis_syllogou', 'a_arithmos', 'proorismos', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis'],
             'participation' => [],
         ],
-        'hmerisiaxoris' => [
+        'Ημερήσια δίχως διανυκτέρευση' => [
             'general' => ['ar_prajis_syllogou', 'a_arithmos', 'proorismos', 'onoma_praktoreio', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis'],
             'participation' => ['ar_mathiton', 'ar_metakinoumenon', 'plithos_synodoi'],
         ],
-        'pollesesjot' => [
+        'Πολυήμερη τελευταίας τάξης στο εσωτερικό' => [
             'general' => ['ar_prajis_syllogou', 'a_arithmos', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres'],
             'participation' => ['ar_metakinoumenon', 'onoma_arxigos', 'plithos_synodoi'],
         ],
-        'ekp_esoteriko' => [
-            'general' => ['ar_prajis_syllogou', 'mathimata', 'a_arithmos', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+        'Πολυήμερη τελευταίας τάξης στο εξωτερικό' => [
+            'general' => ['ar_prajis_syllogou', 'a_arithmos', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres'],
-            'participation' => ['tmimata', 'ar_metakinoumenon', 'plithos_synodoi'],
+            'participation' => ['ar_metakinoumenon', 'onoma_arxigos', 'plithos_synodoi'],
         ],
-        'ekp_exotiko' => [
-            'general' => ['ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'a_arithmos', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
-            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
-            'participation' => ['ar_mathiton', 'ar_metakinoumenon', 'plithos_synodoi'],
-        ],
-        'programma_esoteriko' => [
+        'Εκπαιδευτική επίσκεψη μέσω προγράμματος(περιβαλλοντικό/πολιτισμικό) στο εσωτερικό' => [
             'general' => ['eidos_programmatos', 'titlos_programmatos', 'ar_pr_egrisis_programmatosdde', 'ar_prajis_syllogou', 'a_arithmos', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres'],
             'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
         ],
-        'programma_exotiko' => [
+        'Εκπαιδευτικές επισκέψεις στο ΕΞΩΤΕΡΙΚΟ στο πλαίσιο εγκεκριμένων εκπαιδευτικών προγραμμάτων σχολικών δραστηριοτήτων' => [
             'general' => ['eidos_programmatos', 'titlos_programmatos', 'ar_pr_egrisis_programmatosdde', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'a_arithmos', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
             'participation' => ['ar_mathiton', 'ar_metakinoumenon', 'plithos_synodoi', 'plithos_ektosomadas_synodoi'],
         ],
-        'didaktikes' => [
+        'Εκπαιδευτική εκδρομή στο εσωτερικό' => [
+            'general' => ['ar_prajis_syllogou', 'mathimata', 'a_arithmos', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres'],
+            'participation' => ['tmimata', 'ar_metakinoumenon', 'plithos_synodoi'],
+        ],
+        'Εκπαιδευτική εκδρομή στο εξωτερικό' => [
+            'general' => ['ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'a_arithmos', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
+            'participation' => ['ar_mathiton', 'ar_metakinoumenon', 'plithos_synodoi'],
+        ],
+        'Διδακτική επίσκεψη' => [
             'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'a_arithmos', 'proorismos'],
             'dates' => ['hmera_ekdromis_anaxorisis'],
             'participation' => ['tmimata', 'ar_metakinoumenon', 'plithos_synodoi'],
         ],
-        'vouli' => [
+        'Επίσκεψη στη Βουλή των Ελλήνων' => [
             'general' => ['ar_prajis_syllogou', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_epistrofis'],
             'participation' => ['tmimata', 'ar_mathiton', 'ar_metakinoumenon', 'plithos_synodoi'],
         ],
-        'diagon' => [
+        'Συμμετοχή μαθητών/τριών σε διαγωνισμούς/εκδηλώσεις εσωτερικού' => [
             'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'a_arithmos', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_epistrofis'],
             'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
         ],
-        'europ' => [
+        'Εκπαιδευτικών ανταλλαγών σε συνέχεια διακρατικών συμφωνιών/μνημονίων συνεργασίας/εκτελεστικών προγραμμάτων' => [
             'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
             'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
         ],
-        'erasmus1' => [
+        'Αδελφοποιήσεων' => [
+            'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
+            'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
+        ],
+        'Εκπαιδευτικών προγραμμάτων της Γενικής Γραμματείας Θρησκευμάτων' => [
+            'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
+            'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
+        ],
+        'Ευρωπαϊκών προγραμμάτων δραστηριοτήτων/προγραμμάτων που δε γίνονται στο πλαίσιο του ευρωπαϊκού προγράμματος Erasmus' => [
+            'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
+            'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
+        ],
+        'Προγραμμάτων διεθνών οργανισμών' => [
+            'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
+            'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
+        ],
+        'Συμμετοχών σε διεθνείς συναντήσεις, συνέδρια, ημερίδες, διαγωνισμούς, μαθητικές επιστημονικές ολυμπιάδες και άλλες διεθνής εκδηλώσεις' => [
+            'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
+            'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
+        ],
+        'Προσκλήσεις σχολείων της περ.α του άρθρου 3 του ν. 4415/2016 (Α΄ 159)' => [
+            'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
+            'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
+        ],
+        'Βράβευσης με ταξίδι στο εξωτερικό κατόπιν συμμετοχής σε διαγωνιστική διαδικασία εγκεκριμένη από το Υπουργείο Παιδείας' => [
+            'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
+            'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
+        ],
+        'Πιλοτικών προγραμμάτων διεθνών σχολικών δικτύων που εγκρίνονται ή συντονίζονται από το Υπουργείο Παιδείας' => [
+            'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
+            'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
+        ],
+        'Επισκέψεων σε ερευνητικά κέντρα, εκπαιδευτικά ιδρύματα, πανεπιστήμια, κέντρα πολιτισμού και/ή αθλητισμού' => [
+            'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
+            'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
+        ],
+        'Επισκέψεων σε ευρωπαϊκούς θεσμούς/διεθνείς οργανώσεις κατόπιν σχετικής πρόσκλησης και αποδοχής τυχόν αιτήματος από το διεθνή οργανισμό' => [
+            'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
+            'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
+        ],
+        'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' => [
             'general' => ['eidos_programmatos', 'titlos_programmatos', 'ar_pr_egrisis_programmatosdde', 'erasmus_ar_simbasis', 'ar_pr_anartisisprok', 'praji_epilogi_praktoreiou', 'erasmus_ar_prajis_syllogou_sigrotisi', 'erasmus_ar_prajis_syllogou_anasigrotisi', 'ar_prajis_syllogou', 'erasmus_ar_prajis_syllogon_sinainesi', 'erasmus_ar_prot_beb_dieythinton', 'asf_symbolaio', 'proorismos', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
             'participation' => ['plithos_synodoi', 'erasmus_lista_kathig_kaieidikotita'],
         ],
-        'erasmus2' => [
+        'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' => [
             'general' => ['eidos_programmatos', 'titlos_programmatos', 'ar_pr_egrisis_programmatosdde', 'erasmus_ar_simbasis', 'ar_pr_anartisisprok', 'praji_epilogi_praktoreiou', 'erasmus_ar_prajis_syllogou_sigrotisi', 'erasmus_ar_prajis_syllogou_anasigrotisi', 'ar_prajis_syllogou', 'erasmus_ar_prajis_syllogon_sinainesi', 'erasmus_ar_prot_beb_dieythinton', 'asf_symbolaio', 'proorismos', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
             'participation' => ['plithos_synodoi', 'onoma_arxigos', 'erasmus_lista_kathig_kaieidikotita', 'erasmus_lista_anaplirkathig_kaieid', 'erasmus_lista_mathites_kaitaji'],
-        ],
-        'adel' => [
-            'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
-            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
-            'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
         ],
     ];
 
