@@ -44,6 +44,11 @@ class ExcursionController extends Controller
     {
         if (request()->query('excursionType', false)) {
             $types = $this->excursionService->getExcursionTypes();
+
+            if (! request()->query('informed', false)) {
+                return view('excursion.guidelines', ['types' => $types, 'excursionType' => request()->query('excursionType')]);
+            }
+
             $fieldMap = $this->fieldMap;
 
             return view('excursion.create', ['types' => $types, 'fieldMap' => $fieldMap, 'IKnowWhatIAmDoing' => true]);
