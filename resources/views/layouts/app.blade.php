@@ -70,10 +70,19 @@
                         <a href="{{ route('info') }}"
                             class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
                                 class="fas fa-info-circle mr-2"></i>Οδηγίες</a>
-                        <a href="{{ route('excursion.create') }}"
-                            class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
-                                class="fas fa-plus-circle mr-2"></i>Νέα
-                            Εκδρομή</a>
+                        @if ($isAdmin)
+                            @if ($selectedSchool)
+                                <a href="{{ route('excursion.create') }}"
+                                    class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
+                                        class="fas fa-plus-circle mr-2"></i>Νέα
+                                    Εκδρομή</a>
+                            @endif
+                        @else
+                            <a href="{{ route('excursion.create') }}"
+                                class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
+                                    class="fas fa-plus-circle mr-2"></i>Νέα
+                                Εκδρομή</a>
+                        @endif
                     @endsession
                 </div>
 
