@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\School;
 use App\Models\SchoolYear;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
@@ -46,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
                 // Χρησιμοποιείται μόνο κατά την εμφάνιση της λίστας των εκδρομών
                 // στο admin περιβάλλον, όταν έχει επιλεγεί σχολείο
                 if (! isset($data['selectedSchool'])) {
-                    $view->with('selectedSchool', Session::get('admin_selected_school'));
+                    $view->with('selectedSchool', School::find(Session::get('admin_selected_school')));
                 }
             } else {
                 $view->with('isAdmin', false);
