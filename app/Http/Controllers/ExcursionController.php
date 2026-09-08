@@ -27,7 +27,7 @@ class ExcursionController extends Controller
     {
         $currentYear = SchoolYear::getCurrent();
         $isAdmin = Session::get('cas_is_admin', false);
-        $school = Session::get('cas_school');
+        $school = Session::get('school');
 
         if ($isAdmin) {
             $excursions = $this->excursionService->getAllExcursions();
@@ -75,7 +75,7 @@ class ExcursionController extends Controller
 
         $validated = $request->validate($this->fieldMap->getValidationRules($eidos));
 
-        $school = Session::get('cas_school');
+        $school = Session::get('school');
         if (! $school) {
             return redirect()->back()->with('error', 'Δεν επιτρέπεται η δημιουργία εκδρομής');
         }

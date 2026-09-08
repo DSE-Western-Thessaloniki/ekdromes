@@ -55,6 +55,7 @@ Route::middleware([CASAuth::class, EnsureCasAccountHasAccess::class])->group(fun
     Route::prefix('admin')->name('admin.')->middleware('admin')->group(function (): void {
         Route::get('/', [AdminController::class, 'index'])->name('index');
         Route::post('/switch-year', [AdminController::class, 'switchYear'])->name('switch-year');
+        Route::post('/session-switch-year', [AdminController::class, 'sessionSwitchYear'])->name('session-switch-year');
         Route::post('/select-school', [AdminController::class, 'selectSchool'])->name('select-school');
         Route::post('/clear-school', [AdminController::class, 'clearSchoolSelection'])->name('clear-school');
         Route::get('/excursions/{schoolCode}', [AdminController::class, 'excursionsBySchool'])->name('excursions-by-school');

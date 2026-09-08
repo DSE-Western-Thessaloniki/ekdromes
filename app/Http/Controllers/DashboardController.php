@@ -10,14 +10,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $currentYear = SchoolYear::getCurrent();
+        $currentYear = SchoolYear::getSessionCurrent();
 
         if (! $currentYear) {
             return redirect('/')->with('error', 'Δεν υπάρχει διαθέσιμο σχολικό έτος');
         }
-
-        // Store current year in session
-        Session::put('current_school_year', $currentYear);
 
         if (Session::get('cas_model_category') === 'user') {
             return to_route('admin.index');

@@ -53,7 +53,7 @@ it('passes field map to edit view', function (): void {
 
 it('creates excursion with peripatos type fields', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
-        ->withSession(['cas_school' => $this->school])
+        ->withSession(['school' => $this->school])
         ->post(route('excursion.store'), [
             'eidos_ekdromis' => 'peripatos',
             'proorismos' => 'Θεσσαλονίκη',
@@ -158,7 +158,7 @@ it('updates excursion with type-specific validation', function (): void {
 
 it('validates date fields for multi-day types', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
-        ->withSession(['cas_school' => $this->school])
+        ->withSession(['school' => $this->school])
         ->post(route('excursion.store'), [
             'eidos_ekdromis' => 'pollesesjot',
             'proorismos' => 'Θεσσαλονίκη',
@@ -177,7 +177,7 @@ it('validates date fields for multi-day types', function (): void {
 
 it('validates erasmus-specific fields for erasmus2', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
-        ->withSession(['cas_school' => $this->school])
+        ->withSession(['school' => $this->school])
         ->post(route('excursion.store'), [
             'eidos_ekdromis' => 'erasmus2',
             'proorismos' => 'Βερολίνο',
@@ -227,7 +227,7 @@ it('finds type key from display name for edit', function (): void {
 
 it('allows empty optional fields for peripatos', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
-        ->withSession(['cas_school' => $this->school])
+        ->withSession(['school' => $this->school])
         ->post(route('excursion.store'), [
             'eidos_ekdromis' => 'peripatos',
             'proorismos' => 'Θεσσαλονίκη',
@@ -244,7 +244,7 @@ it('allows empty optional fields for peripatos', function (): void {
 
 it('allows empty optional fields for programma_esoteriko', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
-        ->withSession(['cas_school' => $this->school])
+        ->withSession(['school' => $this->school])
         ->post(route('excursion.store'), [
             'eidos_ekdromis' => 'programma_esoteriko',
             'proorismos' => 'Θεσσαλονίκη',

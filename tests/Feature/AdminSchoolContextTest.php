@@ -109,11 +109,11 @@ class AdminSchoolContextTest extends TestCase
         $response = $this->withoutMiddleware()
             ->session(['cas_is_admin' => true])
             ->post(route('admin.select-school'), [
-                'school_code' => $this->school1->kodikos_sxoleiou,
+                'school_id' => $this->school1->id,
             ]);
 
         $response->assertRedirect(route('admin.index'));
-        $response->assertSessionHas('admin_selected_school', $this->school1->kodikos_sxoleiou);
+        $response->assertSessionHas('admin_selected_school', $this->school1->id);
     }
 
     public function test_admin_cannot_select_nonexistent_school(): void
@@ -121,7 +121,7 @@ class AdminSchoolContextTest extends TestCase
         $response = $this->withoutMiddleware()
             ->session(['cas_is_admin' => true])
             ->post(route('admin.select-school'), [
-                'school_code' => 'NONEXISTENT',
+                'school_id' => 999,
             ]);
 
         $response->assertRedirect(route('admin.index'));
@@ -131,7 +131,7 @@ class AdminSchoolContextTest extends TestCase
     public function test_admin_can_clear_school_selection(): void
     {
         $response = $this->withoutMiddleware()
-            ->session(['cas_is_admin' => true, 'admin_selected_school' => $this->school1->kodikos_sxoleiou])
+            ->session(['cas_is_admin' => true, 'admin_selected_school' => $this->school1->id])
             ->post(route('admin.clear-school'));
 
         $response->assertRedirect(route('admin.index'));
@@ -188,7 +188,7 @@ class AdminSchoolContextTest extends TestCase
         $response = $this->withoutMiddleware()
             ->session([
                 'cas_is_admin' => true,
-                'admin_selected_school' => $this->school1->kodikos_sxoleiou,
+                'admin_selected_school' => $this->school1->id,
             ])
             ->get(route('admin.index'));
 

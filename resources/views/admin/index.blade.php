@@ -12,24 +12,6 @@
             </div>
         </div>
 
-        <!-- Selected School Info -->
-        @if ($selectedSchool)
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h4 class="font-semibold text-blue-900">Επιλεγμένο Σχολείο</h4>
-                        <p class="text-blue-800">{{ $selectedSchool->displayname }}</p>
-                    </div>
-                    <form action="{{ route('admin.clear-school') }}" method="POST" class="inline">
-                        @csrf
-                        <button type="submit" class="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 text-sm">
-                            Καθαρισμός Επιλογής
-                        </button>
-                    </form>
-                </div>
-            </div>
-        @endif
-
         <!-- Excursions Table -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <div class="bg-gray-100 px-6 py-4 border-b">
@@ -49,14 +31,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($allExcursions as $index => $excursion)
+                        @foreach ($allExcursions as $index => $excursion)
                             <tr class="border-b hover:bg-gray-50">
                                 <td class="px-4 py-3 text-sm">{{ $index + 1 }}</td>
                                 <td class="px-4 py-3 text-sm">
                                     <form action="{{ route('admin.select-school') }}" method="POST" class="inline">
                                         @csrf
-                                        <input type="hidden" name="school_code"
-                                            value="{{ $excursion->school->kodikos_sxoleiou }}">
+                                        <input type="hidden" name="school_id" value="{{ $excursion->school->id }}">
                                         <button type="submit" class="text-coral hover:underline font-medium">
                                             {{ $excursion->school->displayname }}
                                         </button>
@@ -93,13 +74,7 @@
                                     </a>
                                 </td>
                             </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="px-4 py-8 text-center text-gray-500">
-                                    Δεν υπάρχουν εκδρομές για το τρέχον σχολικό έτος
-                                </td>
-                            </tr>
-                        @endforelse
+                        @endforeach
                     </tbody>
                 </table>
             </div>

@@ -23,10 +23,32 @@
                             class="h-10 mr-3">
                         Σχ. Εκδρομές
                     </a>
-                    <span class="ps-2">
+                    <span class="relative ps-2 flex items-center" x-data="{ open: false }" @click.outside="open = false">
                         <i class="fas fa-graduation-cap"></i>
-                        {{ $currentYear->sxoliko_etos ?? '' }}
-                        @if ($currentSchool ?? null)
+                        @if ($isAdmin)
+                            <button type="button" @click="open = !open"
+                                class="text-blue-600 underline hover:text-coral-light">
+                                {{ $currentYear->sxoliko_etos ?? '' }}
+                            </button>
+                            <div x-show="open" x-transition
+                                class="absolute z-10 mt-2 rounded-md bg-white p-3 shadow-lg">
+                                <form method="POST" action="{{ route('admin.session-switch-year') }}">
+                                    @csrf
+                                    <label for="school-year-select" class="sr-only">Επιλέξτε σχολικό έτος</label>
+                                    <select id="school-year-select" name="year_id" @change="$el.form.submit()"
+                                        class="rounded border border-gray-300 px-3 py-2 text-gray-900 focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral">
+                                        @foreach ($schoolYears as $schoolYear)
+                                            <option value="{{ $schoolYear->id }}" @selected($schoolYear->id === $currentYear->id)>
+                                                {{ $schoolYear->sxoliko_etos }} @if ($schoolYear->is_current)
+                                                    (τρέχον)
+                                                @endif
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </form>
+                            </div>
+                        @else
+                            {{ $currentYear->sxoliko_etos ?? '' }}
                             - {{ $currentSchool->displayname }}
                         @endif
                     </span>
@@ -102,6 +124,43 @@
 
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 py-6 min-h-[calc(100vh-180px)]">
+        <!-- Selected School Info -->
+        @if ($selectedSchool)
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 my-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h4 class="font-semibold text-blue-900">Επιλεγμένο Σχολείο</h4>
+                        <p class="text-blue-800">{{ $selectedSchool->displayname }}</p>
+                    </div>
+                    <form action="{{ route('admin.clear-school') }}" method="POST" class="inline">
+                        @csrf
+                        <button type="submit" class="bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600 text-sm">
+                            Καθαρισμός Επιλογής
+                        </button>
+                    </form>
+                </div>
+            </div>
+        @elseif (Session::get('cas_model_category') === 'user')
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 my-4">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h4 class="font-semibold text-yellow-900">Δεν έχετε επιλέξει σχολείο</h4>
+                        <p class="text-yellow-800">Παρακαλώ επιλέξτε ένα σχολείο αν θέλετε να καταχωρήσετε εκδρομή.</p>
+                        <form action="{{ route('admin.select-school') }}" method="POST">
+                            @csrf
+                            <select id="school-select" name="school_id" onchange="this.form.submit()"
+                                class="mt-2 border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-coral focus:border-transparent">
+                                <option>-- Επιλέξτε Σχολείο --</option>
+                                @foreach ($schools as $school)
+                                    <option value="{{ $school->id }}">{{ $school->displayname }}</option>
+                                @endforeach
+                            </select>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         @if (session('success'))
             <div x-data="{ show: true }" x-show="show" x-transition
                 class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4"
@@ -132,9 +191,6 @@
             <p>&copy; {{ date('Y') }} Τμήμα Πληροφορικής - ΔΔΕ ΔΥΤ Θεσσαλονίκης</p>
         </div>
     </footer>
-
-    <!-- JavaScript -->
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     @yield('scripts')
 </body>

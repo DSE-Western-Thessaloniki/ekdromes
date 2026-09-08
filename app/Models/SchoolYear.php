@@ -38,4 +38,24 @@ class SchoolYear extends Model
         static::where('is_current', true)->update(['is_current' => false]);
         static::where('sxoliko_etos', $sxolikoEtos)->update(['is_current' => true]);
     }
+
+    public static function getSessionCurrent(): ?self
+    {
+        $sessionYear = session('current_school_year');
+        if (! $sessionYear || ! isset($sessionYear['id'])) {
+            $current = static::getCurrent();
+            if ($current) {
+                session(['current_school_year' => $current->toArray()]);
+            }
+
+            return $current;
+        }
+
+        return static::find($sessionYear['id']);
+    }
+
+    public function setSessionCurrent(): void
+    {
+        session(['current_school_year' => $this->toArray()]);
+    }
 }

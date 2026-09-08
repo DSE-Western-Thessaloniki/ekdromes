@@ -6,6 +6,7 @@ use App\Models\Excursion;
 use App\Models\School;
 use App\Models\SchoolYear;
 use App\Services\SchoolService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -17,19 +18,16 @@ class AdminController extends Controller
 
     public function index()
     {
-        $currentYear = SchoolYear::getCurrent();
-        if (! $currentYear) {
-            $currentYear = SchoolYear::orderBy('sxoliko_etos', 'desc')->first();
-        }
+        $currentYear = SchoolYear::getSessionCurrent();
 
         if (! $currentYear) {
             return redirect()->route('dashboard')->with('error', 'Δεν υπάρχει διαθέσιμο σχολικό έτος');
         }
 
-        $selectedSchoolCode = Session::get('admin_selected_school');
+        $selectedSchoolId = Session::get('admin_selected_school');
         $selectedSchool = null;
-        if ($selectedSchoolCode) {
-            $selectedSchool = School::where('kodikos_sxoleiou', $selectedSchoolCode)->first();
+        if ($selectedSchoolId) {
+            $selectedSchool = School::find($selectedSchoolId);
         }
 
         $allExcursions = Excursion::where('school_year_id', $currentYear->id)
@@ -40,7 +38,7 @@ class AdminController extends Controller
             ->orderBy('id', 'desc')
             ->get();
 
-        return view('admin.index', ['currentYear' => $currentYear, 'allExcursions' => $allExcursions, 'selectedSchool' => $selectedSchool]);
+        return view('admin.index', ['currentYear' => $currentYear, 'allExcursions' => $allExcursions]);
     }
 
     public function switchYear(Request $request)
@@ -57,17 +55,30 @@ class AdminController extends Controller
             ->with('success', 'Το σχολικό έτος άλλαξε σε '.$year->sxoliko_etos);
     }
 
+    public function sessionSwitchYear(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'year_id' => 'required|exists:schoolyears,id',
+        ]);
+
+        $year = SchoolYear::find($request->year_id);
+        Session::put('current_school_year', $year);
+
+        return redirect()->route('admin.index')
+            ->with('success', 'Το σχολικό έτος άλλαξε προσωρινά σε '.$year->sxoliko_etos);
+    }
+
     public function selectSchool(Request $request)
     {
-        $schoolCode = $request->input('school_code');
-        $school = School::where('kodikos_sxoleiou', $schoolCode)->first();
+        $schoolId = $request->input('school_id');
+        $school = School::find($schoolId);
 
         if (! $school) {
             return redirect()->route('admin.index')
                 ->withErrors(['school_code' => 'Το σχολείο δεν βρέθηκε']);
         }
 
-        Session::put('admin_selected_school', $schoolCode);
+        Session::put('admin_selected_school', $schoolId);
 
         return redirect()->route('admin.index')
             ->with('success', 'Επιλέχθηκε το σχολείο: '.$school->displayname);
