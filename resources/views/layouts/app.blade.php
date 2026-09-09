@@ -49,7 +49,7 @@
                             </div>
                         @else
                             {{ $currentYear->sxoliko_etos ?? '' }}
-                            - {{ $currentSchool->displayname }}
+                            - {{ $currentSchool?->displayname }}
                         @endif
                     </span>
                 </div>
@@ -134,7 +134,7 @@
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 py-6 min-h-[calc(100vh-180px)]">
         <!-- Selected School Info -->
-        @if ($selectedSchool)
+        @if ($selectedSchool ?? false)
             <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 my-4">
                 <div class="flex justify-between items-center">
                     <div>
