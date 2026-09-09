@@ -1,15 +1,6 @@
-<!doctype html>
-<html lang="el">
+@extends('layouts.pdf')
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-    <link href="{{ Vite::asset('resources/css/transmittal.css') }}" rel="stylesheet" />
-
-</head>
-
-<body>
-    {{ Vite::asset('resources/css/transmittal.css') }}
+@section('content')
     <x-excursion.transmittal.header :date="$excursion->hmera_diavivastikou?->format('d-m-Y')" :protocol="$excursion->ar_prot_sxoleiou" />
 
     <x-excursion.transmittal.school_details :school-name="$excursion->school->displayname" :phonenumbers="$excursion->school->phonenumbers" :email="$excursion->school->email" class="details" />
@@ -39,7 +30,4 @@
     </ol>
 
     <x-excursion.transmittal.signature :title="$excursion->prosfonisi_ypografonta" :name="$excursion->onoma_ypografonta" class="signature" />
-
-</body>
-
-</html>
+@endsection

@@ -1,69 +1,9 @@
-<!doctype html>
-<html lang="el">
+@extends('layouts.pdf')
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <style>
-        @page {
-            margin: 18mm 15mm;
-        }
-
-        body {
-            font-family: DejaVu Sans, sans-serif;
-            font-size: 11pt;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        td {
-            vertical-align: top;
-        }
-
-        .header-left {
-            width: 55%;
-            text-align: center;
-        }
-
-        .header-right {
-            width: 45%;
-            padding-top: 8mm;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        .details {
-            margin-top: 8mm;
-        }
-
-        .title {
-            font-weight: bold;
-        }
-
-        .body-copy {
-            text-indent: 1em;
-        }
-
-        .signature {
-            margin-top: 16mm;
-            text-align: center;
-        }
-    </style>
-</head>
-
-<body>
+@section('content')
     <x-excursion.transmittal.header :date="$excursion->hmera_diavivastikou?->format('d-m-Y')" :protocol="$excursion->ar_prot_sxoleiou" />
 
-    <div class="details">
-        <strong>ΣΤΟΙΧΕΙΑ ΣΧΟΛΕΙΟΥ:</strong><br>
-        Σχολείο: {{ $excursion->school->displayname }}<br>
-        Τηλ.: {{ $excursion->school->phonenumbers }}<br>
-        email: {{ $excursion->school->email }}
-    </div>
+    <x-excursion.transmittal.school_details :school-name="$excursion->school->displayname" :phonenumbers="$excursion->school->phonenumbers" :email="$excursion->school->email" class="details" />
 
     <p class="center title">Ε Ν Η Μ Ε Ρ Ω Σ Η<br>
         ΓΙΑ ΠΡΑΓΜΑΤΟΠΟΙΗΣΗ ΗΜΕΡΗΣΙΑΣ ΕΚΠΑΙΔΕΥΤΙΚΗΣ ΕΚΔΡΟΜΗΣ
@@ -76,12 +16,12 @@
 
     <ol>
         @php
-        if ($excursion->plithos_synodoi) {
-        $plithos_ekp = $excursion->plithos_synodoi + 1; // increase one to include leader
-        } else {
-        $plithos_ekp = '';
-        }
-        @endif
+            if ($excursion->plithos_synodoi) {
+                $plithos_ekp = $excursion->plithos_synodoi + 1; // increase one to include leader
+            } else {
+                $plithos_ekp = '';
+            }
+        @endphp
         <li><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές/τριες του σχολείου μας και
             <b>$plithos_ekp</b> εκπαιδευτικοί πρόκειται να πραγματοποιήσουν ημερήσια
             εκπαιδευτική εκδρομή του άρθρου 2 παρ.1,2,3,4 με τον εξής
@@ -94,10 +34,5 @@
         <li>Έχουν τηρηθεί όλα τα αναφερόμενα της ανωτέρω Υ.Α.</li>
     </ol>
 
-    <p class="signature">
-        {{ $excursion->prosfonisi_ypografonta ?? 'ΝΑ' }}<br><br><br>
-        {{ $excursion->onoma_ypografonta ?? 'ΝΑ' }}
-    </p>
-</body>
-
-</html>
+    <x-excursion.transmittal.signature :title="$excursion->prosfonisi_ypografonta" :name="$excursion->onoma_ypografonta" class="signature" />
+@endsection
