@@ -44,7 +44,6 @@ class ExcursionSubmissionPipelineTest extends TestCase
         $this->excursion = Excursion::create([
             'school_year_id' => $this->year->id,
             'school_id' => $this->school->id,
-            'kodikos_sxoleiou' => $this->school->kodikos_sxoleiou,
             'eidos_ekdromis' => 'Σχολικός Περίπατος',
             'proorismos' => 'Θεσσαλονίκη',
             'hmera_ekdromis_anaxorisis' => '2026-11-05',
@@ -67,12 +66,12 @@ class ExcursionSubmissionPipelineTest extends TestCase
     {
         $pdfService = new PdfService;
 
-        $result = $pdfService->generateTransmittalLetter($this->excursion);
+        $result = $pdfService->generateExcursionFiles($this->excursion);
 
         // Check if PDF was generated (should return filename)
-        $this->assertIsString($result);
-        $this->assertStringContainsString('F_', $result);
-        $this->assertStringContainsString('.pdf', $result);
+        $this->assertIsString($result[0]);
+        $this->assertStringContainsString('F_', $result[0]);
+        $this->assertStringContainsString('.pdf', $result[0]);
     }
 
     public function test_file_service_lists_files_for_excursion(): void

@@ -186,7 +186,7 @@ class ExcursionController extends Controller
                 ->with('error', 'Δεν βρέθηκαν αρχεία για υποβολή. Προσθέστε τα απαιτούμενα έγγραφα πρώτα.');
         }
 
-        $pdfPath = $this->pdfService->generateTransmittalLetter($excursion);
+        $pdfPath = $this->pdfService->generateExcursionFiles($excursion);
         if (! $pdfPath) {
             return redirect()->route('excursion.files', $excursion)
                 ->with('error', 'Απέτυχε η δημιουργία του διαβιβαστικού PDF.');
