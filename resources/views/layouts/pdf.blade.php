@@ -55,6 +55,14 @@
             margin-top: 16mm;
             text-align: center;
         }
+
+        .lh-1.5 {
+            line-height: 150%;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
     </style>
 
 </head>

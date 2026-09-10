@@ -6,7 +6,7 @@
     <x-excursion.transmittal.school-details :school-name="$excursion->school->displayname" :phone-numbers="$excursion->school->phonenumbers" :email="$excursion->school->email" class="details" />
 
     <p class="center title">Ε Ν Η Μ Ε Ρ Ω Σ Η<br>
-        ΓΙΑ ΠΡΑΓΜΑΤΟΠΟΙΗΣΗ ΗΜΕΡΗΣΙΑΣ ΕΚΠΑΙΔΕΥΤΙΚΗΣ ΕΚΔΡΟΜΗΣ
+        ΓΙΑ ΠΡΑΓΜΑΤΟΠΟΙΗΣΗ ΔΙΔΑΚΤΙΚΗΣ ΕΠΙΣΚΕΨΗΣ
     </p>
 
     <p class="body-copy">
@@ -20,15 +20,22 @@
             if ($excursion->plithos_synodoi) {
                 $plithos_ekp = $excursion->plithos_synodoi + 1; // increase one to include leader
             }
+
+            $hmera_ekdromis = $excursion->hmera_ekdromis_anaxorisis?->date('d-m-Y');
+            $hmera_epistrofis = $excursion->hmera_epistrofis?->date('d-m-Y');
+            $hmerominies = "στις <b>$hmera_ekdromis</b>";
+            if ($hmera_ekdromis !== $hmera_epistrofis) {
+                $hmerominies = "από <b>$hmera_ekdromis</b> έως <b>$hmera_epistrofis</b>";
+            }
         @endphp
-        <li><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές/τριες του σχολείου μας και
-            <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί πρόκειται να πραγματοποιήσουν ημερήσια
-            εκπαιδευτική εκδρομή του άρθρου 2 παρ.1,2,3,4 με τον εξής
-            προορισμό: <b>{{ $excursion->proorismos }}</b>, στις
-            <b>{{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}</b>
+        <li><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές και μαθήτριες του
+            σχολείου μας των τάξεων/τμημάτων: {{ $excursion->tmimata }} και
+            <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί πρόκειται να πραγματοποιήσουν διδακτική επίσκεψη
+            με τον εξής προορισμό: <b>{{ $excursion->proorismos }}</b>, στις
+            {{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}
+            στο πλαίσιο του μαθήματος: {{ $excursion->titlos_programmatos }} σύμφωνα
+            με το άρθρο 4.
         </li>
-        <li>Η μετακίνηση θα γίνει με το/τα εξής μεταφορικό/α μέσο/α: {{ $excursion->metaforika_mesa }}. Το πρακτορείο
-            είναι το εξής: {{ $excursion->onoma_praktoreio }}</li>
         <li>Έχει ολοκληρωθεί όλη η προβλεπόμενη διαδικασία</li>
         <li>Έχουν τηρηθεί όλα τα αναφερόμενα της ανωτέρω Υ.Α.</li>
     </ol>
