@@ -35,9 +35,9 @@ class PdfService
             $pdfPath = $this->storageFolder.'/'.$filename;
             Pdf::loadView($view['view'], [
                 'excursion' => $excursion,
-            ])->save($pdfPath);
+            ])->save($pdfPath, 'local');
 
-            if (! file_exists($pdfPath)) {
+            if (! Storage::disk('local')->exists($pdfPath)) {
                 throw new Exception('PDF was not saved to disk');
             }
 
@@ -52,9 +52,9 @@ class PdfService
      */
     public function getStorageFolder(Excursion $excursion): string
     {
-        return Storage::disk('local')->path('/arxeia/'.
+        return 'arxeia/'.
             $excursion->schoolYear->sxoliko_etos.'/'.
-            $excursion->school->kodikos_sxoleiou);
+            $excursion->school->kodikos_sxoleiou;
     }
 
     /**
@@ -62,11 +62,11 @@ class PdfService
      */
     protected function ensureStorageFolderExists(): bool
     {
-        if (! is_dir($this->storageFolder)) {
-            return @mkdir($this->storageFolder, 0755, true);
+        if (! Storage::disk('local')->exists($this->storageFolder)) {
+            return Storage::disk('local')->makeDirectory($this->storageFolder);
         }
 
-        return is_writable($this->storageFolder);
+        return true;
     }
 
     protected function getExcursionViews(Excursion $excursion): array

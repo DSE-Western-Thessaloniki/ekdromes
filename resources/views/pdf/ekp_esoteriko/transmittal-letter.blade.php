@@ -27,8 +27,8 @@
                 $name_katalyma = "Το όνομα του καταλύματος είναι: {$excursion->onoma_jenodoxeio} <br>";
             }
 
-            $hmera_ekdromis = $excursion->hmera_ekdromis_anaxorisis?->date('d-m-Y');
-            $hmera_epistrofis = $excursion->hmera_epistrofis?->date('d-m-Y');
+            $hmera_ekdromis = $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y');
+            $hmera_epistrofis = $excursion->hmera_epistrofis?->format('d-m-Y');
             $hmerominies = "στις <b>$hmera_ekdromis</b>";
             if ($hmera_ekdromis !== $hmera_epistrofis) {
                 $hmerominies = "από <b>$hmera_ekdromis</b> έως <b>$hmera_epistrofis</b>";
