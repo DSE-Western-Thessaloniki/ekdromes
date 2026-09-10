@@ -3,7 +3,7 @@
 @section('content')
     <x-excursion.transmittal.header :date="$excursion->hmera_diavivastikou?->format('d-m-Y')" :protocol="$excursion->ar_prot_sxoleiou" />
 
-    <x-excursion.transmittal.school_details :school-name="$excursion->school->displayname" :phonenumbers="$excursion->school->phonenumbers" :email="$excursion->school->email" class="details" />
+    <x-excursion.transmittal.school-details :school-name="$excursion->school->displayname" :phone-numbers="$excursion->school->phonenumbers" :email="$excursion->school->email" class="details" />
 
     <p class="center title">Ε Ν Η Μ Ε Ρ Ω Σ Η<br>
         ΓΙΑ ΠΡΑΓΜΑΤΟΠΟΙΗΣΗ ΕΚΔΡΟΜΗΣ<br>

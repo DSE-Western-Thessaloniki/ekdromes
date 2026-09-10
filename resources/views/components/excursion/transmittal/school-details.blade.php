@@ -1,8 +1,8 @@
-@props(['schoolName', 'phonenumbers', 'email'])
+@props(['schoolName', 'phoneNumbers', 'email'])
 
 <div {{ $attributes }}>
     <strong>ΣΤΟΙΧΕΙΑ ΣΧΟΛΕΙΟΥ:</strong><br>
     Σχολείο: {{ $schoolName }}<br>
-    Τηλ.: {{ $phonenumbers }}<br>
+    Τηλ.: {{ $phoneNumbers }}<br>
     email: {{ $email }}
 </div>
