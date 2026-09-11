@@ -59,7 +59,10 @@
                         value="{{ $excursion->eidos_ekdromis }}" readonly>
                     <input type="hidden" name="eidos_ekdromis" value="{{ $excursion->eidos_ekdromis }}">
                 @else
-                    <select name="eidos_ekdromis" id="eidos_ekdromis" x-model="selectedType"
+                    <input type="text" class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
+                        value="{{ $excursionType }}" readonly>
+                    <input type="hidden" name="eidos_ekdromis" value="{{ $excursionType }}">
+                    {{-- <select name="eidos_ekdromis" id="eidos_ekdromis" x-model="selectedType"
                         class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-coral focus:border-transparent"
                         required>
                         <option value="">-- Επιλέξτε είδος εκδρομής --</option>
@@ -67,7 +70,7 @@
                             <option value="{{ $key }}" @selected($excursionType === $key)>{{ $key }}
                             </option>
                         @endforeach
-                    </select>
+                    </select> --}}
                 @endif
             </div>
 
