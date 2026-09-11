@@ -28,7 +28,7 @@
                         @if ($isAdmin)
                             <button type="button" @click="open = !open"
                                 class="text-blue-600 underline hover:text-coral-light">
-                                {{ $currentYear->sxoliko_etos ?? '' }}
+                                {{ $currentYear['sxoliko_etos'] ?? '' }}
                             </button>
                             <div x-show="open" x-transition
                                 class="absolute z-10 mt-2 rounded-md bg-white p-3 shadow-lg">
@@ -38,7 +38,7 @@
                                     <select id="school-year-select" name="year_id" @change="$el.form.submit()"
                                         class="rounded border border-gray-300 px-3 py-2 text-gray-900 focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral">
                                         @foreach ($schoolYears as $schoolYear)
-                                            <option value="{{ $schoolYear->id }}" @selected($schoolYear->id === $currentYear->id)>
+                                            <option value="{{ $schoolYear->id }}" @selected($schoolYear->id === $currentYear['id'])>
                                                 {{ $schoolYear->sxoliko_etos }} @if ($schoolYear->is_current)
                                                     (τρέχον)
                                                 @endif
@@ -48,7 +48,7 @@
                                 </form>
                             </div>
                         @else
-                            {{ $currentYear->sxoliko_etos ?? '' }}
+                            {{ $currentYear['sxoliko_etos'] ?? '' }}
                             - {{ $currentSchool?->displayname }}
                         @endif
                     </span>
@@ -117,7 +117,7 @@
                         Εκδρομή</a>
                     <div class="border-t border-white/20 my-2"></div>
                     <span class="block text-white/80 px-3 py-2 text-sm">
-                        {{ $currentYear->sxoliko_etos ?? '' }}
+                        {{ $currentYear['sxoliko_etos'] ?? '' }}
                         @if ($currentSchool ?? null)
                             - {{ $currentSchool->displayname }}
                         @endif
