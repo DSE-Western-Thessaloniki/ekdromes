@@ -10,6 +10,7 @@ use App\Services\FileService;
 use App\Services\PdfService;
 use App\Services\ProtocolService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
 class ExcursionSubmissionPipelineTest extends TestCase
@@ -64,6 +65,7 @@ class ExcursionSubmissionPipelineTest extends TestCase
 
     public function test_pdf_service_generates_transmittal_letter(): void
     {
+        Storage::fake('local');
         $pdfService = new PdfService;
 
         $result = $pdfService->generateExcursionFiles($this->excursion);
