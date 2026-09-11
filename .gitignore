@@ -8,6 +8,7 @@
 .env
 .env.backup
 .env.production
+.env.testing
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -20,3 +21,4 @@ yarn-error.log
 /.vscode/settings.json
 docker-compose.override.yml
 /_ide_helper*
+tests/PdfOutput
