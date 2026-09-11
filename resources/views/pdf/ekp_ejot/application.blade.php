@@ -10,12 +10,12 @@
     <br>
     <table>
         <tr>
-            <td>
+            <td class="w-50">
                 <b>Α. ΣΤΟΙΧΕΙΑ ΣΧΟΛΙΚΗΣ ΜΟΝΑΔΑΣ</b><br>
                 <x-excursion.application.school-details :school-name="$excursion->school->displayname" :phone-numbers="$excursion->school->phonenumbers" :email="$excursion->school->email" /><br>
                 {{ $excursion->prosfonisi_ypografonta }}: {{ $excursion->onoma_ypografonta }}
             </td>
-            <td>
+            <td class="w-50">
                 <b>Β. ΣΤΟΙΧΕΙΑ ΕΚΔΡΟΜΗΣ</b><br>
                 Τόπος μετακίνησης: {{ $excursion->proorismos }}<br>
             </td>
@@ -55,7 +55,7 @@
         Αριθμός συνοδών εκπαιδευτικών (εκτός του αρχηγού): {{ $excursion->plithos_synodoi }} (1/20μαθητές/τριες)<br>
     </p>
 
-    <p style="lh-1.5">
+    <p class="lh-1.5 justify">
         <br> <br>
         <b>Δ. ΣΥΝΗΜΜΕΝΑ ΥΠΟΒΑΛΛΟΝΤΑΙ:</b><br>
 

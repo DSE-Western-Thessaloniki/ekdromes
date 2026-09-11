@@ -10,7 +10,7 @@
         της τελευταίας τάξης στο εσωτερικό
     </p>
 
-    <p class="body-copy">
+    <p class="indent justify">
         Σύμφωνα με το άρθρο 17 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β'/13-02-2020) και την πράξη
         <strong>{{ $excursion->ar_prajis_syllogou }}</strong> του Συλλόγου Διδασκόντων/ουσών σας ενημερώνουμε ότι:
     </p>
@@ -22,7 +22,7 @@
                 $plithos_ekp = $excursion->plithos_synodoi + 1; // increase one to include leader
             }
         @endphp
-        <li><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές/τριες της τελευταίας τάξης
+        <li class="justify"><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές/τριες της τελευταίας τάξης
             του σχολείου μας και <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί πρόκειται να πραγματοποιήσουν
             πολυήμερη εκπαιδευτική εκδρομή του άρθρου 2 παρ.5 με τον εξής
             προορισμό: <b>{{ $excursion->proorismos }}</b>, από

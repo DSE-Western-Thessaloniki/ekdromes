@@ -8,12 +8,12 @@
   διαβάζει με τίποτα. Κράτησε το στυλ εδώ μέσα -->
     <style>
         @page {
-            margin: 18mm 15mm;
+            margin: 12mm 15mm;
         }
 
         body {
             font-family: DejaVu Sans, sans-serif;
-            font-size: 11pt;
+            font-size: 0.8em;
         }
 
         table {
@@ -26,7 +26,6 @@
         }
 
         .header-left {
-            width: 55%;
             text-align: center;
         }
 
@@ -39,6 +38,10 @@
             text-align: center;
         }
 
+        .justify {
+            text-align: justify;
+        }
+
         .details {
             margin-top: 8mm;
         }
@@ -47,8 +50,8 @@
             font-weight: bold;
         }
 
-        .body-copy {
-            text-indent: 1em;
+        .indent {
+            text-indent: 1.25em;
         }
 
         .signature {
@@ -62,6 +65,10 @@
 
         .page-break {
             page-break-after: always;
+        }
+
+        .w-50 {
+            width: 50%;
         }
     </style>
 

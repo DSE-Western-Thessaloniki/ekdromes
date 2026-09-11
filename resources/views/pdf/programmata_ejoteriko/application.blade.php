@@ -10,12 +10,12 @@
     <br>
     <table>
         <tr>
-            <td>
+            <td class="w-50">
                 <b>Α. ΣΤΟΙΧΕΙΑ ΣΧΟΛΙΚΗΣ ΜΟΝΑΔΑΣ</b><br>
-                <x-excursion.application.school-details :school-name="$excursion->school->displayname" :phone-numbers="$excursion->school->phonenumbers" :email="$excursion->school->email" /><br>
+                <x-excursion.application.school-details :school-name="$excursion->school->displayname" :phone-numbers="$excursion->school->phonenumbers" :email="$excursion->school->email" />
                 {{ $excursion->prosfonisi_ypografonta }}: {{ $excursion->onoma_ypografonta }}
             </td>
-            <td>
+            <td class="w-50">
                 <b>Β. ΣΤΟΙΧΕΙΑ ΕΚΔΡΟΜΗΣ</b><br>
                 Τόπος Επίσκεψης: {{ $excursion->proorismos }}<br>
                 <u>Η μετακίνηση γίνεται με:</u><br>
@@ -71,7 +71,7 @@
                 'Όλοι οι συμμετέχοντες μαθητές είναι μέλη της παιδαγωγικής ομάδας. Από τους εκπαιδευτικούς, 1 εκτός παιδαγωγικής ομάδας συνοδεύει για λόγους ανωτέρας βίας';
         }
     @endphp
-    <p style="lh-1.5">
+    <p class="lh-1.5 justify">
         <br> <br>
         <b>Δ. ΣΥΝΗΜΜΕΝΑ ΥΠΟΒΑΛΛΟΝΤΑΙ:</b><br>
 

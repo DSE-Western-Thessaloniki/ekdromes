@@ -10,7 +10,7 @@
         <i>{{ $excursion->proorismos }}</i>
     </p>
 
-    <p class="body-copy">
+    <p class="indent justify">
         Σύμφωνα με το άρθρο 17 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β'/13-02-2020) και την πράξη
         <strong>{{ $excursion->ar_prajis_syllogou }}</strong> του Συλλόγου Διδασκόντων/ουσών σας ενημερώνουμε ότι:
     </p>
@@ -22,27 +22,25 @@
                 $plithos_ekp = $excursion->plithos_synodoi + 1; // increase one to include leader
             }
 
-            $name_katalyma = '';
-            if ($excursion->onoma_jenodoxeio !== '') {
-                $name_katalyma = "Το όνομα του καταλύματος είναι: {$excursion->onoma_jenodoxeio} <br>";
-            }
-
             $hmera_ekdromis = $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y');
             $hmera_epistrofis = $excursion->hmera_epistrofis?->format('d-m-Y');
-            $hmerominies = "στις <b>$hmera_ekdromis</b>";
-            if ($hmera_ekdromis !== $hmera_epistrofis) {
-                $hmerominies = "από <b>$hmera_ekdromis</b> έως <b>$hmera_epistrofis</b>";
-            }
         @endphp
-        <li><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές και μαθήτριες του
+        <li class="justify"><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές και μαθήτριες του
             σχολείου μας των τάξεων/τμημάτων: {{ $excursion->tmimata }} και
             <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί πρόκειται να μετακινηθούν
-            με τον εξής προορισμό: <b>{{ $excursion->proorismos }}</b>, {{ $hmerominies }}
+            με τον εξής προορισμό: <b>{{ $excursion->proorismos }}</b>,
+            @if ($hmera_ekdromis !== $hmera_epistrofis)
+                από <b>{{ $hmera_ekdromis }}</b> έως <b>{{ $hmera_epistrofis }}</b>
+            @else
+                στις <b>{{ $hmera_ekdromis }}</b>
+            @endif
             με το Αναλυτικό Πρόγραμμα σχετικά με το/τα μάθημα/ματα:
             <i>{{ $excursion->mathimata }}</i> στο πλαίσιο της παρ. 2 του άρθρου 3.<br>
             Η μετακίνηση θα πραγματοποιηθεί με το/τα εξής μεταφορικό/α μέσο/α:
             {{ $excursion->metaforika_mesa }}.<br>
-            {{ $name_katalyma }}
+            @if ($excursion->onoma_jenodoxeio)
+                Το όνομα του καταλύματος είναι: {$excursion->onoma_jenodoxeio}<br>
+            @endif
             Το πρακτορείο είναι το εξής: {{ $excursion->onoma_praktoreio }}
         </li>
         <li>Έχει ολοκληρωθεί όλη η προβλεπόμενη διαδικασία</li>

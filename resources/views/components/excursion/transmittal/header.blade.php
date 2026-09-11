@@ -17,6 +17,7 @@
                 ΔΥΤΙΚΗΣ ΘΕΣΣΑΛΟΝΙΚΗΣ
             </p>
         </td>
+        <td></td>
         <td class="header-right">
             Θεσσαλονίκη: {{ $date }}<br>
             Αρ. Πρωτ.: {{ $protocol }}<br><br>

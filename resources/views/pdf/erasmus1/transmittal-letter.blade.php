@@ -8,30 +8,34 @@
     @php
         $hmera_ekdromis = $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y');
         $hmera_epistrofis = $excursion->hmera_epistrofis?->format('d-m-Y');
-        $hmerominies = "στις <b>{$hmera_ekdromis}</b>";
-        if ($hmera_ekdromis !== $hmera_epistrofis) {
-            $hmerominies = "από <b>$hmera_ekdromis</b> έως <b>$hmera_epistrofis</b>";
-        }
     @endphp
     <p class="center title">ΔΙΑΒΙΒΑΣΤΙΚΟ
     <p>
     <p class="title">ΘΕΜΑ: Αποστολή αίτησης και δικαιολογητικών για την έγκριση
         μετακίνησης εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1</p>
 
-    <p class="body-copy">
+    <p class="indent justify">
         Σύμφωνα με τις Υ.Α 25735/Η1/20-02-2020, (ΦΕΚ 625/τ.Β'/27-02-2020) και
         Υ.Α.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β'/13-02-2020), σας διαβιβάζουμε την
         αίτηση μαζί με τα απαραίτητα δικαιολογητικά σχετικά με την έγκριση της
         μετακίνησης στον προορισμό: <i>{{ $excursion->proorismos }}</i> των:<br>
     <ol>
-        @foreach (explode("\n", $excursion->erasmus_lista_kathig_kaieidikotita) as $teacher)
-            <li>{{ $teacher }}</li>
+        @foreach (explode("\n", $excursion->erasmus_lista_kathig_kaieidikotita ?? '') as $teacher)
+            @if ($teacher)
+                <li>{{ $teacher }}</li>
+            @endif
         @endforeach
     </ol>
     <br>στο πλαίσιο του Ευρωπαϊκού Προγράμματος Erasmus+ ΚΑ1 <i>{{ $excursion->eidos_programmatos }}</i>,
     με τίτλο: « {{ $excursion->titlos_programmatos }} » και
     κωδικό : {{ $excursion->ar_pr_egrisis_programmatosdde }}.<br>
-    Η μετακίνηση θα πραγματοποιηθεί {{ $hmerominies }}. <br> <br>
+    Η μετακίνηση θα πραγματοποιηθεί
+    @if ($hmera_ekdromis !== $hmera_epistrofis)
+        από <b>{{ $hmera_ekdromis }}</b> έως <b>{{ $hmera_epistrofis }}</b>.
+    @else
+        στις <b>{{ $hmera_ekdromis }}</b>.
+    @endif
+    <br> <br>
     </p>
 
     <p>
@@ -39,7 +43,7 @@
     </p>
     <p>
         Συνημμένα, σας υποβάλλουμε:<br>
-    <ol>
+    <ol class="justify">
         <li>Αίτηση για την έγκριση της μετακίνησης</li>
         <li>Πρόσκληση ονομαστική για την επίσκεψη/συμμετοχή από το φορέα υποδοχής/διοργάνωσης</li>
         <li>Πρόγραμμα της επίσκεψης από το φορέα υποδοχής/διοργάνωσης</li>

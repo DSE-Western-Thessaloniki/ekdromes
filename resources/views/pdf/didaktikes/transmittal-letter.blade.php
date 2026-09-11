@@ -9,7 +9,7 @@
         ΓΙΑ ΠΡΑΓΜΑΤΟΠΟΙΗΣΗ ΔΙΔΑΚΤΙΚΗΣ ΕΠΙΣΚΕΨΗΣ
     </p>
 
-    <p class="body-copy">
+    <p class="indent justify">
         Σύμφωνα με το άρθρο 17 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β'/13-02-2020) και την πράξη
         <strong>{{ $excursion->ar_prajis_syllogou }}</strong> του Συλλόγου Διδασκόντων/ουσών σας ενημερώνουμε ότι:
     </p>
@@ -28,7 +28,7 @@
                 $hmerominies = "από <b>$hmera_ekdromis</b> έως <b>$hmera_epistrofis</b>";
             }
         @endphp
-        <li><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές και μαθήτριες του
+        <li class="justify"><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές και μαθήτριες του
             σχολείου μας των τάξεων/τμημάτων: {{ $excursion->tmimata }} και
             <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί πρόκειται να πραγματοποιήσουν διδακτική επίσκεψη
             με τον εξής προορισμό: <b>{{ $excursion->proorismos }}</b>, στις
