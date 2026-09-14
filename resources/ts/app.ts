@@ -104,7 +104,7 @@ function initAdminTable(table: HTMLTableElement): void {
             <button type="submit" class="btn btn-gray border font-medium" title="Ακύρωση/Διαγραφή"><i class="far fa-circle-xmark"></i></button>`;
 
           return (
-            `<a href="${route("excursion.edit", data)}" class="btn btn-gray border font-medium"><i class="fas fa-eye" title="Προβολή"></i></a>` +
+            `<a href="${route("excursion.edit", data)}" class="btn btn-gray border font-medium" title="Προβολή"><i class="fas fa-eye"></i></a>` +
             form.outerHTML
           );
         },
