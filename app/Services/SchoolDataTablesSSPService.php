@@ -8,7 +8,7 @@ use App\Contracts\DataTablesSSPInterface;
 use App\Traits\DataTablesSSP;
 use Illuminate\Database\Eloquent\Builder;
 
-final class SearchDataTablesSSPService implements DataTablesSSPInterface
+final class SchoolDataTablesSSPService implements DataTablesSSPInterface
 {
     use DataTablesSSP;
 
@@ -19,9 +19,14 @@ final class SearchDataTablesSSPService implements DataTablesSSPInterface
         $this->searchOptions = $searchOptions;
     }
 
+    public function setSchoolId(int $schoolId): void
+    {
+        $this->params['school_id'] = $schoolId;
+    }
+
     private function createQuery(): Builder
     {
-        $schoolId = (int) $this->params['school_id'] ?? null;
+        $schoolId = $this->params['school_id'] ?? null;
 
         return new ExcursionService()->getExcursionsQuery($schoolId);
     }
@@ -36,12 +41,10 @@ final class SearchDataTablesSSPService implements DataTablesSSPInterface
         $searchValue = $this->params['search']['value'] ?? '';
         if ($searchValue !== '') {
             $query->where(function (Builder $q) use ($searchValue): void {
-                $q->where('ar_prot_sxoleiou', 'like', "%{$searchValue}%")
-                    ->orWhere('eidos_ekdromis', 'like', "%{$searchValue}%")
+                $q->where('eidos_ekdromis', 'like', "%{$searchValue}%")
+                    ->orWhere('proorismos', 'like', "%{$searchValue}%")
                     ->orWhere('status', 'like', "%{$searchValue}%")
-                    ->orWhereHas('school', function (Builder $sq) use ($searchValue): void {
-                        $sq->where('displayname', 'like', "%{$searchValue}%");
-                    });
+                    ->orWhere('ar_prot', 'like', "%{$searchValue}%");
             });
         }
 
@@ -54,11 +57,8 @@ final class SearchDataTablesSSPService implements DataTablesSSPInterface
 
             $data = $column['data'];
             match ($data) {
-                'school.displayname' => $query->whereHas('school', function (Builder $sq) use ($searchVal): void {
-                    $sq->where('displayname', 'like', "%{$searchVal}%");
-                }),
-                'ar_prot_sxoleiou' => $query->where('ar_prot_sxoleiou', 'like', "%{$searchVal}%"),
                 'eidos_ekdromis' => $query->where('eidos_ekdromis', 'like', "%{$searchVal}%"),
+                'proorismos' => $query->where('proorismos', 'like', "%{$searchVal}%"),
                 'status' => $query->where('status', 'like', "%{$searchVal}%"),
                 default => null,
             };
@@ -66,29 +66,14 @@ final class SearchDataTablesSSPService implements DataTablesSSPInterface
 
         $recordsFiltered = $query->count();
 
-        // Ordering - join schools table for sorting by school name
-        $shouldJoinSchool = false;
-        foreach ($this->params['order'] ?? [] as $order) {
-            $columnName = $this->params['columns'][$order['column']]['data'] ?? null;
-            if ($columnName === 'school.displayname') {
-                $shouldJoinSchool = true;
-                break;
-            }
-        }
-
-        if ($shouldJoinSchool) {
-            $query->join('schools', 'schools.id', '=', 'excursions.school_id')
-                ->select('excursions.*');
-        }
-
+        // Ordering
         foreach ($this->params['order'] ?? [] as $order) {
             $columnName = $this->params['columns'][$order['column']]['data'] ?? null;
             $direction = $order['dir'] ?? 'asc';
 
             match ($columnName) {
-                'index' => $query->orderBy('excursions.id', $direction),
-                'school.displayname' => $query->orderBy('schools.displayname', $direction),
-                default => $query->orderBy("excursions.{$columnName}", $direction),
+                'index' => $query->orderBy('id', $direction),
+                default => $query->orderBy($columnName, $direction),
             };
         }
 
@@ -98,14 +83,15 @@ final class SearchDataTablesSSPService implements DataTablesSSPInterface
             ->get()
             ->map(fn ($record, $index): array => [
                 'index' => $index + $this->params['start'] + 1,
-                'school' => ['displayname' => $record->school->displayname, 'id' => $record->school->id],
-                'ar_prot_sxoleiou' => $record->ar_prot_sxoleiou ?? '-',
+                'id' => $record->id,
                 'eidos_ekdromis' => $record->eidos_ekdromis,
+                'proorismos' => $record->proorismos ?? '-',
+                'hmera_ekdromis_anaxorisis' => $record->hmera_ekdromis_anaxorisis?->format('d/m/Y'),
+                'hmera_epistrofis' => $record->hmera_epistrofis?->format('d/m/Y'),
+                'ar_mathiton' => $record->ar_mathiton ?? '-',
                 'status' => $record->status,
                 'ar_prot' => $record->ar_prot,
-                'notes' => $record->paratiriseis,
-                'submit_datetime' => $record->submit_datetime?->format('d-m-Y H:i'),
-                'id' => $record->id,
+                'isDraft' => $record->isDraft(),
             ]);
 
         $this->returnedData = [

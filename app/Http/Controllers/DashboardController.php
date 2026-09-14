@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
-use App\Models\School;
 use App\Models\SchoolYear;
 use Illuminate\Support\Facades\Session;
 
@@ -19,14 +20,14 @@ class DashboardController extends Controller
         if (Session::get('cas_model_category') === 'user') {
             return to_route('admin.index');
         }
-        // Find school by email
+
         $school = Session::get('school');
+        $apiUrl = route('api.school.excursion.search');
 
-        $excursions = $school->excursions()
-            ->where('school_year_id', $currentYear->id)
-            ->orderBy('id', 'desc')
-            ->get();
-
-        return view('dashboard.index', ['excursions' => $excursions, 'currentYear' => $currentYear]);
+        return view('dashboard.index', [
+            'currentYear' => $currentYear,
+            'apiUrl' => $apiUrl,
+            'schoolId' => $school->id,
+        ]);
     }
 }
