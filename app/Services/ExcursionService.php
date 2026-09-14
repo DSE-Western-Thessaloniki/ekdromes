@@ -238,6 +238,12 @@ class ExcursionService
             ->get();
     }
 
+    public function getExcursionsQuery()
+    {
+        return Excursion::where('school_year_id', $this->currentYear->id)
+            ->with('school');
+    }
+
     /**
      * @param  array<string, mixed>  $data
      */

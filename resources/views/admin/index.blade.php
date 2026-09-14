@@ -15,66 +15,22 @@
         <!-- Excursions Table -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
             <div class="bg-gray-100 px-6 py-4 border-b">
-                <h4 class="font-semibold text-lg">Λίστα Εκδρομών (σύνολο: {{ $allExcursions->count() }})</h4>
+                <h4 class="font-semibold text-lg">Λίστα Εκδρομών</h4>
             </div>
             <div class="overflow-x-auto">
-                <table class="w-full" id="ekdromesTable">
+                <table class="w-full" id="ekdromesTable" data-url="{{ $apiUrl }}">
                     <thead>
                         <tr class="bg-gray-100 border-b">
-                            <th class="px-4 py-3 text-left text-sm font-semibold">αα</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold">Σχολείο</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold">Αρ. Πρωτ. Σχολείου</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold">Είδος Εκδρομής</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold">Κατάσταση</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold">Ημερομηνία Υποβολής</th>
-                            <th class="px-4 py-3 text-center text-sm font-semibold">Ενέργειες</th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="index">αα</th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="school.displayname">Σχολείο</th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="ar_prot_sxoleiou">Αρ. Πρωτ. Σχολείου</th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="eidos_ekdromis">Είδος Εκδρομής</th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="status">Κατάσταση</th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="submit_datetime">Ημερομηνία Υποβολής</th>
+                            <th class="px-4 py-3 text-center text-sm font-semibold" data-col="actions">Ενέργειες</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($allExcursions as $index => $excursion)
-                            <tr class="border-b hover:bg-gray-50">
-                                <td class="px-4 py-3 text-sm">{{ $index + 1 }}</td>
-                                <td class="px-4 py-3 text-sm">
-                                    <form action="{{ route('admin.select-school') }}" method="POST" class="inline">
-                                        @csrf
-                                        <input type="hidden" name="school_id" value="{{ $excursion->school->id }}">
-                                        <button type="submit" class="text-coral hover:underline font-medium">
-                                            {{ $excursion->school->displayname }}
-                                        </button>
-                                    </form>
-                                </td>
-                                <td class="px-4 py-3 text-sm">{{ $excursion->ar_prot_sxoleiou ?? '-' }}</td>
-                                <td class="px-4 py-3 text-sm">
-                                    <span title="{{ $excursion->eidos_ekdromis }}" class="truncate block">
-                                        {{ \Illuminate\Support\Str::limit($excursion->eidos_ekdromis, 30) }}
-                                    </span>
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-                                    @if ($excursion->isSubmitted())
-                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">
-                                            ΥΠΟΒΛΗΘΗΚΕ ({{ $excursion->ar_prot }})
-                                        </span>
-                                    @elseif($excursion->isDraft())
-                                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-semibold">
-                                            ΠΡΟΣΧΕΔΙΟ
-                                        </span>
-                                    @else
-                                        <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs font-semibold">
-                                            {{ $excursion->status }}
-                                        </span>
-                                    @endif
-                                </td>
-                                <td class="px-4 py-3 text-sm">
-                                    {{ $excursion->submit_datetime ? $excursion->submit_datetime->format('d-m-Y H:i') : '-' }}
-                                </td>
-                                <td class="px-4 py-3 text-sm text-center">
-                                    <a href="{{ route('excursion.edit', $excursion) }}"
-                                        class="text-blue-500 hover:text-blue-700 font-medium">
-                                        Προβολή
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforeach
                     </tbody>
                 </table>
             </div>
