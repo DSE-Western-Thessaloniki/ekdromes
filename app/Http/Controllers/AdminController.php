@@ -24,21 +24,10 @@ class AdminController extends Controller
             return redirect()->route('dashboard')->with('error', 'Δεν υπάρχει διαθέσιμο σχολικό έτος');
         }
 
+        $apiUrl = route('api.excursion.search');
         $selectedSchoolId = Session::get('admin_selected_school');
-        $selectedSchool = null;
-        if ($selectedSchoolId) {
-            $selectedSchool = School::find($selectedSchoolId);
-        }
 
-        $allExcursions = Excursion::where('school_year_id', $currentYear->id)
-            ->when($selectedSchool, function ($query) use ($selectedSchool) {
-                return $query->where('school_id', $selectedSchool->id);
-            })
-            ->with(['school', 'schoolYear'])
-            ->orderBy('id', 'desc')
-            ->get();
-
-        return view('admin.index', ['currentYear' => $currentYear, 'allExcursions' => $allExcursions]);
+        return view('admin.index', ['currentYear' => $currentYear, 'apiUrl' => $apiUrl, 'selectedSchoolId' => $selectedSchoolId]);
     }
 
     public function switchYear(Request $request)

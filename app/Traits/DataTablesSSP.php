@@ -22,6 +22,7 @@ trait DataTablesSSP
             'search' => $request->input('search'),
             'order' => $request->input('order'),
             'columns' => $request->input('columns'),
+            'school_id' => $request->input('school_id'),
         ];
     }
 

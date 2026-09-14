@@ -3,8 +3,8 @@
 namespace App\Services;
 
 use App\Models\Excursion;
-use App\Models\School;
 use App\Models\SchoolYear;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
@@ -238,9 +238,12 @@ class ExcursionService
             ->get();
     }
 
-    public function getExcursionsQuery()
+    public function getExcursionsQuery(?int $schoolId = null)
     {
         return Excursion::where('school_year_id', $this->currentYear->id)
+            ->when($schoolId, function (Builder $query) use ($schoolId): void {
+                $query->where('school_id', $schoolId);
+            })
             ->with('school');
     }
 

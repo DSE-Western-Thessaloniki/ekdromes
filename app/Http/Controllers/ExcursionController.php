@@ -29,13 +29,14 @@ class ExcursionController extends Controller
         $isAdmin = Session::get('cas_is_admin', false);
         $school = Session::get('school');
 
-        if ($isAdmin) {
-            $excursions = $this->excursionService->getAllExcursions();
-        } elseif ($school) {
-            $excursions = $this->excursionService->getExcursionsForSchool($school);
-        } else {
-            $excursions = collect();
-        }
+        // if ($isAdmin) {
+        //     $excursions = $this->excursionService->getAllExcursions();
+        // } elseif ($school) {
+        //     $excursions = $this->excursionService->getExcursionsForSchool($school);
+        // } else {
+        //     $excursions = collect();
+        // }
+        $excursions = collect();
 
         return view('excursion.index', ['excursions' => $excursions, 'currentYear' => $currentYear, 'isAdmin' => $isAdmin]);
     }

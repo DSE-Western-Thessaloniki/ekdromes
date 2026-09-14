@@ -18,7 +18,7 @@
                 <h4 class="font-semibold text-lg">Λίστα Εκδρομών</h4>
             </div>
             <div class="overflow-x-auto">
-                <table class="w-full" id="ekdromesTable" data-url="{{ $apiUrl }}">
+                <table class="w-full" id="ekdromesTable" data-url="{{ $apiUrl }}" data-selected-school-id="{{ $selectedSchoolId }}">
                     <thead>
                         <tr class="bg-gray-100 border-b">
                             <th class="px-4 py-3 text-left text-sm font-semibold" data-col="index">αα</th>

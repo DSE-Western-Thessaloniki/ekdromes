@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!table) return;
 
   const apiUrl = table.dataset.url;
+  const selectedSchoolId = table.dataset.selectedSchoolId;
   const csrfToken = document
     .querySelector('meta[name="csrf-token"]')
     ?.getAttribute("content");
@@ -25,6 +26,11 @@ document.addEventListener("DOMContentLoaded", function () {
       headers: {
         "X-CSRF-TOKEN": csrfToken || "",
         "X-Requested-With": "XMLHttpRequest",
+      },
+      data: function (d: Record<string, unknown>) {
+        if (selectedSchoolId) {
+          d.school_id = selectedSchoolId;
+        }
       },
     },
     columns: [

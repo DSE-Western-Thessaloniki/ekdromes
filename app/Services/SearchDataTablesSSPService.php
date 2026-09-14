@@ -21,7 +21,9 @@ final class SearchDataTablesSSPService implements DataTablesSSPInterface
 
     private function createQuery(): Builder
     {
-        return (new ExcursionService)->getExcursionsQuery();
+        $schoolId = (int) $this->params['school_id'] ?? null;
+
+        return new ExcursionService()->getExcursionsQuery($schoolId);
     }
 
     public function handle(): void
@@ -64,15 +66,29 @@ final class SearchDataTablesSSPService implements DataTablesSSPInterface
 
         $recordsFiltered = $query->count();
 
-        // Ordering
+        // Ordering - join schools table for sorting by school name
+        $shouldJoinSchool = false;
+        foreach ($this->params['order'] ?? [] as $order) {
+            $columnName = $this->params['columns'][$order['column']]['data'] ?? null;
+            if ($columnName === 'school.displayname') {
+                $shouldJoinSchool = true;
+                break;
+            }
+        }
+
+        if ($shouldJoinSchool) {
+            $query->join('schools', 'schools.id', '=', 'excursions.school_id')
+                ->select('excursions.*');
+        }
+
         foreach ($this->params['order'] ?? [] as $order) {
             $columnName = $this->params['columns'][$order['column']]['data'] ?? null;
             $direction = $order['dir'] ?? 'asc';
 
             match ($columnName) {
-                'index' => $query->orderBy('id', $direction),
-                'school.displayname' => $query->orderByHas('school', 'displayname', $direction),
-                default => $query->orderBy($columnName, $direction),
+                'index' => $query->orderBy('excursions.id', $direction),
+                'school.displayname' => $query->orderBy('schools.displayname', $direction),
+                default => $query->orderBy("excursions.{$columnName}", $direction),
             };
         }
 
