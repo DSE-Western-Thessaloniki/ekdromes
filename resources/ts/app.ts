@@ -57,9 +57,9 @@ function initAdminTable(table: HTMLTableElement): void {
           if (!school) return data || "";
           const form = document.createElement("form");
           form.method = "POST";
-          form.action = "/admin/select-school";
+          form.action = route("admin.select-school");
           form.className = "inline";
-          form.innerHTML = `<input type="hidden" name="_token" value="${csrfToken || ""}"><input type="hidden" name="school_id" value="${school.id}"><button type="submit" class="btn btn-coral hover:underline font-medium">${school.displayname}</button>`;
+          form.innerHTML = `<input type="hidden" name="_token" value="${csrfToken || ""}"><input type="hidden" name="school_id" value="${school.id}"><button type="submit" class="btn btn-coral hover:underline font-medium text-sm">${school.displayname}</button>`;
           return form.outerHTML;
         },
       },
@@ -70,9 +70,8 @@ function initAdminTable(table: HTMLTableElement): void {
         searchable: true,
         render: function (data: string) {
           if (!data) return "";
-          const truncated =
-            data.length > 30 ? data.substring(0, 30) + "..." : data;
-          return `<span title="${data}" class="truncate block">${truncated}</span>`;
+
+          return `<span title="${data}">${data}</span>`;
         },
       },
       {
@@ -89,14 +88,25 @@ function initAdminTable(table: HTMLTableElement): void {
           return `<span class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs font-semibold">${data || ""}</span>`;
         },
       },
-      { data: "notes", orderable: true, searchable: false },
+      { data: "notes", orderable: true, searchable: true },
       { data: "submit_datetime", orderable: true, searchable: false },
       {
         data: "id",
         orderable: false,
         searchable: false,
         render: function (data: number) {
-          return `<a href="/excursion/${data}" class="text-blue-500 hover:text-blue-700 font-medium">Προβολή</a>`;
+          const form = document.createElement("form");
+          form.method = "POST";
+          form.action = route("excursion.destroy", data);
+          form.className = "inline";
+          form.innerHTML = `<input type="hidden" name="_method" value="DELETE" />
+            <input type="hidden" name="_token" value="${csrfToken || ""}">
+            <button type="submit" class="btn btn-gray border font-medium" title="Ακύρωση/Διαγραφή"><i class="far fa-circle-xmark"></i></button>`;
+
+          return (
+            `<a href="${route("excursion.edit", data)}" class="btn btn-gray border font-medium"><i class="fas fa-eye" title="Προβολή"></i></a>` +
+            form.outerHTML
+          );
         },
       },
     ],
@@ -186,10 +196,11 @@ function initSchoolTable(table: HTMLTableElement): void {
         orderable: false,
         searchable: false,
         render: function (data: number, _type: unknown, row: ExcursionRow) {
-          let html = `<a href="/excursion/${data}/edit" class="inline-block bg-coral text-white px-3 py-1 rounded text-sm hover:bg-coral-dark" title="Επεξεργασία"><i class="fas fa-edit"></i></a>`;
+          let html = `<a href="${route("excursion.edit", data)}" class="inline-block bg-coral text-white px-3 py-1 rounded text-sm hover:bg-coral-dark" title="Επεξεργασία"><i class="fas fa-edit"></i></a>`;
+          // TODO -v Έλεγξε αν υπάρχει σύνδεσμος για τα αρχεία και στην αρχική εφαρμογή
           html += ` <a href="/excursion/${data}/files" class="inline-block bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600" title="Αρχεία"><i class="fas fa-folder-open"></i></a>`;
           if (row.isDraft) {
-            html += ` <form action="/excursion/${data}" method="POST" class="inline"><input type="hidden" name="_token" value="${csrfToken || ""}"><input type="hidden" name="_method" value="DELETE"><button type="submit" class="inline-block bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600" onclick="return confirm('Είστε σίγουρος;')" title="Διαγραφή"><i class="fas fa-trash"></i></button></form>`;
+            html += ` <form action="${route("excursion.destroy", data)}" method="POST" class="inline"><input type="hidden" name="_token" value="${csrfToken || ""}"><input type="hidden" name="_method" value="DELETE"><button type="submit" class="inline-block bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600" onclick="return confirm('Είστε σίγουρος;')" title="Διαγραφή"><i class="fas fa-trash"></i></button></form>`;
           }
           return html;
         },

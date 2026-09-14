@@ -17,8 +17,8 @@
             <div class="bg-gray-100 px-6 py-4 border-b">
                 <h4 class="font-semibold text-lg">Λίστα Εκδρομών</h4>
             </div>
-            <div class="overflow-x-auto">
-                <table class="w-full cell-border" id="ekdromesTable" data-url="{{ $apiUrl }}"
+            <div>
+                <table class="cell-border" id="ekdromesTable" data-url="{{ $apiUrl }}"
                     data-selected-school-id="{{ $selectedSchoolId }}">
                     <thead>
                         <tr class="bg-gray-100 border-b">
@@ -42,21 +42,4 @@
         </div>
     </div>
 
-    <style>
-        .bg-coral {
-            background-color: #FF7A59;
-        }
-
-        .bg-coral-dark {
-            background-color: #E85C35;
-        }
-
-        .text-coral {
-            color: #FF7A59;
-        }
-
-        .text-coral-light {
-            color: #FFB3A1;
-        }
-    </style>
 @endsection

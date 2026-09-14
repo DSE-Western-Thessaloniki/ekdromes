@@ -7,6 +7,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Ekdromes - DDE DYT Thessalonikis')</title>
 
+    @routes
     @vite(['resources/css/app.css', 'resources/ts/app.ts'])
 
     @yield('styles')
@@ -15,7 +16,7 @@
 <body class="font-sans">
     <!-- Navigation -->
     <nav class="bg-coral shadow-lg" x-data="{ open: false }">
-        <div class="max-w-7xl mx-auto px-4">
+        <div class="mx-auto px-4">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <a href="{{ route('dashboard') }}" class="flex items-center text-white font-bold text-lg">
@@ -132,7 +133,7 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="max-w-7xl mx-auto px-4 py-6 min-h-[calc(100vh-180px)]">
+    <div class="mx-auto px-4 py-6 min-h-[calc(100vh-180px)]">
         <!-- Selected School Info -->
         @if ($selectedSchool ?? false)
             <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 my-4">
