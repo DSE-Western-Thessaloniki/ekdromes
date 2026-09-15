@@ -19,10 +19,19 @@
 <div class="bg-white rounded-lg shadow-md overflow-hidden" x-data="{ selectedType: '{{ $excursionType ?? '' }}' }">
     <div class="bg-coral text-white px-6 py-4">
         <h3 class="text-xl font-semibold">
-            {{ $isEdit ? 'Επεξεργασία Εκδρομής' . ($excursion->id ? ' #' . $excursion->id : '') : 'Δημιουργία Νέας Εκδρομής' }}
-            @if ($isEdit && $excursion->hasProtocol())
-                <span class="ml-2 inline-block bg-white/20 text-white text-xs px-2 py-1 rounded-full">Πρωτόκολλο:
-                    {{ $excursion->ar_prot }}</span>
+            @if ($isEdit)
+                Επεξεργασία Εκδρομής {{ $excursion->id ? ' #' . $excursion->id : '' }}
+                @if ($excursion->hasProtocol())
+                    <span class="ml-2 inline-block bg-green-600 text-white text-sm px-2 py-1 rounded-full">Ημερομηνία
+                        Υποβολής: {{ $excursion->submit_datetime?->format('d-m-Y H:i') }}</span>
+                    <span class="ml-2 inline-block bg-white/20 text-white text-xs px-2 py-1 rounded-full">Πρωτόκολλο:
+                        {{ $excursion->ar_prot }}</span>
+                @else
+                    <span class="ml-2 inline-block bg-orange-500 text-white text-xs px-2 py-1 rounded-full">Ημερομηνία
+                        Αποθήκευσης: {{ $excursion->submit_datetime?->format('d-m-Y H:i') }}</span>
+                @endif
+            @else
+                Δημιουργία Νέας Εκδρομής
             @endif
         </h3>
     </div>
@@ -58,6 +67,7 @@
                     <input type="text" class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
                         value="{{ $excursion->eidos_ekdromis }}" readonly>
                     <input type="hidden" name="eidos_ekdromis" value="{{ $excursion->eidos_ekdromis }}">
+                    <div class="block mt-2">Κατάσταση: {{ $excursion->status }}</div>
                 @else
                     <input type="text" class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
                         value="{{ $excursionType }}" readonly>
