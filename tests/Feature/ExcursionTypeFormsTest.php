@@ -4,6 +4,7 @@ use App\Models\Excursion;
 use App\Models\School;
 use App\Models\SchoolYear;
 use App\Services\ExcursionFieldMap;
+use App\Services\ExcursionService;
 use Subfission\Cas\Middleware\CASAuth;
 
 beforeEach(function (): void {
@@ -49,6 +50,18 @@ it('passes field map to edit view', function (): void {
 
     $response->assertStatus(200);
     $response->assertViewHas('fieldMap');
+});
+
+it('resolves a Blade component for every excursion form type', function (): void {
+    $service = app(ExcursionService::class);
+
+    foreach ($service->getExcursionTypes() as $type => $definition) {
+        $excursion = new Excursion(['eidos_ekdromis' => $type]);
+        $component = $service->formComponent($excursion);
+
+        $this->assertNotSame('', $component, $type);
+        $this->assertTrue(view()->exists('components.'.$component), $type);
+    }
 });
 
 it('creates excursion with peripatos type fields', function (): void {
