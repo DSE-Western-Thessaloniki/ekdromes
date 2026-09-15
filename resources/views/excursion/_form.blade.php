@@ -87,7 +87,18 @@
             {{-- General Section --}}
             @php
                 $generalFields = [
+                    'eidos_programmatos',
+                    'titlos_programmatos',
+                    'ar_pr_egrisis_programmatosdde',
+                    'erasmus_ar_simbasis',
+                    'ar_pr_anartisisprok',
+                    'praji_epilogi_praktoreiou',
+                    'erasmus_ar_prajis_syllogou_sigrotisi',
+                    'erasmus_ar_prajis_syllogou_anasigrotisi',
                     'ar_prajis_syllogou',
+                    'erasmus_ar_prajis_syllogon_sinainesi',
+                    'erasmus_ar_prot_beb_dieythinton',
+                    'asf_symbolaio',
                     'a_arithmos',
                     'proorismos',
                     'onoma_jenodoxeio',
@@ -96,17 +107,6 @@
                     'metaforika_mesa',
                     'mathimata',
                     'tmimata',
-                    'titlos_programmatos',
-                    'eidos_programmatos',
-                    'ar_pr_egrisis_programmatosdde',
-                    'asf_symbolaio',
-                    'praji_epilogi_praktoreiou',
-                    'ar_pr_anartisisprok',
-                    'erasmus_ar_simbasis',
-                    'erasmus_ar_prajis_syllogou_sigrotisi',
-                    'erasmus_ar_prajis_syllogou_anasigrotisi',
-                    'erasmus_ar_prajis_syllogon_sinainesi',
-                    'erasmus_ar_prot_beb_dieythinton',
                 ];
                 $generalFieldsToShow = array_filter($generalFields, fn($f) => isset($fieldTypeMap[$f]['general']));
             @endphp

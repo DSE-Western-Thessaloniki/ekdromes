@@ -33,10 +33,10 @@ class ExcursionFieldMap
         'hmera_ekdromis_anaxorisis' => ['label' => 'Ημερομηνία αναχώρησης', 'type' => 'date'],
         'hmera_epistrofis' => ['label' => 'Ημερομηνία επιστροφής', 'type' => 'date'],
         'diarkeia_hmeres' => ['label' => 'Διάρκεια (ημέρες)', 'type' => 'text'],
-        'ora_anaxorisis' => ['label' => 'Ώρα αναχώρησης', 'type' => 'time'],
-        'ora_afijis' => ['label' => 'Εκτιμώμενη ώρα άφιξης', 'type' => 'time'],
-        'ora_apoxorisis' => ['label' => 'Εκτιμώμενη ώρα αποχώρησης', 'type' => 'time'],
-        'ora_epistrofis' => ['label' => 'Ώρα επιστροφής', 'type' => 'time'],
+        'ora_anaxorisis' => ['label' => 'Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο', 'type' => 'time'],
+        'ora_afijis' => ['label' => 'Εκτιμώμενη (τοπική) ώρα άφιξης', 'type' => 'time'],
+        'ora_apoxorisis' => ['label' => 'Εκτιμώμενη (τοπική) ώρα αποχώρησης', 'type' => 'time'],
+        'ora_epistrofis' => ['label' => 'Ώρα επιστροφής στο σχολείο ή σε άλλο καθορισμένο χώρο', 'type' => 'time'],
         'ar_mathiton' => ['label' => 'Αρ. μαθητών', 'type' => 'number', 'min' => 0],
         'ar_metakinoumenon' => ['label' => 'Αρ. μετακινούμενων μαθητών', 'type' => 'number', 'min' => 0],
         'onoma_arxigos' => ['label' => 'Αρχηγός', 'type' => 'text', 'placeholder' => 'ονοματεπώνυμο'],
@@ -47,7 +47,7 @@ class ExcursionFieldMap
         'erasmus_ar_prajis_syllogou_anasigrotisi' => ['label' => 'Αρ. πράξης συλλόγου - ανασυγκρότηση παιδαγωγικής ομάδας', 'type' => 'text'],
         'erasmus_ar_prajis_syllogon_sinainesi' => ['label' => 'Αρ. πράξης συλλόγου ΕΠΑΛ - συναίνεση', 'type' => 'text'],
         'erasmus_ar_prot_beb_dieythinton' => ['label' => 'Αρ. πρωτ. βεβαίωσης Δ/ντών', 'type' => 'text'],
-        'erasmus_lista_kathig_kaieidikotita' => ['label' => 'Ονομαστική λίστα συνοδών', 'type' => 'textarea', 'placeholder' => 'Επώνυμο Ονομα ΠΕΧΧ'],
+        'erasmus_lista_kathig_kaieidikotita' => ['label' => 'Ονομαστική λίστα μετακινούμενων εκπαιδευτικών (ονοματεπώνυμο και ειδικότητα)', 'type' => 'textarea', 'placeholder' => 'Επώνυμο Ονομα ΠΕΧΧ'],
         'erasmus_lista_anaplirkathig_kaieid' => ['label' => 'Ονομαστική λίστα αναπληρωτών συνοδών', 'type' => 'textarea', 'placeholder' => 'Επώνυμο Ονομα ΠΕΧΧ'],
         'erasmus_lista_mathites_kaitaji' => ['label' => 'Ονομαστική λίστα μαθητών', 'type' => 'textarea', 'placeholder' => 'Επώνυμο Ονομα της Χ\' τάξης'],
     ];
@@ -55,7 +55,7 @@ class ExcursionFieldMap
     private const array SIGNER_FIELDS = [
         'prosfonisi_ypografonta' => ['label' => 'Προσφώνηση υπογραφής', 'type' => 'text', 'value' => 'Ο/Η ΔΙΕΥΘΥΝΤΗΣ/ΝΤΡΙΑ ΤΗΣ ΣΧΟΛΙΚΗΣ ΜΟΝΑΔΑΣ'],
         'onoma_ypografonta' => ['label' => 'Ονοματεπώνυμο υπογράφοντα', 'type' => 'text', 'placeholder' => 'Όνοματεπώνυμο Δντη/ντριας'],
-        'ar_prot_sxoleiou' => ['label' => 'Αρ. Πρωτ. σχολείου', 'type' => 'text', 'placeholder' => 'Αρ. Πρωτ.'],
+        'ar_prot_sxoleiou' => ['label' => 'Αρ. Πρωτ. σχολείου για το διαβιβαστικό που θα δημιουργηθεί', 'type' => 'text', 'placeholder' => 'Αρ. Πρωτ.'],
         'hmera_diavivastikou' => ['label' => 'Ημερομηνία διαβιβαστικού', 'type' => 'date', 'default' => 'today'],
     ];
 
@@ -76,8 +76,8 @@ class ExcursionFieldMap
             'participation' => ['ar_metakinoumenon', 'onoma_arxigos', 'plithos_synodoi'],
         ],
         'Πολυήμερη τελευταίας τάξης στο εξωτερικό' => [
-            'general' => ['ar_prajis_syllogou', 'a_arithmos', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
-            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres'],
+            'general' => ['ar_pr_anartisisprok', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
             'participation' => ['ar_metakinoumenon', 'onoma_arxigos', 'plithos_synodoi'],
         ],
         'Εκπαιδευτική επίσκεψη μέσω προγράμματος(περιβαλλοντικό/πολιτισμικό) στο εσωτερικό' => [
@@ -173,7 +173,7 @@ class ExcursionFieldMap
         'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' => [
             'general' => ['eidos_programmatos', 'titlos_programmatos', 'ar_pr_egrisis_programmatosdde', 'erasmus_ar_simbasis', 'ar_pr_anartisisprok', 'praji_epilogi_praktoreiou', 'erasmus_ar_prajis_syllogou_sigrotisi', 'erasmus_ar_prajis_syllogou_anasigrotisi', 'ar_prajis_syllogou', 'erasmus_ar_prajis_syllogon_sinainesi', 'erasmus_ar_prot_beb_dieythinton', 'asf_symbolaio', 'proorismos', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
-            'participation' => ['plithos_synodoi', 'erasmus_lista_kathig_kaieidikotita'],
+            'participation' => ['erasmus_lista_kathig_kaieidikotita'],
         ],
         'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' => [
             'general' => ['eidos_programmatos', 'titlos_programmatos', 'ar_pr_egrisis_programmatosdde', 'erasmus_ar_simbasis', 'ar_pr_anartisisprok', 'praji_epilogi_praktoreiou', 'erasmus_ar_prajis_syllogou_sigrotisi', 'erasmus_ar_prajis_syllogou_anasigrotisi', 'ar_prajis_syllogou', 'erasmus_ar_prajis_syllogon_sinainesi', 'erasmus_ar_prot_beb_dieythinton', 'asf_symbolaio', 'proorismos', 'metaforika_mesa'],

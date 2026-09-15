@@ -93,11 +93,15 @@ class ExcursionController extends Controller
 
     public function edit(Excursion $excursion): View
     {
-        $types = $this->excursionService->getExcursionTypes();
         $files = $this->fileService->getFiles($excursion);
         $fieldMap = $this->fieldMap;
 
-        return view('excursion.edit', ['excursion' => $excursion, 'types' => $types, 'files' => $files, 'fieldMap' => $fieldMap]);
+        return view('excursion.edit', [
+            'form' => $this->excursionService->formComponent($excursion),
+            'excursion' => $excursion,
+            'files' => $files,
+            'fieldMap' => $fieldMap,
+        ]);
     }
 
     public function update(Request $request, Excursion $excursion)

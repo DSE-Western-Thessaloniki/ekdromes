@@ -1,12 +1,7 @@
-@extends('layouts.app')
+<x-layouts.form :isEdit="true" :excursion="$excursion" :fieldMap="$fieldMap">
+    <x-slot:title>
+        Επεξεργασία Εκδρομής
+    </x-slot>
 
-@section('title', 'Επεξεργασία Εκδρομής')
-
-@section('content')
-    @include('excursion._form', [
-        'excursion' => $excursion,
-        'types' => $types,
-        'fieldMap' => $fieldMap,
-        'mode' => 'edit',
-    ])
-@endsection
+    <x-dynamic-component :component="$form" mode="edit" :excursion="$excursion" :fieldMap="$fieldMap" />
+</x-layouts.form>
