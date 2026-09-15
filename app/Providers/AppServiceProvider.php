@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('isAdmin', true);
 
                 if (! isset($data['schools'])) {
-                    $view->with('schools', SchoolYear::getSessionCurrent()?->schools ?? collect());
+                    $view->with('schools', SchoolYear::getSessionCurrent()?->schools()->orderBy('displayname')->get() ?? collect());
                 }
                 if (! isset($data['schoolYears'])) {
                     $view->with('schoolYears', SchoolYear::orderBy('sxoliko_etos')->get());
