@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreExcursionRequest;
 use App\Models\Excursion;
 use App\Services\ExcursionFieldMap;
 use App\Services\ExcursionService;
@@ -51,14 +52,9 @@ class ExcursionController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store(StoreExcursionRequest $request)
     {
         $eidos = $request->input('eidos_ekdromis', '');
-        $types = $this->excursionService->getExcursionTypes();
-
-        if (! isset($types[$eidos])) {
-            return redirect()->back()->withInput()->withErrors(['eidos_ekdromis' => 'Μη έγκυρο είδος εκδρομής']);
-        }
 
         $validated = $request->validate($this->fieldMap->getValidationRules($eidos));
 
@@ -69,7 +65,6 @@ class ExcursionController extends Controller
 
         $validated['school_id'] = $school->id;
         $validated['kodikos_sxoleiou'] = $school->kodikos_sxoleiou;
-        $validated['eidos_ekdromis'] = $types[$eidos]['name'];
 
         $excursion = $this->excursionService->create($validated);
 
