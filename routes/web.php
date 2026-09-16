@@ -36,7 +36,6 @@ Route::middleware([CASAuth::class, EnsureCasAccountHasAccess::class])->group(fun
     })->name('info');
 
     // Excursion management
-    Route::get('/excursion', [ExcursionController::class, 'index'])->name('excursion.index');
     Route::get('/excursion/create', [ExcursionController::class, 'create'])->name('excursion.create');
     Route::get('/excursion/wizard', ExcursionWizardController::class)->name('excursion.wizard');
     Route::post('/excursion', [ExcursionController::class, 'store'])->name('excursion.store');

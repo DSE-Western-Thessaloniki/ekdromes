@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Excursion;
-use App\Models\SchoolYear;
 use App\Services\ExcursionFieldMap;
 use App\Services\ExcursionService;
 use App\Services\FileService;
@@ -23,24 +22,6 @@ class ExcursionController extends Controller
         protected ExcursionFieldMap $fieldMap
     ) {}
 
-    public function index(): View
-    {
-        $currentYear = SchoolYear::getCurrent();
-        $isAdmin = Session::get('cas_is_admin', false);
-        $school = Session::get('school');
-
-        // if ($isAdmin) {
-        //     $excursions = $this->excursionService->getAllExcursions();
-        // } elseif ($school) {
-        //     $excursions = $this->excursionService->getExcursionsForSchool($school);
-        // } else {
-        //     $excursions = collect();
-        // }
-        $excursions = collect();
-
-        return view('excursion.index', ['excursions' => $excursions, 'currentYear' => $currentYear, 'isAdmin' => $isAdmin]);
-    }
-
     public function create(): View
     {
         if (request()->query('excursionType', false)) {
@@ -52,7 +33,12 @@ class ExcursionController extends Controller
 
             $fieldMap = $this->fieldMap;
 
-            return view('excursion.create', ['types' => $types, 'fieldMap' => $fieldMap, 'IKnowWhatIAmDoing' => true]);
+            return view('excursion.create', [
+                'form' => $this->excursionService->formComponent(request()->query('excursionType')),
+                'fieldMap' => $fieldMap,
+                'IKnowWhatIAmDoing' => true,
+                'excursionType' => request()->query('excursionType'),
+            ]);
         }
 
         if (request()->query('IKnowWhatIAmDoing', false)) {

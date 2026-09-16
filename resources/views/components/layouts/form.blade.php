@@ -1,6 +1,9 @@
-@props(['isEdit', 'excursion', 'fieldMap'])
+@props(['isEdit', 'excursion', 'fieldMap', 'excursionType'])
 
 <x-layouts.app>
+    <x-slot:title>
+        {{ $title }}
+    </x-slot:title>
 
     <div class="bg-white rounded-lg shadow-md overflow-hidden" x-data="{ selectedType: '{{ $excursionType ?? '' }}' }">
         <div class="bg-coral text-white px-6 py-4">

@@ -7,7 +7,8 @@
 <div class="flex flex-col gap-2 mb-4">
     <x-excursion.form.ui.section title="Γενικά">
         <x-excursion.form.ui.input fieldName="ar_prajis_syllogou"
-            label="Αριθμός και ημερομηνία πράξης συλλόγου βάσει της οποίας γίνεται η μετακίνηση" :value="$excursion->ar_prajis_syllogou ?? ''" />
+            label="Πράξη συλλόγου βάσει της οποίας γίνεται η μετακίνηση" :value="$excursion->ar_prajis_syllogou ?? ''"
+            placeholder="Αριθμός και ημερομηνία" />
         <x-excursion.form.ui.input fieldName="a_arithmos"
             label="Αύξων αριθμός εκδρομής αυτού του είδους (π.χ. 1 αν είναι η πρώτη για φέτος)" type="number"
             min="1" :value="$excursion->a_arithmos ?? 1" />
@@ -26,7 +27,7 @@
     </x-excursion.form.ui.section>
 
     <x-excursion.form.ui.section title="Ημερομηνίες">
-        <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία εκδρομής" :value="$excursion->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
+        <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία εκδρομής" :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
     </x-excursion.form.ui.section>
 </div>
 

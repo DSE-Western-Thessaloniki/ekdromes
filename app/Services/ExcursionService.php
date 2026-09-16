@@ -320,9 +320,14 @@ class ExcursionService
         return SchoolYear::orderBy('sxoliko_etos', 'desc')->get();
     }
 
-    public function formComponent(Excursion $excursion): string
+    public function formComponent(Excursion|string $excursion): string
     {
-        return match ($excursion->eidos_ekdromis) {
+        $subject = $excursion;
+        if ($excursion instanceof Excursion) {
+            $subject = $excursion->eidos_ekdromis;
+        }
+
+        return match ($subject) {
             'Σχολικός Περίπατος' => 'excursion.form.peripatos',
             'Ημερήσια δίχως διανυκτέρευση' => 'excursion.form.hmerisiaxoris',
             'Πολυήμερη τελευταίας τάξης στο εσωτερικό' => 'excursion.form.pollesesot',
