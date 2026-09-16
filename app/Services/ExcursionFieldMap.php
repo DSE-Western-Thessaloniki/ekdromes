@@ -55,8 +55,8 @@ class ExcursionFieldMap
     private const array SIGNER_FIELDS = [
         'prosfonisi_ypografonta' => ['label' => 'Προσφώνηση υπογραφής', 'type' => 'text', 'value' => 'Ο/Η ΔΙΕΥΘΥΝΤΗΣ/ΝΤΡΙΑ ΤΗΣ ΣΧΟΛΙΚΗΣ ΜΟΝΑΔΑΣ'],
         'onoma_ypografonta' => ['label' => 'Ονοματεπώνυμο υπογράφοντα', 'type' => 'text', 'placeholder' => 'Όνοματεπώνυμο Δντη/ντριας'],
-        'ar_prot_sxoleiou' => ['label' => 'Αρ. Πρωτ. σχολείου για το διαβιβαστικό που θα δημιουργηθεί', 'type' => 'text', 'placeholder' => 'Αρ. Πρωτ.'],
-        'hmera_diavivastikou' => ['label' => 'Ημερομηνία διαβιβαστικού', 'type' => 'date', 'default' => 'today'],
+        'ar_prot_sxoleiou' => ['label' => 'Αρ. Πρωτ. σχολείου για το διαβιβαστικό που θα δημιουργηθεί (απαιτείται για οριστική υποβολή)', 'type' => 'text', 'placeholder' => 'Αρ. Πρωτ.'],
+        'hmera_diavivastikou' => ['label' => 'Ημερομηνία διαβιβαστικού', 'type' => 'date', 'default' => 'today', 'max' => 'today'],
     ];
 
     private const array TYPE_SECTIONS = [

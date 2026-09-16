@@ -27,11 +27,23 @@
             min="1" :value="$excursion->ar_mathiton ?? 1" />
         <x-excursion.form.ui.input fieldName="ar_metakinoumenon" label="Αριθμός μετακινούμενων μαθητών" type="number"
             min="1" :value="$excursion->ar_metakinoumenon ?? 1" />
-        <x-excursion.form.ui.input fieldName="plithos_synodoi" label="Αριθμός μετακινούμενων μαθητών" type="number"
-            min="0" :value="$excursion->plithos_synodoi ?? 0" />
+        <x-excursion.form.ui.input fieldName="plithos_synodoi"
+            label="Πλήθος συνοδών εκπαιδευτικών(εκτός από τον αρχηγό της εκδρομής)" type="number" min="0"
+            :value="$excursion->plithos_synodoi ?? 0" />
         <x-excursion.form.ui.input fieldName="covered" label="Καλυπτόμενοι μαθητές" type="number" :value="0"
             :readonly="true" />
-
+        <div class="flex flex-col gap-2">
+            <div class="space-x-2">
+                <input type="hidden" name="70percent" value="true">
+                <label for="inp_70_percent">Συμμετέχουν σε ποσοστό 70%:</label><input type="checkbox" checked
+                    name="inp_70_percent" id="inp_70_percent" />
+            </div>
+            <div class="space-x-2">
+                <input type="hidden" name="declarations" value="true">
+                <label for="inp_declarations">Υπάρχουν υπεύθυνες δηλώσεις γονέων και κηδεμόνων:</label><input
+                    type="checkbox" checked name="inp_declarations" id="inp_declarations" />
+            </div>
+        </div>
     </x-excursion.form.ui.section>
 
 </div>
@@ -41,6 +53,16 @@
         document.querySelector('#plithos_synodoi').addEventListener("input", () => {
             document.querySelector('#covered').value = document.querySelector('#plithos_synodoi')
                 .value * 25;
+        });
+
+        document.querySelector('#inp_70_percent').addEventListener("change", (event) => {
+            console.log(event.target.checked);
+            document.querySelector('input[name="70percent"]').value = event.target.checked;
+        });
+
+        document.querySelector('#inp_declarations').addEventListener("change", (event) => {
+            console.log(event.target.checked);
+            document.querySelector('input[name="declarations"]').value = event.target.checked;
         });
     })();
 </script>

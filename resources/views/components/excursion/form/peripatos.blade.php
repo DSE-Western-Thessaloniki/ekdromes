@@ -9,7 +9,7 @@
         <x-excursion.form.ui.input fieldName="ar_prajis_syllogou"
             label="Αριθμός και ημερομηνία πράξης συλλόγου βάσει της οποίας γίνεται η μετακίνηση" :value="$excursion->ar_prajis_syllogou ?? ''" />
         <x-excursion.form.ui.input fieldName="a_arithmos"
-            label="Αύξων αριθμός εκδρομής αυτού του είδους (π.χ.1 αν είναι η πρώτη για φέτος)" type="number"
+            label="Αύξων αριθμός εκδρομής αυτού του είδους (π.χ. 1 αν είναι η πρώτη για φέτος)" type="number"
             min="1" :value="$excursion->a_arithmos ?? 1" />
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
         @php

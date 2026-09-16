@@ -6,14 +6,45 @@
         <x-excursion.form.ui.input fieldName="titlos_programmatos" label="Τίτλος του προγράμματος" :value="$excursion->titlos_programmatos ?? ''" />
         <x-excursion.form.ui.input fieldName="ar_pr_egrisis_programmatosdde" label="Κωδικός προγράμματος"
             :value="$excursion->ar_pr_egrisis_programmatosdde ?? ''" />
-        <x-excursion.form.ui.input fieldName="erasmus_ar_simbasis" label="Αριθμός σύμβασης" :value="$excursion->erasmus_ar_simbasis ?? ''" />
+        <div>
+            <x-excursion.form.ui.input fieldName="erasmus_ar_simbasis" label="Αριθμός σύμβασης" :value="$excursion->erasmus_ar_simbasis ?? ''" />
+            <div class="text-sm">[εάν χρειάζεται]</div>
+        </div>
+        <div>
+            <x-excursion.form.ui.input fieldName="ar_pr_anartisisprok"
+                label="Αρ. Πρ. και ημερομηνία διαβίβασης αιτήματος ανάρτησης προκήρυξης" :value="$excursion->ar_pr_anartisisprok ?? ''"
+                placeholder="Αριθμός και ημερομηνία" />
+            <div class="text-sm">[δε γίνεται ανάρτηση όταν οι μετακινούμενοι είναι έως 10 μαζί με τους Εκπ/κούς]</div>
+        </div>
         <x-excursion.form.ui.input fieldName="erasmus_ar_prajis_syllogou_sigrotisi"
-            label="Πράξη συλλόγου για τη συγκρότηση της παιδαγωγικής ομάδας" :value="$excursion->erasmus_ar_prajis_syllogou_sigrotisi ?? ''" />
-        <x-excursion.form.ui.input fieldName="erasmus_ar_prajis_syllogou_anasigrotisi"
-            label="Πράξη συλλόγου για την ανασυγκρότηση της παιδαγωγικής ομάδας" :value="$excursion->erasmus_ar_prajis_syllogou_anasigrotisi ?? ''" />
-        <x-excursion.form.ui.input fieldName="ar_prajis_syllogou" label="Αριθμός και ημερομηνία πράξης συλλόγου"
-            :value="$excursion->ar_prajis_syllogou ?? ''" />
-        <x-excursion.form.ui.input fieldName="asf_symbolaio" label="Αριθμός ασφαλιστηρίου συμβολαίου"
+            label="Πράξη συλλόγου για τη συγκρότηση της παιδαγωγικής ομάδας" :value="$excursion->erasmus_ar_prajis_syllogou_sigrotisi ?? ''"
+            placeholder="Αριθμός και ημερομηνία" />
+        <div>
+            <x-excursion.form.ui.input fieldName="erasmus_ar_prajis_syllogou_anasigrotisi"
+                label="Πράξη συλλόγου για την ανασυγκρότηση της παιδαγωγικής ομάδας" :value="$excursion->erasmus_ar_prajis_syllogou_anasigrotisi ?? ''"
+                placeholder="Αριθμός και ημερομηνία" />
+            <div class="text-sm">
+                [εάν έχει τροποποιηθεί αλλιώς κενό]</div>
+        </div>
+        <x-excursion.form.ui.input fieldName="ar_prajis_syllogou"
+            label="Πράξη συλλόγου βάσει της οποίας γίνεται η μετακίνηση" :value="$excursion->ar_prajis_syllogou ?? ''"
+            placeholder="Αριθμός και ημερομηνία" />
+        <div>
+            <x-excursion.form.ui.input fieldName="erasmus_ar_prajis_syllogon_sinainesi"
+                label="Πράξη συλλόγου του/των ΕΠΑΛ ότι συναινεί/ούν για τη μετακίνηση του Ε.Κ." :value="$excursion->erasmus_ar_prajis_syllogon_sinainesi ?? ''"
+                placeholder="Αριθμός και ημερομηνία" />
+            <div class="text-sm">[εφόσον χρειάζεται]</div>
+        </div>
+        <div></div>
+        <div>
+            <x-excursion.form.ui.input fieldName="erasmus_ar_prot_beb_dieythinton"
+                label="Αριθμός πρωτοκόλλου και ημερομηνία βεβαίωσης/σεων του Διευθυντή/ντών του/των σχολείου/σχολείων για τον/τους εκπαιδευτικό/κούς που διδάσκουν και σε αυτό/τά"
+                :value="$excursion->erasmus_ar_prot_beb_dieythinton ?? ''" placeholder="Αριθμός πρωτοκόλλου και ημερομηνία" />
+            <div class="text-sm">[εφόσον χρειάζεται]</div>
+        </div>
+        <div></div>
+        <x-excursion.form.ui.input fieldName="asf_symbolaio"
+            label="Αριθμός ασφαλιστηρίου συμβολαίου αστικής-επαγγελματικής ευθύνης για τη διάρκεια του ταξιδιού και της διαμονής"
             :value="$excursion->asf_symbolaio ?? ''" />
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
         <x-excursion.form.ui.input fieldName="metaforika_mesa" label="Μεταφορικά μέσα" :value="$excursion->metaforika_mesa ?? ''" />
@@ -24,20 +55,55 @@
         <x-excursion.form.ui.date fieldName="hmera_epistrofis" label="Ημερομηνία επιστροφής" :value="$excursion->hmera_epistrofis?->format('Y-m-d')" />
         <x-excursion.form.ui.input fieldName="diarkeia_hmeres" label="Διάρκεια (ημέρες)" type="number" min="1"
             :value="$excursion->diarkeia_hmeres ?? ''" />
-        <x-excursion.form.ui.time fieldName="ora_anaxorisis" label="Ώρα αναχώρησης" :value="$excursion->ora_anaxorisis ?? ''" />
-        <x-excursion.form.ui.time fieldName="ora_afijis" label="Εκτιμώμενη ώρα άφιξης" :value="$excursion->ora_afijis ?? ''" />
-        <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη ώρα αποχώρησης" :value="$excursion->ora_apoxorisis ?? ''" />
-        <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής" :value="$excursion->ora_epistrofis ?? ''" />
+        <div></div>
+        <x-excursion.form.ui.time fieldName="ora_anaxorisis"
+            label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο" :value="$excursion->ora_anaxorisis ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_afijis"
+            label="Εκτιμώμενη (τοπική) ώρα άφιξης στον/στους προορισμό/σμούς" :value="$excursion->ora_afijis ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη (τοπική) ώρα αποχώρησης"
+            :value="$excursion->ora_apoxorisis ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_epistrofis"
+            label="Ώρα επιστροφής στο σχολείο ή σε άλλο καθορισμένο χώρο" :value="$excursion->ora_epistrofis ?? ''" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
+        <x-excursion.form.ui.input fieldName="plithos_synodoi"
+            label="Πλήθος συνοδών εκπαιδευτικών(εκτός από τον αρχηγό της εκδρομής)" type="number" min="0"
+            :value="$excursion->plithos_synodoi ?? 0" />
+        <x-excursion.form.ui.input fieldName="covered" label="Καλυπτόμενοι μαθητές" type="number" :value="0"
+            :readonly="true" />
+        <x-excursion.form.ui.input fieldName="onoma_arxigos" label="Αρχηγός" :value="$excursion->onoma_arxigos ?? ''" />
+        <x-excursion.form.ui.input fieldName="onoma_anaplirotis_arxigos" label="Αναπληρωτής αρχηγός"
+            :value="$excursion->onoma_anaplirotis_arxigos ?? ''" />
         <x-excursion.form.ui.textarea fieldName="erasmus_lista_kathig_kaieidikotita"
-            label="Ονομαστική λίστα εκπαιδευτικών"
+            label="Ονομαστική λίστα συνοδών (Ονοματεπώνυμο και ειδικότητα)"
             lineNumbers>{{ $excursion->erasmus_lista_kathig_kaieidikotita ?? '' }}</x-excursion.form.ui.textarea>
         <x-excursion.form.ui.textarea fieldName="erasmus_lista_anaplirkathig_kaieid"
-            label="Ονομαστική λίστα αναπληρωτών εκπαιδευτικών"
+            label="Ονομαστική λίστα αναπληρωτών συνοδών (Ονοματεπώνυμο και ειδικότητα)"
             lineNumbers>{{ $excursion->erasmus_lista_anaplirkathig_kaieid ?? '' }}</x-excursion.form.ui.textarea>
         <x-excursion.form.ui.textarea fieldName="erasmus_lista_mathites_kaitaji"
             label="Ονομαστική λίστα μαθητών/τριών (ονοματεπώνυμο και τάξη)"
             lineNumbers>{{ $excursion->erasmus_lista_mathites_kaitaji ?? '' }}</x-excursion.form.ui.textarea>
+        <div></div>
+        <div class="flex flex-col gap-2">
+            <div class="space-x-2">
+                <input type="hidden" name="declarations" value="true">
+                <label for="inp_declarations">Υπάρχουν υπεύθυνες δηλώσεις γονέων και κηδεμόνων:</label><input
+                    type="checkbox" checked name="inp_declarations" id="inp_declarations" />
+            </div>
+        </div>
     </x-excursion.form.ui.section>
 </div>
+<script>
+    (function() {
+        document.querySelector('#covered').value = document.querySelector('#plithos_synodoi').value * 20;
+        document.querySelector('#plithos_synodoi').addEventListener("input", () => {
+            document.querySelector('#covered').value = document.querySelector('#plithos_synodoi')
+                .value * 25;
+        });
+
+        document.querySelector('#inp_declarations').addEventListener("change", (event) => {
+            console.log(event.target.checked);
+            document.querySelector('input[name="declarations"]').value = event.target.checked;
+        });
+    })();
+</script>
