@@ -182,6 +182,53 @@ class ExcursionFieldMap
         ],
     ];
 
+    private const array BASIC_VALIDATION_RULES = [
+        'paratiriseis' => ['string', 'nullable'],
+        'diarkeia_hmeres' => ['numeric', 'nullable'],
+        'a_arithmos' => ['numeric', 'nullable'],
+        'ar_prajis_syllogou' => ['string', 'nullable'],
+        'ar_pr_egrisis_programmatosdde' => ['string', 'nullable'],
+        'eidos_programmatos' => ['string', 'nullable'],
+        'titlos_programmatos' => ['string', 'nullable'],
+        'mathimata' => ['string', 'nullable'],
+        'tmimata' => ['string', 'nullable'],
+        'proorismos' => ['string', 'nullable'],
+        'onoma_jenodoxeio' => ['string', 'nullable'],
+        'onoma_praktoreio' => ['string', 'nullable'],
+        'metaforika_mesa' => ['string', 'nullable'],
+        'aritmoi_mesa_anaxorisis' => ['string', 'nullable'], // Δεν χρησιμοποιείται σε φόρμα - TODO: delete
+        'arithmoi_mesa_epistrofis' => ['string', 'nullable'], // Δεν χρησιμοποιείται σε φόρμα
+        'hmera_ekdromis_anaxorisis' => ['date', 'nullable'],
+        'hmera_epistrofis' => ['date', 'nullable'],
+        'ora_anaxorisis' => ['date', 'nullable'],
+        'ora_afijis' => ['date', 'nullable'],
+        'ora_apoxorisis' => ['date', 'nullable'],
+        'ora_epistrofis' => ['date', 'nullable'],
+        'ar_mathiton' => ['integer', 'nullable'],
+        'ar_metakinoumenon' => ['integer', 'nullable'],
+        'onoma_arxigos' => ['string', 'nullable'],
+        'onoma_anaplirotis_arxigos' => ['string', 'nullable'],
+        'plithos_synodoi' => ['integer', 'nullable'],
+        'plithos_ektosomadas_synodoi' => ['integer', 'nullable'],
+        'onomata_synodoi' => ['string', 'nullable'],
+        'anaplirotes_synodoi' => ['string', 'nullable'],
+        'asf_symbolaio' => ['string', 'nullable'],
+        'praji_epilogi_praktoreiou' => ['string', 'nullable'],
+        'ar_pr_anartisisprok' => ['string', 'nullable'],
+        'onoma_ypografonta' => ['string', 'nullable'],
+        'prosfonisi_ypografonta' => ['string', 'nullable'],
+        'ar_prot_sxoleiou' => ['string', 'nullable'],
+        'hmera_diavivastikou' => ['date', 'nullable'],
+        'erasmus_ar_simbasis' => ['string', 'nullable'],
+        'erasmus_ar_prajis_syllogou_sigrotisi' => ['string', 'nullable'],
+        'erasmus_ar_prajis_syllogou_anasigrotisi' => ['string', 'nullable'],
+        'erasmus_ar_prajis_syllogon_sinainesi' => ['string', 'nullable'],
+        'erasmus_ar_prot_beb_dieythinton' => ['string', 'nullable'],
+        'erasmus_lista_mathites_kaitaji' => ['string', 'nullable'],
+        'erasmus_lista_kathig_kaieidikotita' => ['string', 'nullable'],
+        'erasmus_lista_anaplirkathig_kaieid' => ['string', 'nullable'],
+    ];
+
     public function getSections(string $type): array
     {
         $sections = self::TYPE_SECTIONS[$type] ?? [];
@@ -226,6 +273,11 @@ class ExcursionFieldMap
         }
 
         return array_unique($required);
+    }
+
+    public function getBasicValidationRules(): array
+    {
+        return self::BASIC_VALIDATION_RULES;
     }
 
     public function getValidationRules(string $type): array
@@ -306,5 +358,12 @@ class ExcursionFieldMap
     public function isTimeField(string $fieldName): bool
     {
         return in_array($fieldName, ['ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis']);
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'eidos_ekdromis' => 'είδος εκδρομής',
+        ];
     }
 }

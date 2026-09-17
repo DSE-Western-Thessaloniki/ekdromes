@@ -11,7 +11,6 @@ use App\Services\PdfService;
 use App\Services\ProtocolService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
 
 class ExcursionController extends Controller
 {
@@ -56,17 +55,10 @@ class ExcursionController extends Controller
     {
         $eidos = $request->input('eidos_ekdromis', '');
 
-        $validated = $request->validate($this->fieldMap->getValidationRules($eidos));
+        // TODO: Προσθήκη επαλήθευσης δεδομένων
+        // $validated = $request->validate($this->fieldMap->getValidationRules($eidos));
 
-        $school = Session::get('school');
-        if (! $school) {
-            return redirect()->back()->with('error', 'Δεν επιτρέπεται η δημιουργία εκδρομής');
-        }
-
-        $validated['school_id'] = $school->id;
-        $validated['kodikos_sxoleiou'] = $school->kodikos_sxoleiou;
-
-        $excursion = $this->excursionService->create($validated);
+        $excursion = $this->excursionService->create($request->validated());
 
         return redirect()->route('excursion.edit', $excursion)
             ->with('success', 'Η εκδρομή δημιουργήθηκε επιτυχώς');

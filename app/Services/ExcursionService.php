@@ -3,10 +3,13 @@
 namespace App\Services;
 
 use App\Models\Excursion;
+use App\Models\School;
 use App\Models\SchoolYear;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 
 class ExcursionService
@@ -18,7 +21,7 @@ class ExcursionService
 
     public function __construct(?SchoolYear $currentYear = null)
     {
-        $this->currentYear = $currentYear ?? SchoolYear::getCurrent();
+        $this->currentYear = $currentYear ?? SchoolYear::getSessionCurrent();
     }
 
     public function getCurrentYear(): SchoolYear
@@ -252,6 +255,15 @@ class ExcursionService
      */
     public function create(array $data): Excursion
     {
+        $school = Session::get('school');
+        if (! $school && Session::get('cas_model_category') === 'user') {
+            $school = School::find(Session::get('admin_selected_school'));
+        } else {
+            throw new Exception('Δεν επιτρέπεται η δημιουργία εκδρομής');
+        }
+
+        $data['school_id'] = $school->id;
+        $data['kodikos_sxoleiou'] = $school->kodikos_sxoleiou;
         $data['school_year_id'] = $this->currentYear->id;
         $data['status'] = 'ΠΡΟΣΩΡΙΝΑ ΑΠΟΘΗΚΕΥΜΕΝΗ';
 
