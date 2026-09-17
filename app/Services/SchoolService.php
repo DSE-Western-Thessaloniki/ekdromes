@@ -4,11 +4,13 @@ namespace App\Services;
 
 use App\Models\School;
 use App\Models\SchoolYear;
-use Illuminate\Support\Facades\Cache;
+use Exception;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Session;
 
 class SchoolService
 {
-    public function getSchoolsForYear(SchoolYear $year): \Illuminate\Database\Eloquent\Collection
+    public function getSchoolsForYear(SchoolYear $year): Collection
     {
         return School::where('school_year_id', $year->id)
             ->orderBy('displayname')
@@ -68,5 +70,18 @@ class SchoolService
             'ΕΠΑΛ',
             'ΕΚ',
         ];
+    }
+
+    public static function getActiveSchool(): School
+    {
+        $school = Session::get('school');
+
+        if (! $school && Session::get('cas_model_category') === 'user') {
+            $school = School::find(Session::get('admin_selected_school'));
+        } else {
+            throw new Exception('Δεν έχετε πρόσβαση ως σχολική μονάδα');
+        }
+
+        return $school;
     }
 }

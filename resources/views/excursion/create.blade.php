@@ -1,7 +1,7 @@
 @if ($IKnowWhatIAmDoing ?? false)
-    <x-layouts.form :isEdit="false" :fieldMap="$fieldMap" :excursionType="$excursionType">
+    <x-layouts.form :isEdit="false" :fieldMap="$fieldMap" :excursionType="$excursionType" :signerName="$signerName">
         <x-slot:title>
-            Επεξεργασία Εκδρομής
+            Δημιουργία Εκδρομής
         </x-slot>
 
         <x-dynamic-component :component="$form" mode="create" :fieldMap="$fieldMap" />

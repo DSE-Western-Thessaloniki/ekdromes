@@ -263,7 +263,6 @@ class ExcursionService
         }
 
         $data['school_id'] = $school->id;
-        $data['kodikos_sxoleiou'] = $school->kodikos_sxoleiou;
         $data['school_year_id'] = $this->currentYear->id;
         $data['status'] = 'ΠΡΟΣΩΡΙΝΑ ΑΠΟΘΗΚΕΥΜΕΝΗ';
 
@@ -366,5 +365,18 @@ class ExcursionService
             'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' => 'excursion.form.erasmus1',
             default => '',
         };
+    }
+
+    public function getLastSigner(): string
+    {
+        $school = SchoolService::getActiveSchool();
+
+        $excursion = $school->excursions()->where('status', 'ΥΠΟΒΛΗΘΗΚΕ')->orderBy('id', 'desc')->first();
+
+        if ($excursion) {
+            return $excursion->onoma_ypografonta;
+        }
+
+        return '';
     }
 }

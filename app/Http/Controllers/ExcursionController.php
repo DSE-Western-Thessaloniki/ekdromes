@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreExcursionRequest;
+use App\Http\Requests\UpdateExcursionRequest;
 use App\Models\Excursion;
 use App\Services\ExcursionFieldMap;
 use App\Services\ExcursionService;
@@ -38,6 +39,7 @@ class ExcursionController extends Controller
                 'fieldMap' => $fieldMap,
                 'IKnowWhatIAmDoing' => true,
                 'excursionType' => request()->query('excursionType'),
+                'signerName' => $this->excursionService->getLastSigner(),
             ]);
         }
 
@@ -77,17 +79,11 @@ class ExcursionController extends Controller
         ]);
     }
 
-    public function update(Request $request, Excursion $excursion)
+    public function update(UpdateExcursionRequest $request, Excursion $excursion)
     {
-        $eidosKey = $this->findTypeKey($excursion->eidos_ekdromis);
+        // $validated = $request->validate($this->fieldMap->getValidationRules($eidosKey));
 
-        if (! $eidosKey) {
-            return redirect()->back()->with('error', 'Μη έγκυρο είδος εκδρομής');
-        }
-
-        $validated = $request->validate($this->fieldMap->getValidationRules($eidosKey));
-
-        $excursion = $this->excursionService->update($excursion, $validated);
+        $excursion = $this->excursionService->update($excursion, $request->validated());
 
         return redirect()->route('excursion.edit', $excursion)
             ->with('success', 'Η εκδρομή ενημερώθηκε επιτυχώς');

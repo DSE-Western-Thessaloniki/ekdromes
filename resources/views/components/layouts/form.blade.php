@@ -1,4 +1,11 @@
-@props(['isEdit', 'excursion', 'fieldMap', 'excursionType'])
+{{-- 
+'isEdit' --> αν πρόκειται για επεξεργασία υπάρχουσας εκδρομής ή δημιουργία νέας
+'excursion' --> το αντικείμενο της εκδρομής εφόσον πρόκειται για επεξεργασία
+'fieldMap' --> ExcursionFieldMap
+'excursionType' --> ο τύπος της εκδρομής ως αλφαριθμητικό
+'signerName' ---> το αλφαριθμητικό του τελευταίου υπογράφοντα της σχολικής μονάδας
+--}}
+@props(['isEdit', 'excursion', 'fieldMap', 'excursionType', 'signerName'])
 
 <x-layouts.app>
     <x-slot:title>
@@ -102,6 +109,16 @@
                         @endforeach
                     </div>
                 </div>
+                {{-- Αν είναι νέα εκδρομή συμπλήρωσε αυτόματα τον τελευταίο υπογράφοντα --}}
+                @if (!$isEdit)
+                    <script>
+                        (function() {
+                            if (document.querySelector('#onoma_ypografonta').value === '') {
+                                document.querySelector('#onoma_ypografonta').value = '{{ $signerName }}';
+                            }
+                        })();
+                    </script>
+                @endif
 
                 {{-- Remarks --}}
                 <div class="mb-6">
