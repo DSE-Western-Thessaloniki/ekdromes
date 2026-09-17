@@ -41,9 +41,7 @@ class StoreExcursionRequest extends FormRequest
             'onoma_jenodoxeio' => ['string', 'nullable'],
             'onoma_praktoreio' => ['string', 'nullable'],
             'metaforika_mesa' => ['string', 'nullable'],
-            'onoma_praktoreio' => ['string', 'nullable'],
-            'metaforika_mesa' => ['string', 'nullable'],
-            'aritmoi_mesa_anaxorisis' => ['string', 'nullable'], // Δεν χρησιμοποιείται σε φόρμα
+            'aritmoi_mesa_anaxorisis' => ['string', 'nullable'], // Δεν χρησιμοποιείται σε φόρμα - TODO: delete
             'arithmoi_mesa_epistrofis' => ['string', 'nullable'], // Δεν χρησιμοποιείται σε φόρμα
             'hmera_ekdromis_anaxorisis' => ['date', 'nullable'],
             'hmera_epistrofis' => ['date', 'nullable'],
