@@ -26,8 +26,8 @@
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Ημερομηνίες και ώρες">
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία αναχώρησης"
-            :value="$excursion->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
-        <x-excursion.form.ui.date fieldName="hmera_epistrofis" label="Ημερομηνία επιστροφής" :value="$excursion->hmera_epistrofis?->format('Y-m-d')" />
+            :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
+        <x-excursion.form.ui.date fieldName="hmera_epistrofis" label="Ημερομηνία επιστροφής" :value="$excursion?->hmera_epistrofis?->format('Y-m-d')" />
         <x-excursion.form.ui.input fieldName="diarkeia_hmeres" label="Διάρκεια (ημέρες)" type="number" min="1"
             :value="$excursion->diarkeia_hmeres ?? ''" />
         <div></div>

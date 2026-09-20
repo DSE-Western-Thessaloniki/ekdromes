@@ -19,7 +19,7 @@
     <x-excursion.form.ui.section title="Ημερομηνίες">
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis"
             label="Ημερομηνία εκδρομής [Ενημερώστε τη ΔΔΕ (με οριστική υποβολή) τουλάχιστον μία ημέρα πριν]"
-            :value="$excursion->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
+            :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
     </x-excursion.form.ui.section>
 
     <x-excursion.form.ui.section title="Συμμετοχές">

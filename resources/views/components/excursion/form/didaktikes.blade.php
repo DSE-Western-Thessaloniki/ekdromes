@@ -21,7 +21,7 @@
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Ημερομηνία">
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία επίσκεψης"
-            :value="$excursion->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
+            :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
         <x-excursion.form.ui.input fieldName="tmimata" label="Τάξεις ή τμήματα (διαχωρίστε με κόμματα αν χρειάζεται)"
