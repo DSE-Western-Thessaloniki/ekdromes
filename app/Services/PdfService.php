@@ -31,7 +31,7 @@ class PdfService
         }
 
         foreach ($views as $view) {
-            $filename = $view['filename'] ?? $excursion->id.'F_Διαβιβαστικό.pdf';
+            $filename = $view['filename'] ?? $excursion->id.'A_Διαβιβαστικό.pdf';
             $pdfPath = $this->storageFolder.'/'.$filename;
             Pdf::loadView($view['view'], [
                 'excursion' => $excursion,

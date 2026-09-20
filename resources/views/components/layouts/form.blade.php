@@ -129,7 +129,8 @@
 
                 {{-- Actions --}}
                 <div class="flex items-center space-x-4">
-                    <button type="submit" class="bg-coral text-white px-6 py-2 rounded-lg text-lg hover:bg-coral-dark">
+                    <button type="submit"
+                        class="bg-coral text-white px-6 py-2 rounded-lg text-lg hover:bg-coral-dark cursor-pointer">
                         <i class="fas fa-save"></i> {{ $isEdit ? 'Αποθήκευση' : 'Δημιουργία' }}
                     </button>
                     @if ($isEdit)

@@ -7,6 +7,7 @@ use App\Models\School;
 use App\Models\SchoolYear;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class FileService
 {
@@ -14,7 +15,7 @@ class FileService
 
     public function __construct()
     {
-        $this->baseUploadPath = config('ekdromes.arxeia_path', storage_path('app/arxeia'));
+        $this->baseUploadPath = config('ekdromes.arxeia_path', Storage::disk('local')->path('arxeia'));
     }
 
     public function getSchoolDir(SchoolYear $year, School $school): string
@@ -98,6 +99,7 @@ class FileService
      * Get list of files for an excursion.
      * Ported from legacy GetFileList function.
      * Filters files by patterns: {id}U_, {id}F_, {id}A_
+     *
      * @return string[]
      */
     public function getFileList(Excursion $excursion): array

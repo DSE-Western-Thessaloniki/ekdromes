@@ -61,8 +61,9 @@ class ExcursionController extends Controller
         // $validated = $request->validate($this->fieldMap->getValidationRules($eidos));
 
         $excursion = $this->excursionService->create($request->validated());
+        $this->pdfService->generateExcursionFiles($excursion);
 
-        return redirect()->route('excursion.edit', $excursion)
+        return redirect()->route('excursion.files', $excursion)
             ->with('success', 'Η εκδρομή δημιουργήθηκε επιτυχώς');
     }
 
@@ -84,6 +85,7 @@ class ExcursionController extends Controller
         // $validated = $request->validate($this->fieldMap->getValidationRules($eidosKey));
 
         $excursion = $this->excursionService->update($excursion, $request->validated());
+        $this->pdfService->generateExcursionFiles($excursion);
 
         return redirect()->route('excursion.edit', $excursion)
             ->with('success', 'Η εκδρομή ενημερώθηκε επιτυχώς');
