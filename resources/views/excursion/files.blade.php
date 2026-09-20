@@ -20,6 +20,7 @@
                             class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-coral focus:border-transparent"
                             accept=".xlsx,.xls,.doc,.docx,.pdf,.txt" required>
                     </div>
+                    <div class="dropzone" id="dropzone"></div>
                     <button type="submit" class="bg-coral text-white px-4 py-2 rounded hover:bg-coral-dark">
                         <i class="fas fa-upload"></i> Μεταφόρτωση
                     </button>

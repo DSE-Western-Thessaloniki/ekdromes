@@ -4,6 +4,7 @@
 @import '@fortawesome/fontawesome-free/css/brands.css';
 @import '@fortawesome/fontawesome-free/css/solid.css';
 @import '@fortawesome/fontawesome-free/css/regular.css';
+@import '@deltablot/dropzone/dist/dropzone.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
