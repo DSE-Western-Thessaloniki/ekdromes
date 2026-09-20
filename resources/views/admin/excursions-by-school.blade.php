@@ -1,8 +1,8 @@
-@extends('layouts.app')
+<x-layouts.app>
+    <x-slot:title>
+        Εκδρομές {{ $school->displayname }}
+    </x-slot:title>
 
-@section('title', 'Εκδρομές ' . $school->displayname)
-
-@section('content')
     <div class="space-y-6">
         <!-- Header -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
@@ -71,11 +71,13 @@
                                 <td class="px-4 py-3 text-sm">{{ $excursion->ar_mathiton ?? '-' }}</td>
                                 <td class="px-4 py-3 text-sm">
                                     @if ($excursion->isSubmitted())
-                                        <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">
+                                        <span
+                                            class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">
                                             ΥΠΟΒΛΗΘΗΚΕ
                                         </span>
                                     @elseif($excursion->isDraft())
-                                        <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-semibold">
+                                        <span
+                                            class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-semibold">
                                             ΠΡΟΣΧΕΔΙΟ
                                         </span>
                                     @else
@@ -132,4 +134,4 @@
             color: #FFB3A1;
         }
     </style>
-@endsection
+</x-layouts.app>

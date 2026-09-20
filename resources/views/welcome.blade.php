@@ -31,7 +31,7 @@
         </div>
     @endsession
 
-    <form id="identity" action="{{ route('dashboard') }}" class="flex flex-col items-center">
+    <form id="identity" action="{{ route('dashboard') }}" class="flex flex-col items-center gap-4">
         <div class="flex flex-col bg-white py-8 px-16 rounded-lg shadow-lg my-8">
             <div class="text-center">
                 <img src="{{ Vite::asset('resources/images/icons8-bus.gif') }}" width="128" height="128"
@@ -46,6 +46,14 @@
                 Πανελλήνιο Σχολικό Δίκτυο για να συνδεθείτε
             </div>
         </div>
+        @php
+            $notes = App\Models\Option::where('name', 'login_notes')->first() ?? '';
+        @endphp
+        @if ($notes)
+            <div class="bg-amber-300 border-2 border-coral p-4 rounded-2xl shadow-2xl max-w-2xl text-center">
+                {{ $notes->value }}
+            </div>
+        @endif
         <p class="mt-4">
             <input type="submit" value="Σύνδεση" name="submitButton" id="submitButton"
                 class="text-lg px-6 py-2 bg-coral text-white rounded hover:bg-coral-dark cursor-pointer">

@@ -1,8 +1,7 @@
-@extends('layouts.app')
-@section('title', 'Νέα Εκδρομή')
+<x-layouts.app>
+<x-slot:title>Νέα Εκδρομή</x-slot:title>
 
-@section('content')
-    <p class="text-lg font-bold underline text-center py-4">Νέα Εκδρομή</p>
+<p class="text-lg font-bold underline text-center py-4">Νέα Εκδρομή</p>
     <p>{{ $excursionType }}</p>
     <p>Κατεβάστε τις οδηγίες και τη νομοθεσία:</p>
     @foreach ($types[$excursionType]['legislation_files']() as $file)
@@ -109,4 +108,4 @@
         </a>
         </form>
     </div>
-@endsection
+</x-layouts.app>

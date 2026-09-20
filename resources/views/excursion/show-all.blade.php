@@ -1,7 +1,6 @@
-@extends('layouts.app')
-@section('title', 'Νέα Εκδρομή')
-@section('content')
-    <div class="flex justify-between items-center mb-4">
+<x-layouts.app>
+<x-slot:title>Νέα Εκδρομή</x-slot:title>
+<div class="flex justify-between items-center mb-4">
         <div>
             Διαλέξτε το είδος της νέας εκδρομής:
         </div>
@@ -51,4 +50,4 @@
             <i class="fas fa-circle-question"></i> Χρειάζομαι καθοδήγηση
         </a>
     </div>
-@endsection
+</x-layouts.app>

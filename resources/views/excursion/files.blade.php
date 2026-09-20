@@ -1,8 +1,6 @@
-@extends('layouts.app')
+<x-layouts.app>
+<x-slot:title>Αρχεία Εκδρομής</x-slot:title>
 
-@section('title', 'Αρχεία Εκδρομής')
-
-@section('content')
 <div class="bg-white rounded-lg shadow-md overflow-hidden">
     <div class="bg-coral text-white px-6 py-4">
         <h3 class="text-xl font-semibold">
@@ -91,4 +89,4 @@
         </a>
     </div>
 </div>
-@endsection
+</x-layouts.app>

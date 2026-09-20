@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Option;
 use App\Models\School;
 use App\Models\User;
 use Closure;
@@ -39,6 +40,14 @@ class EnsureCasAccountHasAccess
                 Log::warning('Το uid:'.cas()->getAttribute('uid').' και το email:'.cas()->getAttribute('mail').' δεν αντιστοιχούν σε λογαριασμό.');
 
                 return response()->view('pages.deny_access');
+            }
+
+            $allow_school_access = Option::where('name', 'allow_school_access')->first();
+            $no_school_access_text = Option::where('name', 'no_school_access_text')->first();
+            if (! $allow_school_access || $allow_school_access->value === '0') {
+                return response()->view('pages.schools_not_allowed', [
+                    'no_school_access_text' => $no_school_access_text ? $no_school_access_text->value : '',
+                ]);
             }
 
             $cas_model_category = 'school';

@@ -1,8 +1,8 @@
-@extends('layouts.app')
+<x-layouts.app>
+    <x-slot:title>
+        Διαχείριση - Πίνακας Εκδρομών
+    </x-slot:title>
 
-@section('title', 'Διαχείριση - Πίνακας Εκδρομών')
-
-@section('content')
     <div class="space-y-6">
         <!-- Header -->
         <div class="bg-white rounded-lg shadow-md overflow-hidden">
@@ -23,12 +23,16 @@
                     <thead>
                         <tr class="bg-gray-100 border-b">
                             <th class="px-4 py-3 text-left text-sm font-semibold" data-col="index">αα</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="school.displayname">Σχολείο</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="ar_prot_sxoleiou">Αρ. Πρωτ.</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="eidos_ekdromis">Είδος Εκδρομής
+                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="school.displayname">Σχολείο
+                            </th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="ar_prot_sxoleiou">Αρ. Πρωτ.
+                            </th>
+                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="eidos_ekdromis">Είδος
+                                Εκδρομής
                             </th>
                             <th class="px-4 py-3 text-left text-sm font-semibold" data-col="status">Κατάσταση</th>
-                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="submit_datetime">Παρατηρήσεις
+                            <th class="px-4 py-3 text-left text-sm font-semibold" data-col="submit_datetime">
+                                Παρατηρήσεις
                             </th>
                             <th class="px-4 py-3 text-left text-sm font-semibold" data-col="submit_datetime">Ημερομηνία
                                 Υποβολής</th>
@@ -42,4 +46,4 @@
         </div>
     </div>
 
-@endsection
+</x-layouts.app>

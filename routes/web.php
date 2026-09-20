@@ -4,7 +4,9 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\ExcursionWizardController;
+use App\Http\Controllers\UpdateOptionsController;
 use App\Http\Middleware\EnsureCasAccountHasAccess;
+use App\Models\Option;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +23,7 @@ Route::get('/', fn (): View => view('welcome'))->name('login');
 
 // CAS Logout
 Route::get('/logout', function (): RedirectResponse {
+    request()->session()->invalidate();
     app('cas')->logout();
 
     return redirect('/');
@@ -59,5 +62,13 @@ Route::middleware([CASAuth::class, EnsureCasAccountHasAccess::class])->group(fun
         Route::post('/clear-school', [AdminController::class, 'clearSchoolSelection'])->name('clear-school');
         Route::get('/excursions/{schoolCode}', [AdminController::class, 'excursionsBySchool'])->name('excursions-by-school');
         Route::get('/schools', [AdminController::class, 'schools'])->name('schools');
+
+        Route::prefix('option')->name('option.')->group(function () {
+            Route::get('/', fn () => view('admin.option.index', [
+                'options' => Option::all()
+                    ->flatMap(fn ($item) => [$item->name => $item->value]),
+            ]))->name('index');
+            Route::put('/', UpdateOptionsController::class)->name('update');
+        });
     });
 });

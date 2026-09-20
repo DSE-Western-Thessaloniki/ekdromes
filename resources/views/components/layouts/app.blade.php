@@ -72,6 +72,10 @@
                             class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
                                 class="fas fa-info-circle mr-2"></i>Οδηγίες</a>
                         @if ($isAdmin)
+                            <a href="{{ route('admin.option.index') }}"
+                                class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
+                                    class="fas fa-cogs mr-2"></i>Ρυθμίσεις</a>
+
                             @if ($selectedSchool)
                                 <a href="{{ route('excursion.create') }}"
                                     class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
