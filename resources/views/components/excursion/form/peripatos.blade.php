@@ -24,10 +24,35 @@
             :emptyItem="false" :options="['Πεζή', 'Με μεταφορικό μέσο']" />
         <x-excursion.form.ui.input fieldName="metaforika_mesa" label="Μεταφορικό μέσο" :value="$excursion->metaforika_mesa ?? ''"
             class="{{ $metakinisi_selected ? '' : 'hidden' }}" />
+        <div></div>
+        @php
+            $objectives = App\Services\ExcursionFieldMap::getObjectives();
+            $options = array_map(
+                fn($key, $item) => ['id' => "cb$key", 'value' => $item],
+                range(1, count($objectives)),
+                $objectives,
+            );
+        @endphp
+        <x-excursion.form.ui.checkboxset fieldName="stoxoi" legend="Στόχοι εκπαιδευτικής δράσης" :options="$options"
+            class="col-span-2 border p-2 space-y-1.5" />
     </x-excursion.form.ui.section>
 
-    <x-excursion.form.ui.section title="Ημερομηνίες">
+    <x-excursion.form.ui.section title="Ημερομηνίες και ώρες">
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία εκδρομής" :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
+        <div></div>
+        <x-excursion.form.ui.time fieldName="ora_anaxorisis" label="Ώρα αναχώρησης από το σχολείο" :value="$excursion->ora_anaxorisis ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής στο σχολείο" :value="$excursion->ora_epistrofis ?? ''" />
+    </x-excursion.form.ui.section>
+
+    <x-excursion.form.ui.section title="Συμμετοχές">
+        <x-excursion.form.ui.input fieldName="onoma_arxigos" label="Αρχηγός" :value="$excursion->onoma_arxigos ?? ''"
+            placeholder="Ονοματεπώνυμο και ειδικότητα" />
+        <div></div>
+        <div>
+            <x-excursion.form.ui.textarea fieldName="onomata_synodoi" label="Συνοδοί (Ονοματεπώνυμο και ειδικότητα)"
+                :value="$excursion->onomata_synodoi ?? ''" />
+            <div class="text-sm">[Στην περίπτωση συμμετοχής όλων των διδασκόντων αφήνεται κενό]</div>
+        </div>
     </x-excursion.form.ui.section>
 </div>
 

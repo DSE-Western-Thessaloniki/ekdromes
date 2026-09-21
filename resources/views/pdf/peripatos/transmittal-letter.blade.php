@@ -15,18 +15,31 @@
     </p>
 
     <p class="indent">
-        Σύμφωνα με το άρθρο 17 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β'/13-02-2020) και την πράξη
+        Σύμφωνα με το άρθρο 16 της Υ.Α. 109113/ΓΔ4/19-8-2026, (ΦΕΚ 5237/τ.Β'/19-08-2026) και την πράξη
         <strong>{{ $excursion->ar_prajis_syllogou }}</strong> του Συλλόγου Διδασκόντων/ουσών σας ενημερώνουμε ότι:
     </p>
 
     <ol>
         <li>Οι μαθητές/τριες του σχολείου μας πρόκειται να πραγματοποιήσουν περίπατο
-            του άρθρου 1 με τον εξής προορισμό: <b>{{ $excursion->proorismos }}</b>, στις
-            <b>{{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}</b>
+            του άρθρου <b>4</b> στο: <b>{{ $excursion->proorismos }}</b>, στις
+            <b>{{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}</b> με ώρα
+            αναχώρησης {{ $excursion->ora_anaxorisis }} και επιστροφής {{ $excursion->ora_epistrofis }},
+            με σκοπό και στόχο {{ $excursion->skopos }}.
         </li>
+        <li>Αρχηγός μετακίνησης: {{ $excursion->onoma_arxigos }}</li>
+        @if ($excursion->onomata_synodoi)
+            <li>Συνοδοί:
+                <ul>
+                    @foreach (explode("\n", $excursion->onomata_synodoi) as $synodos)
+                        <li>{{ $synodos }}</li>
+                    @endforeach
+                </ul>
+            </li>
+        @else
+            <li>Συνοδοί όλοι/ες οι διδάσκοντες/ουσες εκπαιδευτικοί</li>
+        @endif
         <li>Πρόκειται για τον <b>{{ $excursion->a_arithmos }}ο</b> περίπατο για το τρέχον σχ. έτος</li>
-        <li>Έχει ολοκληρωθεί όλη η προβλεπόμενη διαδικασία</li>
-        <li>Έχουν τηρηθεί όλα τα αναφερόμενα της ανωτέρω Υ.Α.</li>
+        <li>Έχει ολοκληρωθεί όλη η προβλεπόμενη διαδικασία και έχουν τηρηθεί όλα τα αναφερόμενα της ανωτέρω Υ.Α.</li>
     </ol>
 
     <x-excursion.transmittal.signature :title="$excursion->prosfonisi_ypografonta" :name="$excursion->onoma_ypografonta" class="signature" />
