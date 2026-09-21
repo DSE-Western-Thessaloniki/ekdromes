@@ -128,21 +128,22 @@
                 </div>
 
                 {{-- Actions --}}
-                <div class="flex items-center space-x-4">
+                <div class="flex items-center justify-between">
+                    <a href="{{ route('dashboard') }}"
+                        class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg text-lg hover:bg-gray-400">
+                        <i class="fas fa-arrow-left"></i>
+                        {{ $isEdit ? 'Επιστροφή' : 'Ακύρωση' }}
+                    </a>
                     <button type="submit"
                         class="bg-coral text-white px-6 py-2 rounded-lg text-lg hover:bg-coral-dark cursor-pointer">
-                        <i class="fas fa-save"></i> {{ $isEdit ? 'Αποθήκευση' : 'Δημιουργία' }}
+                        <i class="fas fa-save"></i> {{ $isEdit ? 'Αποθήκευση Αλλαγών' : 'Δημιουργία' }}
                     </button>
                     @if ($isEdit)
                         <a href="{{ route('excursion.files', $excursion) }}"
                             class="bg-blue-500 text-white px-6 py-2 rounded-lg text-lg hover:bg-blue-600">
-                            <i class="fas fa-folder-open"></i> Αρχεία
+                            <i class="fas fa-folder-open"></i> Αρχεία<i class="fas fa-arrow-right"></i>
                         </a>
                     @endif
-                    <a href="{{ route('dashboard') }}"
-                        class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg text-lg hover:bg-gray-400">
-                        {{ $isEdit ? 'Επιστροφή' : 'Ακύρωση' }}
-                    </a>
                 </div>
             </form>
         </div>
