@@ -14,19 +14,50 @@
                 παρακάτω κουμπί.</p>
             <!-- File Upload -->
             <div class="my-6">
-                <div class="flex flex-col gap-4" x-data="{ show_dropzone: false }">
+                <div class="flex flex-col gap-4" x-data="fileUploader({
+                    url: @js(route('excursion.upload-file', $excursion)),
+                    csrfToken: @js(csrf_token()),
+                })">
                     <button type="button" class="btn btn-gray self-start" @click="show_dropzone = !show_dropzone"><i
                             class="fas fa-plus"></i> Επιπλέον
                         Αρχεία</button>
-                    <p x-show="show_dropzone" x-transition>Προσθέστε αρχεία με το παρακάτω πλαίσιο. Αφού επιλέξετε τα
-                        αρχεία που
-                        θέλετε από τον υπολογιστή
-                        σας, πατήστε το κουμπί της αποθήκευσης για να προστεθούν. Αρχεία με το ίδιο όνομα αντικαθιστούν
-                        τα προηγούμενα. Μέγιστο μέγεθος αρχείου 10MB.</p>
-                    <div class="dropzone" id="dropzone" x-show="show_dropzone" x-transition></div>
-                    <button type="button" class="btn btn-success self-start"
-                        @click="document.querySelector('#dropzone').dropzone.processQueue()" x-show="show_dropzone"
-                        x-transition><i class="fas fa-floppy-disk"></i>Αποθήκευση</button>
+                    <p x-show="show_dropzone" x-transition>
+                        Προσθέστε αρχεία με το παρακάτω πλαίσιο. Αρχεία με το ίδιο όνομα αντικαθιστούν τα προηγούμενα.
+                        Μέγιστο μέγεθος αρχείου 10MB.
+                    </p>
+                    <div x-show="show_dropzone" x-transition @click="$refs.fileInput.click()"
+                        @dragover.prevent="isDragging = true" @dragleave.prevent="isDragging = false"
+                        @drop.prevent="handleDrop($event)" :class="{ 'border-coral bg-orange-50': isDragging }"
+                        class="cursor-pointer rounded-lg border-2 border-dashed border-gray-300 p-8 text-center hover:border-coral">
+                        <input x-ref="fileInput" type="file" multiple class="hidden"
+                            accept=".pdf,.doc,.docx,.xls,.xlsx,.txt" @change="handleFiles($event.target.files)" />
+                        <i class="fas fa-cloud-arrow-up mb-2 text-3xl text-gray-400"></i>
+                        <p>Σύρτε αρχεία εδώ ή πατήστε για επιλογή</p>
+                        <p class="mt-1 text-sm text-gray-500">PDF, DOC, DOCX, XLS, XLSX, TXT — έως 10MB ανά αρχείο</p>
+                    </div>
+
+                    <div x-show="files.length > 0" x-transition class="space-y-2">
+                        <template x-for="(item, index) in files" :key="item.id">
+                            <div class="flex items-center justify-between rounded border p-3">
+                                <div class="min-w-0">
+                                    <p class="truncate font-medium" x-text="item.file.name"></p>
+                                    <p class="text-sm text-gray-500" x-text="formatSize(item.file.size)"></p>
+                                </div>
+                                <button type="button" class="ml-4 text-red-500 hover:text-red-700 cursor-pointer"
+                                    :disabled="uploading" @click="removeFile(index)" title="Απομάκρυνση">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </template>
+                    </div>
+
+                    <p x-show="error" x-text="error" class="text-sm text-red-600"></p>
+
+                    <button type="button" class="btn btn-success self-start" @click="upload()" x-show="show_dropzone"
+                        x-transition :disabled="uploading || files.length === 0">
+                        <i class="fas fa-floppy-disk"></i>
+                        <span x-text="uploading ? 'Αποθήκευση...' : 'Αποθήκευση'"></span>
+                    </button>
                 </div>
                 <hr class="my-6 border-gray-200">
             </div>
@@ -119,43 +150,11 @@
                 <p>Είστε σίγουροι; Δε γίνονται αλλαγές μετά την υποβολή.</p>
                 <div class="flex justify-between">
                     <button class="btn btn-gray" commandfor="submit_excursion" command="close">Όχι</button>
-                    <a href="{{ route('excursion.submit', $excursion) }}" class="btn btn-danger">Ναι</a>
+                    <form action="{{ route('excursion.submit', $excursion) }}" method="POST">
+                        <button type="submit" class="btn btn-danger">Ναι</button>
+                    </form>
                 </div>
             </div>
         </dialog>
     </div>
-
-    <script type="module">
-        (function() {
-            const options = {
-                url: "{{ route('excursion.upload-file', $excursion) }}",
-                autoProcessQueue: false,
-                acceptedFiles: ".pdf,.doc,.docx,.xls,.xlsx,.txt",
-                dictDefaultMessage: "Σύρτε αρχεία για επιλογή ή πατήστε εδώ",
-                dictFallbackMessage: "Δεν υποστηρίζεται μεταφορά και απόθεση",
-                dictFallbackText: "Χρησιμοποιήστε το παρακάτω πεδίο για να επιλέξετε πολλαπλά αρχεία για ανέβασμα.",
-                dictFileTooBig: "Το αρχείο είναι πολύ μεγάλο (@{{ filesize }}MiB). Μέγιστο μέγεθος: @{{ maxFilesize }}MiB.",
-                dictResponseError: "Ο server απάντησε με κωδικό @{{ statusCode }}.",
-                dictCancelUpload: "Ακύρωση",
-                dictCancelUploadConfirmation: "Είστε σίγουροι για την ακύρωση;",
-                dictRemoveFile: "Απομάκρυνση",
-                dictMaxFilesExceeded: "Δεν μπορείτε να ανεβάσετε περισσότερα αρχεία.",
-                dictInvalidFileType: "Δεν μπορείτε να ανεβάσετε αρχεία αυτού του τύπου (μόνο pdf,doc,docx,excel)",
-                paramName: "file", // The name that will be used to transfer the file
-                createImageThumbnails: true,
-                maxFilesize: 10, // MB
-                parallelUploads: 100,
-                uploadMultiple: true,
-                addRemoveLinks: true,
-                maxFiles: 100,
-                queuecomplete: () => location.reload(),
-            };
-
-            const dropzone = new Dropzone("#dropzone", options);
-            console.log(dropzone);
-            dropzone.on("addedfile", (file) => {
-                console.log(file.name, file.upload?.progress);
-            });
-        })();
-    </script>
 </x-layouts.app>

@@ -4,7 +4,6 @@
 @import '@fortawesome/fontawesome-free/css/brands.css';
 @import '@fortawesome/fontawesome-free/css/solid.css';
 @import '@fortawesome/fontawesome-free/css/regular.css';
-@import '@deltablot/dropzone/dist/dropzone.css';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -56,9 +55,4 @@ body {
 
 .btn-gray {
     @apply bg-gray-300 hover:bg-gray-400;
-}
-
-.dropzone {
-    border: 2px dashed rgb(0, 135, 247);
-    @apply bg-amber-200 hover:bg-amber-300;
 }
