@@ -12,6 +12,7 @@ use App\Services\PdfService;
 use App\Services\ProtocolService;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ExcursionController extends Controller
 {
@@ -69,6 +70,13 @@ class ExcursionController extends Controller
 
     public function edit(Excursion $excursion): View
     {
+        if (Session::get('cas_model_category') === 'user') { // Admin
+            $adminSelectedSchool = Session::get('admin_selected_school');
+            if (! $adminSelectedSchool || $excursion->school_id !== $adminSelectedSchool->id) {
+                Session::put('admin_selected_school', $excursion->school->id);
+            }
+        }
+
         $files = $this->fileService->getFiles($excursion);
         $fieldMap = $this->fieldMap;
 
