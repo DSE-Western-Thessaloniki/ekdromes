@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::table('excursions', function (Blueprint $table) {
             $table->json('stoxoi')->nullable();
+            $table->tinyInteger('dianyktereush')->nullable();
+            $table->integer('aa_programmatos')->nullable();
         });
     }
 
@@ -22,7 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('excursions', function (Blueprint $table) {
-            $table->dropColumn(['stoxoi']);
+            $table->dropColumn(['stoxoi', 'dianyktereush', 'aa_programmatos']);
         });
     }
 };

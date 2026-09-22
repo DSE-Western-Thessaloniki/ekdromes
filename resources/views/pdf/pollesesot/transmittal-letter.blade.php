@@ -11,7 +11,7 @@
     </p>
 
     <p class="indent justify">
-        Σύμφωνα με το άρθρο 17 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β'/13-02-2020) και την πράξη
+        Σύμφωνα με το άρθρο 16 της με αρ. Υ.Α. 109113/ΓΔ4/19-8-2026, (ΦΕΚ 5237/τ.Β'/19-08-2026) και την πράξη
         <strong>{{ $excursion->ar_prajis_syllogou }}</strong> του Συλλόγου Διδασκόντων/ουσών σας ενημερώνουμε ότι:
     </p>
 
@@ -24,15 +24,31 @@
         @endphp
         <li class="justify"><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές/τριες της τελευταίας τάξης
             του σχολείου μας και <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί πρόκειται να πραγματοποιήσουν
-            πολυήμερη εκπαιδευτική εκδρομή του άρθρου 2 παρ.5 με τον εξής
+            πολυήμερη εκπαιδευτική εκδρομή του άρθρου <b>8</b> με τον εξής
             προορισμό: <b>{{ $excursion->proorismos }}</b>, από
             <b>{{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}</b> έως
-            <b>{{ $excursion->hmera_epistrofis?->format('d-m-Y') }}</b>
+            <b>{{ $excursion->hmera_epistrofis?->format('d-m-Y') }}</b>,
+            με ώρα αναχώρησης από τη Θεσσαλονίκη {{ $excursion->ora_anaxorisis }},
+            ώρα άφιξης στον προορισμό {{ $excursion->ora_afijis }}, ώρα αναχώρησης
+            για επιστροφή {{ $excursion->ora_apoxorisis }} και ώρα άφιξης στη
+            Θεσσαλονίκη {{ $excursion->ora_epistrofis }}.
+            Στόχοι:
+            <ul>
+                @foreach ($excursion->stoxoi as $stoxos)
+                    <li>{{ $stoxos }}</li>
+                @endforeach
+            </ul>
         </li>
-        <li>Η μετακίνηση θα γίνει με το/τα εξής μεταφορικό/α μέσο/α: {{ $excursion->metaforika_mesa }}.</li>
-        <li>Το όνομα του καταλύματος είναι: {{ $excursion->onoma_jenodoxeio }}</li>
-        <li>Έχει ολοκληρωθεί όλη η προβλεπόμενη διαδικασία</li>
-        <li>Έχουν τηρηθεί όλα τα αναφερόμενα της ανωτέρω Υ.Α.</li>
+        <li>Αρχηγός μετακίνησης: {{ $excursion->onoma_arxigos }}</li>
+        <li>Συνοδοί:
+            <ul>
+                @foreach (explode("\n", $excursion->onomata_synodoi) as $synodos)
+                    <li>{{ $synodos }}</li>
+                @endforeach
+            </ul>
+        </li>
+        <li>Έχει ολοκληρωθεί όλη η προβλεπόμενη διαδικασία και έχουν τηρηθεί όλα τα αναφερόμενα της ανωτέρω Υ.Α.</li>
+        <li>Υποβάλλεται το ακριβές αντίγραφο του Συλλόγου Διδασκόντων</li>
     </ol>
 
     <x-excursion.transmittal.signature :title="$excursion->prosfonisi_ypografonta" :name="$excursion->onoma_ypografonta" class="signature" />

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Exception;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -70,6 +72,7 @@ class Excursion extends Model
         'ar_metakinoumenon' => 'integer',
         'plithos_synodoi' => 'integer',
         'plithos_ektosomadas_synodoi' => 'integer',
+        'stoxoi' => 'array',
     ];
 
     public function schoolYear(): BelongsTo
@@ -109,6 +112,30 @@ class Excursion extends Model
 
     public function hasProtocol(): bool
     {
-        return !empty($this->ar_prot);
+        return ! empty($this->ar_prot);
+    }
+
+    protected function dianyktereush(): Attribute
+    {
+        $validStringValues = ['Όχι', 'Ναι'];
+
+        return Attribute::make(
+            get: fn (int $value) => $validStringValues[$value],
+            set: function (string|int|null $value) use ($validStringValues): ?int {
+                if ($value === null) {
+                    return null;
+                }
+
+                if (is_int($value) && in_array($value, [0, 1])) {
+                    return $value;
+                }
+
+                if (in_array($value, $validStringValues)) {
+                    return array_search($value, $validStringValues);
+                }
+
+                throw new Exception("Μη έγκυρη τιμή '$value' περάστηκε ως τιμή για το πεδίο διανυκτέρευση!");
+            }
+        );
     }
 }

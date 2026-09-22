@@ -32,6 +32,12 @@
             :value="$excursion->plithos_synodoi ?? ''" />
         <x-excursion.form.ui.input fieldName="covered" label="Καλυπτόμενοι μαθητές" type="number" :value="0"
             :readonly="true" />
+        <x-excursion.form.ui.input fieldName="onoma_arxigos" label="Αρχηγός" :value="$excursion->onoma_arxigos ?? ''"
+            placeholder="Ονοματεπώνυμο και ειδικότητα" />
+        <div></div>
+        <x-excursion.form.ui.textarea fieldName="onomata_synodoi" label="Συνοδοί (Ονοματεπώνυμο και ειδικότητα)"
+            :value="$excursion->onomata_synodoi ?? ''" lineNumbers="true" />
+        <div></div>
         <div class="flex flex-col gap-2">
             <div class="space-x-2">
                 <input type="hidden" name="70percent" value="true">

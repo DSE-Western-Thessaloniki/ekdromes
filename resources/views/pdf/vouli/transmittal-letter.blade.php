@@ -10,7 +10,7 @@
     </p>
 
     <p class="indent justify">
-        Σύμφωνα με το άρθρο 17 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β'/13-02-2020) και την πράξη
+        Σύμφωνα με το άρθρο 16 της με αρ. Υ.Α. 109113/ΓΔ4/19-8-2026, (ΦΕΚ 5237/τ.Β'/19-08-2026) και την πράξη
         <strong>{{ $excursion->ar_prajis_syllogou }}</strong> του Συλλόγου Διδασκόντων/ουσών σας ενημερώνουμε ότι:
     </p>
 
@@ -25,24 +25,25 @@
             $hmera_epistrofis = $excursion->hmera_epistrofis?->format('d-m-Y');
         @endphp
         <li class="justify"><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές και μαθήτριες
-            της {{ $excursion->tmimata }} τάξης του σχολείου μας και
-            <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί πρόκειται να μετακινηθούν
-            στην Αθήνα στη Βουλή των Ελλήνων στο πλαίσιο του άρθρου 7,
+            της/του {{ $excursion->tmimata }} τάξης/τμήματος και
+            <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί του σχολείου μας πρόκειται να μετακινηθούν
+            στην Αθήνα στη Βουλή των Ελλήνων στο πλαίσιο του άρθρου 10,
             @if ($hmera_ekdromis !== $hmera_epistrofis)
-                από <b>{{ $hmera_ekdromis }}</b> έως <b>{{ $hmera_epistrofis }}</b>
+                από <b>{{ $hmera_ekdromis }}</b> έως <b>{{ $hmera_epistrofis }}</b>,
             @else
-                στις <b>{{ $hmera_ekdromis }}</b>
+                στις <b>{{ $hmera_ekdromis }}</b>,
             @endif
+            με ώρα αναχώρησης {{ $excursion->ora_anaxorisis }} και επιστροφής
+            {{ $excursion->ora_epistrofis }}.
+            Στόχοι:
+            <ul>
+                @foreach ($excursion->stoxoi as $stoxos)
+                    <li>{{ $stoxos }}</li>
+                @endforeach
+            </ul>
         </li>
-        <li>
-            Η μετακίνηση θα πραγματοποιηθεί με το/τα εξής μεταφορικό/α μέσο/α: {{ $excursion->metaforika_mesa }}.<br>
-            @if ($excursion->onoma_jenodoxeio)
-                Το όνομα του καταλύματος είναι: {{ $excursion->onoma_jenodoxeio }} <br>
-            @endif
-            Το πρακτορείο είναι το εξής: {{ $excursion->onoma_praktoreio }}
-        </li>
-        <li>Έχει ολοκληρωθεί όλη η προβλεπόμενη διαδικασία</li>
-        <li>Έχουν τηρηθεί όλα τα αναφερόμενα της ανωτέρω Υ.Α.</li>
+        <li>Έχει ολοκληρωθεί όλη η προβλεπόμενη διαδικασία και έχουν τηρηθεί όλα τα αναφερόμενα της ανωτέρω Υ.Α.</li>
+        <li>Υποβάλλεται το ακριβές αντίγραφο του Συλλόγου Διδασκόντων</li>
     </ol>
 
     <x-excursion.transmittal.signature :title="$excursion->prosfonisi_ypografonta" :name="$excursion->onoma_ypografonta" class="signature" />

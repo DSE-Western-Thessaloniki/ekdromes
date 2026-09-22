@@ -18,6 +18,16 @@
                 ειδικότητα ή τμήμα ειδικότητας]</div>
         </div>
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
+        @php
+            $objectives = App\Services\ExcursionFieldMap::getObjectives();
+            $options = array_map(
+                fn($key, $item) => ['id' => "cb$key", 'value' => $item],
+                range(1, count($objectives)),
+                $objectives,
+            );
+        @endphp
+        <x-excursion.form.ui.checkboxset fieldName="stoxoi" legend="Στόχοι εκπαιδευτικής δράσης" :options="$options"
+            class="col-span-2 border p-2 space-y-1.5" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Ημερομηνία">
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία επίσκεψης"
@@ -35,6 +45,11 @@
         <div class="text-sm col-span-2">[Ένας 1 συνοδός/25 μαθητές (εκτός του αρχηγού). Σε εξαιρετικές περιπτώσεις
             επιτρέπονται μέχρι δύο επιπλέον συνοδοί εφόσον ο Σύλλογος Διδασκόντων το κρίνει απαραίτητο και το αιτιολογεί
             πλήρως]</div>
+        <x-excursion.form.ui.input fieldName="onoma_arxigos" label="Αρχηγός" :value="$excursion->onoma_arxigos ?? ''"
+            placeholder="Ονοματεπώνυμο και ειδικότητα" />
+        <div></div>
+        <x-excursion.form.ui.textarea fieldName="onomata_synodoi" label="Συνοδοί (Ονοματεπώνυμο και ειδικότητα)"
+            :value="$excursion->onomata_synodoi ?? ''" lineNumbers="true" />
     </x-excursion.form.ui.section>
 </div>
 <script>

@@ -26,15 +26,25 @@
         <div class="text-sm col-span-2">[Έως πέντε (5) εργάσιμες ημέρες ή έως επτά (7) ημέρες, εάν συμπεριληφθούν έως
             δύο (2)
             αργίες]</div>
+        <x-excursion.form.ui.time fieldName="ora_anaxorisis"
+            label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο" :value="$excursion->ora_anaxorisis ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_afijis" label="Εκτιμώμενη ώρα άφιξης στον/στους προορισμό/σμούς"
+            :value="$excursion->ora_afijis ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη ώρα αποχώρησης" :value="$excursion->ora_apoxorisis ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_epistrofis"
+            label="Ώρα επιστροφής στο σχολείο ή σε άλλο καθορισμένο χώρο" :value="$excursion->ora_epistrofis ?? ''" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
         <x-excursion.form.ui.input fieldName="ar_metakinoumenon" label="Αριθμός μετακινούμενων μαθητών" type="number"
             min="1" :value="$excursion->ar_metakinoumenon ?? ''" />
-        <x-excursion.form.ui.input fieldName="onoma_arxigos" label="Αρχηγός" :value="$excursion->onoma_arxigos ?? ''" />
+        <div></div>
         <x-excursion.form.ui.input fieldName="plithos_synodoi" label="Πλήθος συνοδών (εκτός του αρχηγού)" type="number"
             min="0" :value="$excursion->plithos_synodoi ?? ''" />
         <x-excursion.form.ui.input fieldName="covered" label="Καλυπτόμενοι μαθητές" type="number" :value="0"
             :readonly="true" />
+        <x-excursion.form.ui.input fieldName="onoma_arxigos" label="Αρχηγός" :value="$excursion->onoma_arxigos ?? ''" />
+        <x-excursion.form.ui.textarea fieldName="onomata_synodoi" label="Συνοδοί (Ονοματεπώνυμο και ειδικότητα)"
+            :value="$excursion->onomata_synodoi ?? ''" lineNumbers="true" />
         <div class="flex flex-col gap-2">
             <div class="space-x-2">
                 <input type="hidden" name="70percent" value="true">

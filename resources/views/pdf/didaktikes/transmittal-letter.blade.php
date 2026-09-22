@@ -10,7 +10,7 @@
     </p>
 
     <p class="indent justify">
-        Σύμφωνα με το άρθρο 17 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β'/13-02-2020) και την πράξη
+        Σύμφωνα με το άρθρο 16 της Υ.Α. 109113/ΓΔ4/19-8-2026, (ΦΕΚ 5237/τ.Β'/19-08-2026) και την πράξη
         <strong>{{ $excursion->ar_prajis_syllogou }}</strong> του Συλλόγου Διδασκόντων/ουσών σας ενημερώνουμε ότι:
     </p>
 
@@ -30,14 +30,27 @@
         @endphp
         <li class="justify"><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές και μαθήτριες του
             σχολείου μας των τάξεων/τμημάτων: {{ $excursion->tmimata }} και
-            <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί πρόκειται να πραγματοποιήσουν διδακτική επίσκεψη
-            με τον εξής προορισμό: <b>{{ $excursion->proorismos }}</b>, στις
-            {{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}
-            στο πλαίσιο του μαθήματος: {{ $excursion->titlos_programmatos }} σύμφωνα
-            με το άρθρο 4.
+            <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί του σχολείου μας
+            πρόκειται να πραγματοποιήσουν διδακτική επίσκεψη του άρθρου <b>5</b>
+            με προορισμό: <b>{{ $excursion->proorismos }}</b>, στις
+            {{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}.
+            Στόχοι:
+            <ul>
+                @foreach ($excursion->stoxoi as $stoxos)
+                    <li>{{ $stoxos }}</li>
+                @endforeach
+            </ul>
         </li>
-        <li>Έχει ολοκληρωθεί όλη η προβλεπόμενη διαδικασία</li>
-        <li>Έχουν τηρηθεί όλα τα αναφερόμενα της ανωτέρω Υ.Α.</li>
+        <li>Αρχηγός μετακίνησης: {{ $excursion->onoma_arxigos }}</li>
+        <li>Συνοδοί:
+            <ul>
+                @foreach (explode("\n", $excursion->onomata_synodoi) as $synodos)
+                    <li>{{ $synodos }}</li>
+                @endforeach
+            </ul>
+        </li>
+        <li>Έχει ολοκληρωθεί όλη η προβλεπόμενη διαδικασία και έχουν τηρηθεί όλα
+            τα αναφερόμενα της ανωτέρω Υ.Α.</li>
     </ol>
 
     <x-excursion.transmittal.signature :title="$excursion->prosfonisi_ypografonta" :name="$excursion->onoma_ypografonta" class="signature" />

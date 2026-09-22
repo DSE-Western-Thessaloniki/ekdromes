@@ -48,6 +48,9 @@
             :readonly="true" />
         <div class="text-sm col-span-2">[Σε εξαιρετικές περιπτώσεις επιτρέπονται μέχρι δύο επιπλέον συνοδοί εφόσον ο
             Σύλλογος Διδασκόντων το κρίνει απαραίτητο και το αιτιολογεί πλήρως]</div>
+        <x-excursion.form.ui.input fieldName="onoma_arxigos" label="Αρχηγός" :value="$excursion->onoma_arxigos ?? ''" />
+        <x-excursion.form.ui.textarea fieldName="onomata_synodoi" label="Συνοδοί (Ονοματεπώνυμο και ειδικότητα)"
+            :value="$excursion->onomata_synodoi ?? ''" lineNumbers="true" />
         <div class="flex flex-col gap-2">
             <div class="space-x-2">
                 <input type="hidden" name="70percent" value="true">
