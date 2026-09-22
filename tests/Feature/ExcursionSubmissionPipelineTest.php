@@ -2,15 +2,18 @@
 
 namespace Tests\Feature;
 
+use App\Http\Controllers\ExcursionController;
 use App\Models\Excursion;
 use App\Models\School;
 use App\Models\SchoolYear;
+use App\Services\ExcursionFieldMap;
 use App\Services\ExcursionService;
 use App\Services\FileService;
 use App\Services\PdfService;
 use App\Services\ProtocolService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Storage;
+use Mockery;
 use Tests\TestCase;
 
 class ExcursionSubmissionPipelineTest extends TestCase
@@ -162,5 +165,39 @@ class ExcursionSubmissionPipelineTest extends TestCase
         $protocolNumber = 'TEST-123-2026';
         $submitted = $excursionService->submit($this->excursion, $protocolNumber);
         $this->assertEquals('ΥΠΟΒΛΗΘΗΚΕ', $submitted->status);
+    }
+
+    public function test_submission_can_skip_protocol_in_manual_testing_mode(): void
+    {
+        config(['ekdromes.skip_protocol_submission' => true]);
+
+        $fileService = Mockery::mock(FileService::class);
+        $fileService->shouldReceive('getFileList')
+            ->once()
+            ->with($this->excursion)
+            ->andReturn(['document.pdf']);
+
+        $pdfService = Mockery::mock(PdfService::class);
+        $pdfService->shouldReceive('generateExcursionFiles')
+            ->once()
+            ->with($this->excursion)
+            ->andReturn(['document.pdf']);
+
+        $protocolService = Mockery::mock(ProtocolService::class);
+        $protocolService->shouldNotReceive('submitToProtocol');
+
+        $controller = new ExcursionController(
+            new ExcursionService($this->year),
+            $fileService,
+            $pdfService,
+            $protocolService,
+            new ExcursionFieldMap,
+        );
+
+        $controller->submit($this->excursion);
+
+        $submitted = $this->excursion->fresh();
+        $this->assertTrue($submitted->isSubmitted());
+        $this->assertSame('TEST-'.$this->excursion->id, $submitted->ar_prot);
     }
 }

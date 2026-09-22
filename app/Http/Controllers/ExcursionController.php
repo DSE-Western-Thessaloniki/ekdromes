@@ -176,10 +176,14 @@ class ExcursionController extends Controller
                 ->with('error', 'Απέτυχε η δημιουργία του διαβιβαστικού PDF.');
         }
 
-        $protocolNumber = $this->protocolService->submitToProtocol($excursion, $files);
-        if (! $protocolNumber) {
-            return redirect()->route('excursion.files', $excursion)
-                ->with('error', 'Η υποβολή στο πρωτόκολλο απέτυχε. Παρακαλούμε δοκιμάστε ξανά αργότερα.');
+        if (config('ekdromes.skip_protocol_submission', false)) {
+            $protocolNumber = 'TEST-'.$excursion->id;
+        } else {
+            $protocolNumber = $this->protocolService->submitToProtocol($excursion, $files);
+            if (! $protocolNumber) {
+                return redirect()->route('excursion.files', $excursion)
+                    ->with('error', 'Η υποβολή στο πρωτόκολλο απέτυχε. Παρακαλούμε δοκιμάστε ξανά αργότερα.');
+            }
         }
 
         $this->excursionService->submit($excursion, $protocolNumber);

@@ -13,12 +13,17 @@ it('preserves every ekdromes configuration value', function (): void {
         'eprotocol_base_url' => 'https://protocol.example.test/protocol',
         'eprotocol_username' => 'configured-user',
         'eprotocol_password' => 'configured-password',
+        'skip_protocol_submission' => true,
         'admin_emails' => ['admin@example.test', 'reports@example.test'],
     ];
 
     config(['ekdromes' => $configuration]);
 
     expect(config('ekdromes'))->toBe($configuration);
+});
+
+it('does not skip protocol submission by default', function (): void {
+    expect(config('ekdromes.skip_protocol_submission'))->toBeFalse();
 });
 
 it('uses configured paths and protocol credentials', function (): void {
