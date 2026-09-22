@@ -3,13 +3,14 @@
 namespace App\Services;
 
 use App\Models\Excursion;
-use GuzzleHttp\Client;
 use GuzzleHttp\Cookie\CookieJar;
+use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class ProtocolService
 {
-    protected Client $httpClient;
+    protected PendingRequest $httpClient;
 
     protected string $baseUrl;
 
@@ -20,11 +21,13 @@ class ProtocolService
     public function __construct()
     {
         $this->cookieJar = new CookieJar;
-        $this->httpClient = new Client([
-            'timeout' => 30,
-            'verify' => false,
-        ]);
         $this->baseUrl = config('ekdromes.eprotocol_base_url', 'http://e-protocol/protocol');
+        $this->httpClient = Http::baseUrl($this->baseUrl)
+            ->timeout(30)
+            ->withOptions([
+                'verify' => false,
+                'cookies' => $this->cookieJar,
+            ]);
         $this->legacyPath = base_path(config('ekdromes.legacy_path', 'app/legacy'));
     }
 
@@ -85,16 +88,14 @@ class ProtocolService
     }
 
     /**
-     * Login to the e-protocol system using Guzzle.
+     * Login to the e-protocol system.
      * Ported from legacy finalsubmit login flow.
      */
     protected function login(): bool
     {
         try {
             // First, ensure protocol is accessible
-            $status = $this->httpClient->get("{$this->baseUrl}/index.php", [
-                'cookies' => $this->cookieJar,
-            ])->getStatusCode();
+            $status = $this->httpClient->get('index.php')->status();
 
             if ($status !== 200) {
                 Log::error('Protocol server not accessible: HTTP '.$status);
@@ -112,22 +113,19 @@ class ProtocolService
                 return false;
             }
 
-            $result = $this->httpClient->post("{$this->baseUrl}/checkLogin.php", [
-                'form_params' => [
-                    'username' => $username,
-                    'password' => $password,
-                ],
-                'cookies' => $this->cookieJar,
+            $result = $this->httpClient->asForm()->post('checkLogin.php', [
+                'username' => $username,
+                'password' => $password,
             ]);
 
-            $status = $result->getStatusCode();
+            $status = $result->status();
             if ($status !== 200) {
                 Log::error('Protocol login failed: HTTP '.$status);
 
                 return false;
             }
 
-            $body = (string) $result->getBody();
+            $body = $result->body();
             if ($body !== '') {
                 Log::error('Protocol login error: '.$body);
 
@@ -162,66 +160,28 @@ class ProtocolService
                 $protocolTitle = 'Αίτημα Ενημέρωσης-Έγκρισης εκδρομής';
             }
 
-            // Prepare multipart form data
-            $multipart = [
-                [
-                    'name' => 'dateParalavis',
-                    'contents' => date('d-m-Y'),
-                ],
-                [
-                    'name' => 'arithmosEiserxomenou',
-                    'contents' => $excursion->ar_prot_sxoleiou ?? '',
-                ],
-                [
-                    'name' => 'dateEiserxomenou',
-                    'contents' => $dateDiav,
-                ],
-                [
-                    'name' => 'perilipsiEiserxomenou',
-                    'contents' => $protocolTitle,
-                ],
-                [
-                    'name' => 'toposEkdosis',
-                    'contents' => 'ΘΕΣΣΑΛΟΝΙΚΗ',
-                ],
-                [
-                    'name' => 'knownArxiEkdosis',
-                    'contents' => '0',
-                ],
-                [
-                    'name' => 'arxiEkdosis',
-                    'contents' => $excursion->school->displayname ?? '',
-                ],
-                [
-                    'name' => 'hiddenEntry',
-                    'contents' => '0',
-                ],
-                [
-                    'name' => 'orientation',
-                    'contents' => 'Επάνω',
-                ],
-            ];
-
-            // Add the main file
-            $multipart[] = [
-                'name' => 'fileToUpload',
-                'contents' => fopen($mainFilePath, 'r'),
-                'filename' => basename($mainFilePath),
-            ];
-
             // Submit to protocol
-            $response = $this->httpClient->post("{$this->baseUrl}/uploadFile.php", [
-                'multipart' => $multipart,
-                'cookies' => $this->cookieJar,
-            ]);
+            $response = $this->httpClient
+                ->attach('fileToUpload', fopen($mainFilePath, 'r'), basename($mainFilePath))
+                ->post('uploadFile.php', [
+                    'dateParalavis' => date('d-m-Y'),
+                    'arithmosEiserxomenou' => $excursion->ar_prot_sxoleiou ?? '',
+                    'dateEiserxomenou' => $dateDiav,
+                    'perilipsiEiserxomenou' => $protocolTitle,
+                    'toposEkdosis' => 'ΘΕΣΣΑΛΟΝΙΚΗ',
+                    'knownArxiEkdosis' => '0',
+                    'arxiEkdosis' => $excursion->school->displayname ?? '',
+                    'hiddenEntry' => '0',
+                    'orientation' => 'Επάνω',
+                ]);
 
-            if ($response->getStatusCode() !== 200) {
-                Log::error('Protocol file upload failed: HTTP '.$response->getStatusCode());
+            if ($response->status() !== 200) {
+                Log::error('Protocol file upload failed: HTTP '.$response->status());
 
                 return null;
             }
 
-            $body = (string) $response->getBody();
+            $body = $response->body();
 
             // Extract protocol number from response
             // The legacy system returns the protocol number in the response

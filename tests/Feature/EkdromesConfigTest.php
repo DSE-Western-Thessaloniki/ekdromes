@@ -2,11 +2,8 @@
 
 use App\Services\FileService;
 use App\Services\ProtocolService;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Middleware;
-use GuzzleHttp\Psr7\Response;
+use Illuminate\Http\Client\Request;
+use Illuminate\Support\Facades\Http;
 
 it('preserves every ekdromes configuration value', function (): void {
     $configuration = [
@@ -33,6 +30,8 @@ it('uses configured paths and protocol credentials', function (): void {
         'ekdromes.eprotocol_password' => 'configured-password',
     ]);
 
+    Http::fake(['*' => Http::response()]);
+
     $fileService = new FileService;
     $protocolService = new ProtocolService;
 
@@ -43,25 +42,15 @@ it('uses configured paths and protocol credentials', function (): void {
     $baseUrl = $protocolServiceReflection->getProperty('baseUrl');
     $legacyPath = $protocolServiceReflection->getProperty('legacyPath');
 
-    $history = [];
-    $handlerStack = HandlerStack::create(new MockHandler([
-        new Response(200),
-        new Response(200, [], ''),
-    ]));
-    $handlerStack->push(Middleware::history($history));
-
-    $httpClient = new Client(['handler' => $handlerStack]);
-    $httpClientProperty = $protocolServiceReflection->getProperty('httpClient');
-    $httpClientProperty->setValue($protocolService, $httpClient);
-
     $login = $protocolServiceReflection->getMethod('login');
 
     expect($baseUploadPath->getValue($fileService))->toBe('/tmp/configured-arxeia')
         ->and($baseUrl->getValue($protocolService))->toBe('https://protocol.example.test/protocol')
         ->and($legacyPath->getValue($protocolService))->toBe(base_path('configured-legacy'))
         ->and($login->invoke($protocolService))->toBeTrue()
-        ->and($history)->toHaveCount(2)
-        ->and((string) $history[0]['request']->getUri())->toBe('https://protocol.example.test/protocol/index.php')
-        ->and((string) $history[1]['request']->getUri())->toBe('https://protocol.example.test/protocol/checkLogin.php')
-        ->and((string) $history[1]['request']->getBody())->toContain('configured-user', 'configured-password');
+        ->and(Http::recorded(fn (Request $request): bool => $request->url() === 'https://protocol.example.test/protocol/index.php'))->toHaveCount(1)
+        ->and(Http::recorded(fn (Request $request): bool => $request->url() === 'https://protocol.example.test/protocol/checkLogin.php'))->toHaveCount(1)
+        ->and(Http::recorded(fn (Request $request): bool => $request->url() === 'https://protocol.example.test/protocol/checkLogin.php'
+            && $request['username'] === 'configured-user'
+            && $request['password'] === 'configured-password'))->toHaveCount(1);
 });
