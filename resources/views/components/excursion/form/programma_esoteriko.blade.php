@@ -5,6 +5,7 @@
         <x-excursion.form.ui.select fieldName="eidos_programmatos" label="Είδος προγράμματος" :value="$excursion->eidos_programmatos ?? ''"
             :options="['Περιβαλλοντικής εκπαίδευσης', 'Αγωγής υγείας', 'Πολιτιστικών θεμάτων', 'Αγωγής σταδιοδρομίας']" :emptyItem="false" />
         <x-excursion.form.ui.input fieldName="titlos_programmatos" label="Τίτλος του προγράμματος" :value="$excursion->titlos_programmatos ?? ''" />
+        <x-excursion.form.ui.input fieldName="aa_programmatos" label="Α/Α προγράμματος" :value="$excursion->aa_programmatos ?? ''" />
         <x-excursion.form.ui.input fieldName="ar_pr_egrisis_programmatosdde"
             label="Αριθμός πρωτοκόλλου έγκρισης προγράμματος" :value="$excursion->ar_pr_egrisis_programmatosdde ?? ''" />
         <x-excursion.form.ui.input fieldName="a_arithmos"
@@ -18,6 +19,17 @@
         <x-excursion.form.ui.input fieldName="onoma_jenodoxeio" label="Όνομα ξενοδοχείου" :value="$excursion->onoma_jenodoxeio ?? ''" />
         <x-excursion.form.ui.input fieldName="onoma_praktoreio" label="Όνομα πρακτορείου" :value="$excursion->onoma_praktoreio ?? ''" />
         <x-excursion.form.ui.input fieldName="metaforika_mesa" label="Μεταφορικά μέσα" :value="$excursion->metaforika_mesa ?? ''" />
+        @php
+            $objectives = App\Services\ExcursionFieldMap::getObjectives();
+            $options = array_map(
+                fn($key, $item) => ['id' => "cb$key", 'value' => $item],
+                range(1, count($objectives)),
+                $objectives,
+            );
+        @endphp
+        <x-excursion.form.ui.checkboxset fieldName="stoxoi" legend="Στόχοι εκπαιδευτικής δράσης" :options="$options"
+            :value="$excursion->stoxoi ?? []" class="col-span-2 border p-2 space-y-1.5" />
+
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Ημερομηνίες">
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία αναχώρησης"
@@ -35,11 +47,12 @@
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
         <x-excursion.form.ui.input fieldName="ar_mathiton" label="Αριθμός συμμετεχόντων μαθητών στην παιδαγωγική ομάδα"
-            type="number" min="1" :value="$excursion->ar_mathiton ?? ''" />
+            type="number" min="1" :value="$excursion->ar_mathiton ?? 0" />
         <x-excursion.form.ui.input fieldName="ar_metakinoumenon" label="Αριθμός μετακινούμενων μαθητών" type="number"
-            min="1" :value="$excursion->ar_metakinoumenon ?? ''" />
+            min="1" :value="$excursion->ar_metakinoumenon ?? 0" />
         <x-excursion.form.ui.input fieldName="plithos_synodoi" label="Πλήθος συνοδών" type="number" min="0"
             :value="$excursion->plithos_synodoi ?? 0" />
+        <div></div>
         <x-excursion.form.ui.input fieldName="onoma_arxigos" label="Αρχηγός" :value="$excursion->onoma_arxigos ?? ''"
             placeholder="Ονοματεπώνυμο και ειδικότητα" />
         <div></div>
