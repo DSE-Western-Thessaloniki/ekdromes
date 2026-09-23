@@ -9,11 +9,7 @@
 ])
 
 @php
-    if ($value === null) {
-        $selectedValue = $default;
-    } else {
-        $selectedValue = $value;
-    }
+    $selectedValue = old($fieldName, $value ?? $default);
 @endphp
 
 <div {{ $attributes }}>

@@ -47,13 +47,15 @@
                         Εκδρομής</label>
                     @if ($isEdit)
                         <input type="text" class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
-                            value="{{ $excursion->eidos_ekdromis }}" readonly>
-                        <input type="hidden" name="eidos_ekdromis" value="{{ $excursion->eidos_ekdromis }}">
+                            value="{{ old('eidos_ekdromis', $excursion->eidos_ekdromis) }}" readonly>
+                        <input type="hidden" name="eidos_ekdromis"
+                            value="{{ old('eidos_ekdromis', $excursion->eidos_ekdromis) }}">
                         <div class="block mt-2">Κατάσταση: {{ $excursion->status }}</div>
                     @else
                         <input type="text" class="w-full border border-gray-300 rounded px-3 py-2 bg-gray-100"
-                            value="{{ $excursionType }}" readonly>
-                        <input type="hidden" name="eidos_ekdromis" value="{{ $excursionType }}">
+                            value="{{ old('eidos_ekdromis', $excursionType) }}" readonly>
+                        <input type="hidden" name="eidos_ekdromis"
+                            value="{{ old('eidos_ekdromis', $excursionType) }}">
                         {{-- <select name="eidos_ekdromis" id="eidos_ekdromis" x-model="selectedType"
                         class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-coral focus:border-transparent"
                         required>
@@ -108,7 +110,7 @@
                 <div class="mb-6">
                     <label for="paratiriseis" class="block text-sm font-medium text-gray-700 mb-1">Παρατηρήσεις</label>
                     <textarea name="paratiriseis" id="paratiriseis" rows="3" placeholder="Σημειώσεις (που δεν θα εκτυπωθούν πουθενά)"
-                        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-coral focus:border-transparent">{{ $isEdit ? $excursion->paratiriseis ?? '' : '' }}</textarea>
+                        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-coral focus:border-transparent">{{ old('paratiriseis', $isEdit ? $excursion->paratiriseis ?? '' : '') }}</textarea>
                 </div>
 
                 {{-- Actions --}}

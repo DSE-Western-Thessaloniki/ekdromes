@@ -8,7 +8,8 @@
             <option value="">-- Επιλέξτε --</option>
         @endif
         @foreach ($fieldDef['options'] as $opt)
-            <option value="{{ $opt }}" {{ ($excursion->{$fieldName} ?? '') === $opt ? 'selected' : '' }}>
+            <option value="{{ $opt }}"
+                {{ old($fieldName, $excursion->{$fieldName} ?? '') === $opt ? 'selected' : '' }}>
                 {{ $opt }}</option>
         @endforeach
     </select>
@@ -21,7 +22,7 @@
             aria-hidden="true"></div>
         <textarea name="{{ $fieldName }}" id="{{ $fieldName }}" rows="4"
             class="w-full border-0 rounded-r px-3 py-2 focus:outline-none focus:ring-0 focus:border-transparent resize-none leading-[1.5rem]"
-            placeholder="{{ $fieldDef['placeholder'] ?? '' }}">{{ $excursion->{$fieldName} ?? '' }}</textarea>
+            placeholder="{{ $fieldDef['placeholder'] ?? '' }}">{{ old($fieldName, $excursion->{$fieldName} ?? '') }}</textarea>
     </div>
     <script>
         (function() {
@@ -48,18 +49,19 @@
         class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-coral focus:border-transparent"
         @if ($fieldDef['max'] ?? null) @if ($fieldDef['max'] === 'today') max="{{ date('Y-m-d') }}" @else max="{{ $fieldDef['max'] }}" @endif
         @endif
-    value="{{ $excursion->{$fieldName}?->format('Y-m-d') ?? '' }}">
+    value="{{ old($fieldName, $excursion->{$fieldName}?->format('Y-m-d') ?? '') }}">
 @elseif($fieldDef['type'] === 'time')
     <label for="{{ $fieldName }}"
         class="block text-sm font-medium text-gray-700 mb-1">{{ $fieldDef['label'] }}</label>
     <input type="time" name="{{ $fieldName }}" id="{{ $fieldName }}"
         class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-coral focus:border-transparent"
-        value="{{ $excursion->{$fieldName} ?? '' }}">
+        value="{{ old($fieldName, $excursion->{$fieldName} ?? '') }}">
 @else
     <label for="{{ $fieldName }}"
         class="block text-sm font-medium text-gray-700 mb-1">{{ $fieldDef['label'] }}</label>
     <input type="{{ $fieldDef['type'] }}" name="{{ $fieldName }}" id="{{ $fieldName }}"
         class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-coral focus:border-transparent"
-        placeholder="{{ $fieldDef['placeholder'] ?? '' }}" value="{{ $excursion->{$fieldName} ?? '' }}"
+        placeholder="{{ $fieldDef['placeholder'] ?? '' }}"
+        value="{{ old($fieldName, $excursion->{$fieldName} ?? '') }}"
         @if (isset($fieldDef['min'])) min="{{ $fieldDef['min'] }}" @endif>
 @endif

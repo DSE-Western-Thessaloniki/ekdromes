@@ -17,7 +17,7 @@
             aria-hidden="true"></div>
         <textarea name="{{ $fieldName }}" id="{{ $fieldName }}" rows="3"
             class="w-full border-0 rounded-r px-3 py-2 focus:outline-none focus:ring-0 focus:border-transparent resize-none leading-[1.5rem]"
-            placeholder="{{ $placeholder }}" {{ $required ? 'required' : '' }}>{{ $slot }}</textarea>
+            placeholder="{{ $placeholder }}" {{ $required ? 'required' : '' }}>{{ old($fieldName, $slot) }}</textarea>
     </div>
 </div>
 <script>
