@@ -33,7 +33,7 @@
             <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί του σχολείου μας
             πρόκειται να πραγματοποιήσουν διδακτική επίσκεψη του άρθρου <b>5</b>
             με προορισμό: <b>{{ $excursion->proorismos }}</b>, στις
-            {{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}.
+            {{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}.<br>
             Στόχοι:
             <ul>
                 @foreach ($excursion->stoxoi ?? [] as $stoxos)
