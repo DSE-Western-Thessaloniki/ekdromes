@@ -199,11 +199,11 @@ class ExcursionFieldMap
         'aritmoi_mesa_anaxorisis' => ['string', 'nullable'], // Δεν χρησιμοποιείται σε φόρμα - TODO: delete
         'arithmoi_mesa_epistrofis' => ['string', 'nullable'], // Δεν χρησιμοποιείται σε φόρμα
         'hmera_ekdromis_anaxorisis' => ['date', 'nullable'],
-        'hmera_epistrofis' => ['date', 'nullable'],
-        'ora_anaxorisis' => ['date', 'nullable'],
-        'ora_afijis' => ['date', 'nullable'],
-        'ora_apoxorisis' => ['date', 'nullable'],
-        'ora_epistrofis' => ['date', 'nullable'],
+        'hmera_epistrofis' => ['date', 'after:hmera_ekdromis_anaxorisis', 'nullable'],
+        'ora_anaxorisis' => ['date_format:H:i:s', 'nullable'],
+        'ora_afijis' => ['date_format:H:i:s', 'nullable'],
+        'ora_apoxorisis' => ['date_format:H:i:s', 'nullable'],
+        'ora_epistrofis' => ['date_format:H:i:s', 'nullable'],
         'ar_mathiton' => ['integer', 'nullable'],
         'ar_metakinoumenon' => ['integer', 'nullable'],
         'onoma_arxigos' => ['string', 'nullable'],
