@@ -34,7 +34,7 @@
             );
         @endphp
         <x-excursion.form.ui.checkboxset fieldName="stoxoi" legend="Στόχοι εκπαιδευτικής δράσης" :options="$options"
-            class="col-span-2 border p-2 space-y-1.5" />
+            :value="$excursion->stoxoi ?? []" class="col-span-2 border p-2 space-y-1.5" />
     </x-excursion.form.ui.section>
 
     <x-excursion.form.ui.section title="Ημερομηνίες και ώρες">
