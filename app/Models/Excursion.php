@@ -120,7 +120,13 @@ class Excursion extends Model
         $validStringValues = ['Όχι', 'Ναι'];
 
         return Attribute::make(
-            get: fn (int $value) => $validStringValues[$value],
+            get: function (?int $value) use ($validStringValues): ?string {
+                if (is_null($value)) {
+                    return $value;
+                }
+
+                return $validStringValues[$value];
+            },
             set: function (string|int|null $value) use ($validStringValues): ?int {
                 if ($value === null) {
                     return null;
