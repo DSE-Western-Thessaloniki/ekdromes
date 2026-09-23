@@ -32,14 +32,17 @@
     <x-excursion.form.ui.section title="Ημερομηνία">
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία επίσκεψης"
             :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
+        <x-excursion.form.ui.time fieldName="ora_anaxorisis" label="Ώρα αναχώρησης από το σχολείο" :value="$excursion->ora_anaxorisis ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής στο σχολείο" :value="$excursion->ora_epistrofis ?? ''" />
+
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
         <x-excursion.form.ui.input fieldName="tmimata" label="Τάξεις ή τμήματα (διαχωρίστε με κόμματα αν χρειάζεται)"
             :value="$excursion->tmimata ?? ''" />
         <x-excursion.form.ui.input fieldName="ar_metakinoumenon" label="Αριθμός μετακινούμενων μαθητών" type="number"
-            min="1" :value="$excursion->ar_metakinoumenon ?? ''" />
+            min="1" :value="$excursion->ar_metakinoumenon ?? 0" />
         <x-excursion.form.ui.input fieldName="plithos_synodoi" label="Πλήθος συνοδών (εκτός του αρχηγού)" type="number"
-            min="1" :value="$excursion->plithos_synodoi ?? ''" />
+            min="1" :value="$excursion->plithos_synodoi ?? 0" />
         <x-excursion.form.ui.input fieldName="covered" label="Καλυπτόμενοι μαθητές" type="number" :value="0"
             :readonly="true" />
         <div class="text-sm col-span-2">[Ένας 1 συνοδός/25 μαθητές (εκτός του αρχηγού). Σε εξαιρετικές περιπτώσεις
