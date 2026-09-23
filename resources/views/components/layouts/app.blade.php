@@ -196,6 +196,20 @@
             </div>
         @endif
 
+        @if (session('errors'))
+            <div x-data="{ show: true }" x-show="show" x-transition
+                class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <button @click="show = false" class="absolute top-2 right-2 text-red-700 hover:text-red-900">
+                    <i class="fas fa-times"></i>
+                </button>
+                <ul>
+                    @foreach (session('errors')->default->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{ $slot }}
     </div>
 
