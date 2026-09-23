@@ -23,10 +23,10 @@
         <li>Οι μαθητές/τριες του σχολείου μας πρόκειται να πραγματοποιήσουν περίπατο
             του άρθρου <b>4</b> στο: <b>{{ $excursion->proorismos }}</b>, στις
             <b>{{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}</b> με ώρα
-            αναχώρησης {{ $excursion->ora_anaxorisis }} και επιστροφής {{ $excursion->ora_epistrofis }}.
+            αναχώρησης {{ $excursion->ora_anaxorisis }} και επιστροφής {{ $excursion->ora_epistrofis }}.<br>
             Στόχοι:
             <ul>
-                @foreach ($excursion->stoxoi as $stoxos)
+                @foreach ($excursion->stoxoi ?? [] as $stoxos)
                     <li>{{ $stoxos }}</li>
                 @endforeach
             </ul>
