@@ -39,15 +39,15 @@ class AppServiceProvider extends ServiceProvider
                 $view->with('isAdmin', true);
 
                 if (! isset($data['schools'])) {
-                    $view->with('schools', SchoolYear::getSessionCurrent()?->schools()->orderBy('displayname')->get() ?? collect());
+                    $view->with('schools', once(fn () => SchoolYear::getSessionCurrent()?->schools()->orderBy('displayname')->get() ?? collect()));
                 }
                 if (! isset($data['schoolYears'])) {
-                    $view->with('schoolYears', SchoolYear::orderBy('sxoliko_etos')->get());
+                    $view->with('schoolYears', once(fn () => SchoolYear::orderBy('sxoliko_etos')->get()));
                 }
                 // Χρησιμοποιείται μόνο κατά την εμφάνιση της λίστας των εκδρομών
                 // στο admin περιβάλλον, όταν έχει επιλεγεί σχολείο
                 if (! isset($data['selectedSchool'])) {
-                    $view->with('selectedSchool', School::find(Session::get('admin_selected_school')));
+                    $view->with('selectedSchool', once(fn () => School::find(Session::get('admin_selected_school'))));
                 }
             } else {
                 $view->with('isAdmin', false);
