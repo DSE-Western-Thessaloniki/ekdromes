@@ -95,6 +95,21 @@ it('validates required fields for peripatos type', function (): void {
     $response->assertSessionHasErrors(['proorismos', 'hmera_ekdromis_anaxorisis', 'ar_prajis_syllogou', 'a_arithmos']);
 });
 
+it('preserves submitted create values after validation fails', function (): void {
+    $response = $this->withoutMiddleware(CASAuth::class)
+        ->from(route('excursion.create', ['excursionType' => 'peripatos', 'informed' => true]))
+        ->post(route('excursion.store'), [
+            'eidos_ekdromis' => 'peripatos',
+            'proorismos' => 'Νέος Προορισμός',
+            'hmera_ekdromis_anaxorisis' => 'not-a-date',
+            'ar_prajis_syllogou' => '123/2026',
+            'a_arithmos' => '1',
+        ]);
+
+    $response->assertSessionHasErrors('hmera_ekdromis_anaxorisis');
+    $response->assertSessionHasInput('proorismos', 'Νέος Προορισμός');
+});
+
 it('validates required fields for hmerisiaxoris type', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
         ->post(route('excursion.store'), [
@@ -169,6 +184,32 @@ it('updates excursion with type-specific validation', function (): void {
         'proorismos' => 'Λαγκαδάς',
         'ar_prajis_syllogou' => '456/2026',
     ]);
+});
+
+it('preserves submitted edit values after validation fails', function (): void {
+    $excursion = Excursion::create([
+        'school_year_id' => $this->year->id,
+        'school_id' => $this->school->id,
+        'kodikos_sxoleiou' => $this->school->kodikos_sxoleiou,
+        'eidos_ekdromis' => 'Σχολικός Περίπατος',
+        'proorismos' => 'Θεσσαλονίκη',
+        'hmera_ekdromis_anaxorisis' => '2026-11-05',
+        'ar_prajis_syllogou' => '123/2026',
+        'a_arithmos' => '1',
+        'status' => 'ΠΡΟΣΩΡΙΝΑ ΑΠΟΘΗΚΕΥΜΕΝΗ',
+    ]);
+
+    $response = $this->withoutMiddleware(CASAuth::class)
+        ->put(route('excursion.update', $excursion), [
+            'eidos_ekdromis' => 'Σχολικός Περίπατος',
+            'proorismos' => 'Προσωρινός Προορισμός',
+            'hmera_ekdromis_anaxorisis' => 'not-a-date',
+            'ar_prajis_syllogou' => '456/2026',
+            'a_arithmos' => '2',
+        ]);
+
+    $response->assertSessionHasErrors('hmera_ekdromis_anaxorisis');
+    $response->assertSessionHasInput('proorismos', 'Προσωρινός Προορισμός');
 });
 
 it('validates date fields for multi-day types', function (): void {
