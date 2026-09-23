@@ -104,8 +104,7 @@ class FileService
      */
     public function getFileList(Excursion $excursion): array
     {
-        $legacyPath = base_path(config('ekdromes.legacy_path', 'app/legacy'));
-        $storeFolder = $legacyPath.'/arxeia/'.
+        $storeFolder = $this->baseUploadPath.'/'.
             $excursion->schoolYear->sxoliko_etos.'/'.
             $excursion->school->kodikos_sxoleiou;
 
