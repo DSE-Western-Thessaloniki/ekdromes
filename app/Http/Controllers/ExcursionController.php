@@ -194,7 +194,13 @@ class ExcursionController extends Controller
 
         $this->excursionService->submit($excursion, $protocolNumber);
 
-        return redirect()->route('excursion.edit', $excursion)
+        if (Session::get('cas_model_category') === 'user') { // Admin
+            $route = 'admin.index';
+        } else {
+            $route = 'dashboard';
+        }
+
+        return redirect()->route($route, $excursion)
             ->with('success', 'Η εκδρομή υποβλήθηκε επιτυχώς με πρωτόκολλο: '.$protocolNumber);
     }
 
