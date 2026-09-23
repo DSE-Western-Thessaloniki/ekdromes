@@ -177,11 +177,9 @@ class ExcursionController extends Controller
             return redirect()->route('excursion.files', $excursion)
                 ->with('error', 'Δεν βρέθηκαν αρχεία για υποβολή. Προσθέστε τα απαιτούμενα έγγραφα πρώτα.');
         }
-
-        $pdfPath = $this->pdfService->generateExcursionFiles($excursion);
-        if (! $pdfPath) {
+        if (count($files) < $this->excursionService->getExcursionTypes()[$excursion->eidos_ekdromis]['min_files']) {
             return redirect()->route('excursion.files', $excursion)
-                ->with('error', 'Απέτυχε η δημιουργία του διαβιβαστικού PDF.');
+                ->with('error', 'Απαιτούνται επιπλέον αρχεία για υποβολή.');
         }
 
         if (config('ekdromes.skip_protocol_submission', false)) {
