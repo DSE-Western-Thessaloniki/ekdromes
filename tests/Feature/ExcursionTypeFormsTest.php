@@ -50,6 +50,8 @@ it('passes field map to edit view', function (): void {
 
     $response->assertStatus(200);
     $response->assertViewHas('fieldMap');
+    $response->assertSee('data-unsaved-changes-form');
+    $response->assertSee('data-unsaved-changes-link');
 });
 
 it('resolves a Blade component for every excursion form type', function (): void {

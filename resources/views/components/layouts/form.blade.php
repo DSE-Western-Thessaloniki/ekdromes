@@ -34,8 +34,8 @@
         </div>
         <div class="p-6">
 
-            <form action="{{ $isEdit ? route('excursion.update', $excursion) : route('excursion.store') }}"
-                method="POST">
+            <form action="{{ $isEdit ? route('excursion.update', $excursion) : route('excursion.store') }}" method="POST"
+                @if ($isEdit) data-unsaved-changes-form @endif>
                 @csrf
                 @if ($isEdit)
                     @method('PUT')
@@ -114,6 +114,7 @@
                 {{-- Actions --}}
                 <div class="flex items-center justify-between">
                     <a href="{{ route('dashboard') }}"
+                        @if ($isEdit) data-unsaved-changes-link @endif
                         class="bg-gray-300 text-gray-700 px-6 py-2 rounded-lg text-lg hover:bg-gray-400">
                         <i class="fas fa-arrow-left"></i>
                         {{ $isEdit ? 'Επιστροφή' : 'Ακύρωση' }}
@@ -123,7 +124,7 @@
                         <i class="fas fa-save"></i> {{ $isEdit ? 'Αποθήκευση Αλλαγών' : 'Δημιουργία' }}
                     </button>
                     @if ($isEdit)
-                        <a href="{{ route('excursion.files', $excursion) }}"
+                        <a href="{{ route('excursion.files', $excursion) }}" data-unsaved-changes-link
                             class="bg-blue-500 text-white px-6 py-2 rounded-lg text-lg hover:bg-blue-600">
                             <i class="fas fa-folder-open"></i> Αρχεία<i class="fas fa-arrow-right"></i>
                         </a>
