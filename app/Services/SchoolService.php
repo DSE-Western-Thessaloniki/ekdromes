@@ -72,7 +72,7 @@ class SchoolService
         ];
     }
 
-    public static function getActiveSchool(): School
+    public static function getActiveSchool(): ?School
     {
         $school = Session::get('school');
 
