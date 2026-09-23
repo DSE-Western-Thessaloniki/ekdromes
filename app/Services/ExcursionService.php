@@ -307,6 +307,17 @@ class ExcursionService
             }
         }
 
+        $attributes = new ExcursionFieldMap()->attributes();
+
+        foreach ($attributes as $key => $attribute) {
+            $idx = array_search($key, $missing);
+
+            if ($idx === false) {
+                continue;
+            }
+            $missing[$idx] = $attribute;
+        }
+
         return $missing;
     }
 

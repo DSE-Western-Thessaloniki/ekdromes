@@ -364,6 +364,8 @@ class ExcursionFieldMap
     {
         return [
             'eidos_ekdromis' => 'είδος εκδρομής',
+            'ar_prot_sxoleiou' => 'αριθμός πρωτοκόλλου σχολείου',
+            'onoma_ypografonta' => 'ονοματεπώνυμο υπογράφοντα',
         ];
     }
 
