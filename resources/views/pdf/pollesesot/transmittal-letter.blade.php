@@ -34,7 +34,7 @@
             Θεσσαλονίκη {{ $excursion->ora_epistrofis }}.
             Στόχοι:
             <ul>
-                @foreach ($excursion->stoxoi as $stoxos)
+                @foreach ($excursion->stoxoi ?? [] as $stoxos)
                     <li>{{ $stoxos }}</li>
                 @endforeach
             </ul>
