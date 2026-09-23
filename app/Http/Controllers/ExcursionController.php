@@ -80,7 +80,7 @@ class ExcursionController extends Controller
     {
         if (Session::get('cas_model_category') === 'user') { // Admin
             $adminSelectedSchool = Session::get('admin_selected_school');
-            if (! $adminSelectedSchool || $excursion->school_id !== $adminSelectedSchool->id) {
+            if (! $adminSelectedSchool || $excursion->school_id !== $adminSelectedSchool) {
                 Session::put('admin_selected_school', $excursion->school->id);
             }
         }
