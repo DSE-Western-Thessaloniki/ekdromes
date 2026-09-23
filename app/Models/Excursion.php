@@ -12,7 +12,6 @@ class Excursion extends Model
     protected $fillable = [
         'school_year_id',
         'school_id',
-        'kodikos_sxoleiou',
         'ar_prot',
         'submit_datetime',
         'status',
@@ -61,6 +60,9 @@ class Excursion extends Model
         'erasmus_lista_mathites_kaitaji',
         'erasmus_lista_kathig_kaieidikotita',
         'erasmus_lista_anaplirkathig_kaieid',
+        'stoxoi',
+        'dianyktereush',
+        'aa_programmatos',
     ];
 
     protected $casts = [
