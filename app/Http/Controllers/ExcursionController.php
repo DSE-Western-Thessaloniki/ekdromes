@@ -177,9 +177,14 @@ class ExcursionController extends Controller
             return redirect()->route('excursion.files', $excursion)
                 ->with('error', 'Δεν βρέθηκαν αρχεία για υποβολή. Προσθέστε τα απαιτούμενα έγγραφα πρώτα.');
         }
-        if (count($files) < $this->excursionService->getExcursionTypes()[$excursion->eidos_ekdromis]['min_files']) {
+
+        $minFiles = $this->excursionService->getExcursionTypes()[$excursion->eidos_ekdromis]['min_files'];
+        if ($excursion->dianyktereush === 'Ναι') {
+            $minFiles += 1;
+        }
+        if (count($files) < $minFiles) {
             return redirect()->route('excursion.files', $excursion)
-                ->with('error', 'Απαιτούνται επιπλέον αρχεία για υποβολή.');
+                ->with('error', 'Απαιτούνται επιπλέον ('.$minFiles - count($files).') αρχεία για υποβολή.');
         }
 
         if (config('ekdromes.skip_protocol_submission', false)) {
