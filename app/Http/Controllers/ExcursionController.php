@@ -15,6 +15,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class ExcursionController extends Controller
 {
@@ -143,7 +144,13 @@ class ExcursionController extends Controller
         $path = $this->fileService->downloadFile($excursion, $filename);
 
         if ($path) {
-            return response()->download($path, basename($path));
+            return response()->download(
+                $path,
+                Str::substr(
+                    basename($path),
+                    Str::length("{$excursion->id}") + 2
+                )
+            );
         }
 
         return redirect()->back()->with('error', 'Το αρχείο δεν βρέθηκε');
