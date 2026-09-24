@@ -4,7 +4,7 @@
             Δημιουργία Εκδρομής
         </x-slot>
 
-        <x-dynamic-component :component="$form" mode="create" :fieldMap="$fieldMap" />
+        <x-dynamic-component :component="$form" mode="create" :fieldMap="$fieldMap" :excursionType="$excursionType" />
     </x-layouts.form>
 @else
     <x-layouts.app>

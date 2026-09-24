@@ -43,7 +43,7 @@
         </div>
         <div>
             <x-excursion.form.ui.input fieldName="erasmus_ar_prot_beb_dieythinton"
-                label="Αριθμός πρωτοκόλλου και ημερομηνία βεβαίωσης/σεων του Διευθυντή/ντών του/των σχολείου/σχολείων για τον/τους εκπαιδευτικό/κούς που διδάσκουν και σε αυτό/τά"
+                label="Βεβαίωση συναίνεσης του/της Διευθυντή/ντριας της σχολικής μονάδας για τον/την εκπαιδευτικό που συμπληρώνει το διδακτικό του ωράριο σε άλλη σχολική μονάδα"
                 :value="$excursion->erasmus_ar_prot_beb_dieythinton ?? ''" placeholder="Αριθμός πρωτοκόλλου και ημερομηνία" />
             <div class="text-sm">[εφόσον χρειάζεται]</div>
         </div>
@@ -54,6 +54,16 @@
         <div></div>
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
         <x-excursion.form.ui.input fieldName="metaforika_mesa" label="Μεταφορικά μέσα" :value="$excursion->metaforika_mesa ?? ''" />
+        @php
+            $objectives = App\Services\ExcursionFieldMap::getObjectives();
+            $options = array_map(
+                fn($key, $item) => ['id' => "cb$key", 'value' => $item],
+                range(1, count($objectives)),
+                $objectives,
+            );
+        @endphp
+        <x-excursion.form.ui.checkboxset fieldName="stoxoi" legend="Στόχοι εκπαιδευτικής δράσης" :options="$options"
+            :value="$excursion->stoxoi ?? []" class="col-span-2 border p-2 space-y-1.5" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Ημερομηνίες και ώρες">
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία αναχώρησης"

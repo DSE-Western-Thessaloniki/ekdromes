@@ -20,6 +20,16 @@
         <x-excursion.form.ui.input fieldName="onoma_jenodoxeio" label="Όνομα ξενοδοχείου" :value="$excursion->onoma_jenodoxeio ?? ''" />
         <x-excursion.form.ui.input fieldName="onoma_praktoreio" label="Όνομα πρακτορείου" :value="$excursion->onoma_praktoreio ?? ''" />
         <x-excursion.form.ui.input fieldName="metaforika_mesa" label="Μεταφορικά μέσα" :value="$excursion->metaforika_mesa ?? ''" />
+        @php
+            $objectives = App\Services\ExcursionFieldMap::getObjectives();
+            $options = array_map(
+                fn($key, $item) => ['id' => "cb$key", 'value' => $item],
+                range(1, count($objectives)),
+                $objectives,
+            );
+        @endphp
+        <x-excursion.form.ui.checkboxset fieldName="stoxoi" legend="Στόχοι εκπαιδευτικής δράσης" :options="$options"
+            :value="$excursion->stoxoi ?? []" class="col-span-2 border p-2 space-y-1.5" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Ημερομηνίες και ώρες">
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία αναχώρησης"
@@ -38,12 +48,13 @@
             label="Ώρα επιστροφής στο σχολείο ή σε άλλο καθορισμένο χώρο" :value="$excursion->ora_epistrofis ?? ''" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
+        <x-excursion.form.ui.input fieldName="tmimata" label="Τάξη" :value="$excursion->tmimata ?? ''" />
         <x-excursion.form.ui.input fieldName="ar_mathiton" label="Συνολικός αριθμός φοιτούντων μαθητών/τριών"
-            type="number" min="1" :value="$excursion->ar_mathiton ?? ''" />
+            type="number" min="1" :value="$excursion->ar_mathiton ?? 0" />
         <x-excursion.form.ui.input fieldName="ar_metakinoumenon" label="Αριθμός μετακινούμενων μαθητών/τριών"
-            type="number" min="1" :value="$excursion->ar_metakinoumenon ?? ''" />
+            type="number" min="1" :value="$excursion->ar_metakinoumenon ?? 0" />
         <x-excursion.form.ui.input fieldName="plithos_synodoi" label="Πλήθος συνοδών (εκτός του/της αρχηγού)"
-            type="number" min="0" :value="$excursion->plithos_synodoi ?? ''" />
+            type="number" min="0" :value="$excursion->plithos_synodoi ?? 0" />
         <x-excursion.form.ui.input fieldName="covered" label="Καλυπτόμενοι μαθητές" type="number" :value="0"
             :readonly="true" />
         <div class="flex flex-col gap-2">
@@ -62,10 +73,10 @@
 </div>
 <script>
     (function() {
-        document.querySelector('#covered').value = document.querySelector('#plithos_synodoi').value * 25;
+        document.querySelector('#covered').value = document.querySelector('#plithos_synodoi').value * 20;
         document.querySelector('#plithos_synodoi').addEventListener("input", () => {
             document.querySelector('#covered').value = document.querySelector('#plithos_synodoi')
-                .value * 25;
+                .value * 20;
         });
 
         document.querySelector('#inp_70_percent').addEventListener("change", (event) => {

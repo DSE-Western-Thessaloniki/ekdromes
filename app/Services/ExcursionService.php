@@ -59,7 +59,7 @@ class ExcursionService
             'Πολυήμερη τελευταίας τάξης στο εξωτερικό' => [
                 'category' => '',
                 'school_types' => ['ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 3,
+                'min_files' => 2,
                 'legislation' => 'Άρθρο 2 § 5 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/pollesejot/'),
             ],
@@ -73,7 +73,7 @@ class ExcursionService
             'Εκπαιδευτικές επισκέψεις στο ΕΞΩΤΕΡΙΚΟ στο πλαίσιο εγκεκριμένων εκπαιδευτικών προγραμμάτων σχολικών δραστηριοτήτων' => [
                 'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 5,
+                'min_files' => 4,
                 'legislation' => 'Άρθρο 3 § 1 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/programmata_ejoteriko/'),
             ],
@@ -87,7 +87,7 @@ class ExcursionService
             'Εκπαιδευτική εκδρομή στο εξωτερικό' => [
                 'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 3,
+                'min_files' => 2,
                 'legislation' => 'Άρθρο 3 § 2 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/ekp_ejot/'),
             ],
@@ -115,7 +115,7 @@ class ExcursionService
             'Εκπαιδευτικών ανταλλαγών σε συνέχεια διακρατικών συμφωνιών/μνημονίων συνεργασίας/εκτελεστικών προγραμμάτων' => [
                 'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 5,
+                'min_files' => 4,
                 'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/'),
                 'legislation_special_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/eidika/'),
@@ -123,7 +123,7 @@ class ExcursionService
             'Αδελφοποιήσεων' => [
                 'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 5,
+                'min_files' => 4,
                 'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/adel/'),
                 'legislation_special_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/eidika/'),
@@ -131,7 +131,7 @@ class ExcursionService
             'Εκπαιδευτικών προγραμμάτων της Γενικής Γραμματείας Θρησκευμάτων' => [
                 'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 5,
+                'min_files' => 4,
                 'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/'),
                 'legislation_special_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/eidika/'),
@@ -139,7 +139,7 @@ class ExcursionService
             'Ευρωπαϊκών προγραμμάτων δραστηριοτήτων/προγραμμάτων που δε γίνονται στο πλαίσιο του ευρωπαϊκού προγράμματος Erasmus' => [
                 'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 5,
+                'min_files' => 4,
                 'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/'),
                 'legislation_special_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/eidika/'),
@@ -147,7 +147,7 @@ class ExcursionService
             'Προγραμμάτων διεθνών οργανισμών' => [
                 'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 5,
+                'min_files' => 4,
                 'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/diagon/'),
                 'legislation_special_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/eidika/'),
@@ -155,7 +155,7 @@ class ExcursionService
             'Συμμετοχών σε διεθνείς συναντήσεις, συνέδρια, ημερίδες, διαγωνισμούς, μαθητικές επιστημονικές ολυμπιάδες και άλλες διεθνής εκδηλώσεις' => [
                 'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 5,
+                'min_files' => 4,
                 'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/'),
                 'legislation_special_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/eidika/'),
@@ -163,7 +163,7 @@ class ExcursionService
             'Προσκλήσεις σχολείων της περ.α του άρθρου 3 του ν. 4415/2016 (Α΄ 159)' => [
                 'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 5,
+                'min_files' => 4,
                 'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/'),
                 'legislation_special_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/eidika/'),
@@ -171,7 +171,7 @@ class ExcursionService
             'Βράβευσης με ταξίδι στο εξωτερικό κατόπιν συμμετοχής σε διαγωνιστική διαδικασία εγκεκριμένη από το Υπουργείο Παιδείας' => [
                 'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 5,
+                'min_files' => 4,
                 'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/'),
                 'legislation_special_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/eidika/'),
@@ -179,7 +179,7 @@ class ExcursionService
             'Πιλοτικών προγραμμάτων διεθνών σχολικών δικτύων που εγκρίνονται ή συντονίζονται από το Υπουργείο Παιδείας' => [
                 'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 5,
+                'min_files' => 4,
                 'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/'),
                 'legislation_special_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/eidika/'),
@@ -187,7 +187,7 @@ class ExcursionService
             'Επισκέψεων σε ερευνητικά κέντρα, εκπαιδευτικά ιδρύματα, πανεπιστήμια, κέντρα πολιτισμού και/ή αθλητισμού' => [
                 'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 5,
+                'min_files' => 4,
                 'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/'),
                 'legislation_special_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/eidika/'),
@@ -195,7 +195,7 @@ class ExcursionService
             'Επισκέψεων σε ευρωπαϊκούς θεσμούς/διεθνείς οργανώσεις κατόπιν σχετικής πρόσκλησης και αποδοχής τυχόν αιτήματος από το διεθνή οργανισμό' => [
                 'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 5,
+                'min_files' => 4,
                 'legislation' => 'Άρθρο 5 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/'),
                 'legislation_special_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/eidika/'),
@@ -203,14 +203,14 @@ class ExcursionService
             'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' => [
                 'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 6,
+                'min_files' => 5,
                 'legislation' => 'Υ.Α.25735/Η1/20-02-2020 (ΦΕΚ 625/τ.Β\'/27-02-2020) και Υ.Α.20883/ΓΔ4/12-02-2020 (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/erasmus2/'),
             ],
             'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' => [
                 'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 6,
+                'min_files' => 5,
                 'legislation' => 'Υ.Α.25735/Η1/20-02-2020 (ΦΕΚ 625/τ.Β\'/27-02-2020) και Υ.Α.20883/ΓΔ4/12-02-2020 (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/erasmus1/'),
             ],

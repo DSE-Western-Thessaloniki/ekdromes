@@ -89,8 +89,6 @@ class PdfService
             ],
             'Πολυήμερη τελευταίας τάξης στο εξωτερικό' => [
                 [
-                    'view' => 'pdf.pollesejot.transmittal-letter',
-                ], [
                     'view' => 'pdf.pollesejot.application',
                     'filename' => $excursion->id.'A_Αίτηση.pdf',
                 ],
@@ -102,8 +100,6 @@ class PdfService
             ],
             'Εκπαιδευτικές επισκέψεις στο ΕΞΩΤΕΡΙΚΟ στο πλαίσιο εγκεκριμένων εκπαιδευτικών προγραμμάτων σχολικών δραστηριοτήτων' => [
                 [
-                    'view' => 'pdf.programmata_ejoteriko.transmittal-letter',
-                ], [
                     'view' => 'pdf.programmata_ejoteriko.application',
                     'filename' => $excursion->id.'A_Αίτηση.pdf',
                 ],
@@ -115,8 +111,6 @@ class PdfService
             ],
             'Εκπαιδευτική εκδρομή στο εξωτερικό' => [
                 [
-                    'view' => 'pdf.ekp_ejot.transmittal-letter',
-                ], [
                     'view' => 'pdf.ekp_ejot.application',
                     'filename' => $excursion->id.'A_Αίτηση.pdf',
                 ],
@@ -148,24 +142,18 @@ class PdfService
             'Επισκέψεων σε ερευνητικά κέντρα, εκπαιδευτικά ιδρύματα, πανεπιστήμια, κέντρα πολιτισμού και/ή αθλητισμού',
             'Επισκέψεων σε ευρωπαϊκούς θεσμούς/διεθνείς οργανώσεις κατόπιν σχετικής πρόσκλησης και αποδοχής τυχόν αιτήματος από το διεθνή οργανισμό' => [
                 [
-                    'view' => 'pdf.europ.transmittal-letter',
-                ], [
                     'view' => 'pdf.europ.application',
                     'filename' => $excursion->id.'A_Αίτηση.pdf',
                 ],
             ],
             'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' => [
                 [
-                    'view' => 'pdf.erasmus2.transmittal-letter',
-                ], [
                     'view' => 'pdf.erasmus2.application',
                     'filename' => $excursion->id.'A_Αίτηση.pdf',
                 ],
             ],
             'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' => [
                 [
-                    'view' => 'pdf.erasmus1.transmittal-letter',
-                ], [
                     'view' => 'pdf.erasmus1.application',
                     'filename' => $excursion->id.'A_Αίτηση.pdf',
                 ],
