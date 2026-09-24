@@ -131,4 +131,18 @@ class FileService
 
         return $fileList;
     }
+
+    public function makeFilesFinal(Excursion $excursion): void
+    {
+        $fileList = $this->getFiles($excursion);
+        foreach ($fileList as $file) {
+            if ($file['type'] === 'A') {
+                $path = pathinfo($file['path'])['dirname'];
+                rename(
+                    $path.'/'.$file['name'],
+                    $path.'/'.$excursion->id.'F_'.$file['original_name']
+                );
+            }
+        }
+    }
 }

@@ -204,6 +204,7 @@ class ExcursionController extends Controller
             }
         }
 
+        $this->fileService->makeFilesFinal($excursion);
         $this->excursionService->submit($excursion, $protocolNumber);
 
         if (Session::get('cas_model_category') === 'user') { // Admin
