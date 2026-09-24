@@ -27,8 +27,8 @@
             προορισμό: <b>{{ $excursion->proorismos }}</b>, στις
             <b>{{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}</b>,
             με ώρα αναχώρησης {{ $excursion->ora_anaxorisis }} και επιστροφής
-            {{ $excursion->ora_epistrofis }}.
-            Στόχοι:
+            {{ $excursion->ora_epistrofis }}.<br>
+            Στόχοι εκπαιδευτικής δράσης:
             <ul>
                 @foreach ($excursion->stoxoi ?? [] as $stoxos)
                     <li>{{ $stoxos }}</li>

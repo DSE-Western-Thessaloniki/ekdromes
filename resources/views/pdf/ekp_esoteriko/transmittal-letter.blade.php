@@ -35,8 +35,8 @@
                 στις <b>{{ $hmera_ekdromis }}</b>
             @endif
             με το Αναλυτικό Πρόγραμμα σχετικά με το/τα μάθημα/ματα:
-            <i>{{ $excursion->mathimata }}</i>.
-            Στόχοι:
+            <i>{{ $excursion->mathimata }}</i>.<br />
+            Στόχοι εκπαιδευτικής δράσης:
             <ul>
                 @foreach ($excursion->stoxoi ?? [] as $stoxos)
                     <li>{{ $stoxos }}</li>

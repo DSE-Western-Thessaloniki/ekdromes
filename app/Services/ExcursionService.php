@@ -52,7 +52,7 @@ class ExcursionService
             'Πολυήμερη τελευταίας τάξης στο εσωτερικό' => [
                 'category' => '',
                 'school_types' => ['ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 1,
+                'min_files' => 2,
                 'legislation' => 'Άρθρο 2 § 5 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/pollesesot/'),
             ],
@@ -80,7 +80,7 @@ class ExcursionService
             'Εκπαιδευτική εκδρομή στο εσωτερικό' => [
                 'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 1,
+                'min_files' => 2,
                 'legislation' => 'Άρθρο 3 § 2 της Υ.Α. 20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/ekp_esoteriko/'),
             ],
@@ -101,7 +101,7 @@ class ExcursionService
             'Επίσκεψη στη Βουλή των Ελλήνων' => [
                 'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
-                'min_files' => 1,
+                'min_files' => 2,
                 'legislation' => 'Άρθρο 7 της Y.A.20883/ΓΔ4/12-02-2020, (ΦΕΚ 456/τ.Β\'/13-02-2020)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/vouli/'),
             ],

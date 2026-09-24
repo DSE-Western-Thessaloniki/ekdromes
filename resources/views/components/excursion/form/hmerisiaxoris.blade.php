@@ -12,14 +12,27 @@
             label="Αύξων αριθμός εκδρομής αυτού του είδους (επιτρέπεται μια ανά σχ. έτος)" type="number" min="1"
             :readonly="true" :value="$excursion->a_arithmos ?? 1" />
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
-        <x-excursion.form.ui.input fieldName="onoma_praktoreio" label="Μεταφορικό μέσο" :value="$excursion->onoma_praktoreio ?? ''" />
+        <x-excursion.form.ui.input fieldName="onoma_praktoreio" label="Πρακτορείο" :value="$excursion->onoma_praktoreio ?? ''" />
         <x-excursion.form.ui.input fieldName="metaforika_mesa" label="Μεταφορικό μέσο" :value="$excursion->metaforika_mesa ?? ''" />
+        @php
+            $objectives = App\Services\ExcursionFieldMap::getObjectives();
+            $options = array_map(
+                fn($key, $item) => ['id' => "cb$key", 'value' => $item],
+                range(1, count($objectives)),
+                $objectives,
+            );
+        @endphp
+        <x-excursion.form.ui.checkboxset fieldName="stoxoi" legend="Στόχοι εκπαιδευτικής δράσης" :options="$options"
+            :value="$excursion->stoxoi ?? []" class="col-span-2 border p-2 space-y-1.5" />
     </x-excursion.form.ui.section>
 
-    <x-excursion.form.ui.section title="Ημερομηνίες">
+    <x-excursion.form.ui.section title="Ημερομηνίες και ώρες">
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis"
             label="Ημερομηνία εκδρομής [Ενημερώστε τη ΔΔΕ (με οριστική υποβολή) τουλάχιστον μία ημέρα πριν]"
             :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
+        <div></div>
+        <x-excursion.form.ui.time fieldName="ora_anaxorisis" label="Ώρα αναχώρησης από το σχολείο" :value="$excursion->ora_anaxorisis ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής στο σχολείο" :value="$excursion->ora_epistrofis ?? ''" />
     </x-excursion.form.ui.section>
 
     <x-excursion.form.ui.section title="Συμμετοχές">

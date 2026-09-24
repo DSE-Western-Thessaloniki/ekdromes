@@ -44,7 +44,7 @@
                 στις <b>{{ $hmera_ekdromis }}</b>, με ώρα αναχώρησης {{ $excursion->ora_anaxorisis }}
                 και επιστροφής {{ $excursion->ora_epistrofis }}.<br>
             @endif
-            Στόχοι:
+            Στόχοι εκπαιδευτικής δράσης:
             <ul>
                 @foreach ($excursion->stoxoi ?? [] as $stoxos)
                     <li>{{ $stoxos }}</li>

@@ -34,14 +34,14 @@
                 με ώρα αναχώρησης από Θεσσαλονίκη {{ $excursion->ora_anaxorisis }},
                 ώρα άφιξης στον προορισμό {{ $excursion->ora_afijis }}, ώρα
                 αναχώρησης για επιστροφή {{ $excursion->ora_apoxorisis }} και ώρα
-                άφιξης στη Θεσσαλονίκη {{ $excursion->ora_epistrofis }}.
+                άφιξης στη Θεσσαλονίκη {{ $excursion->ora_epistrofis }}.<br>
             @else
                 στις <b>{{ $hmera_ekdromis }}</b>, με ώρα αναχώρησης {{ $excursion->ora_anaxorisis }}
-                και επιστροφής {{ $excursion->ora_epistrofis }}.
+                και επιστροφής {{ $excursion->ora_epistrofis }}.<br>
             @endif
-            Στόχοι:
+            Στόχοι εκπαιδευτικής δράσης:
             <ul>
-                @foreach ($excursion->stoxoi as $stoxos)
+                @foreach ($excursion->stoxoi ?? [] as $stoxos)
                     <li>{{ $stoxos }}</li>
                 @endforeach
             </ul>

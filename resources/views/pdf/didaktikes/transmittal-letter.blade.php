@@ -34,7 +34,7 @@
             πρόκειται να πραγματοποιήσουν διδακτική επίσκεψη του άρθρου <b>5</b>
             με προορισμό: <b>{{ $excursion->proorismos }}</b>, στις
             {{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}.<br>
-            Στόχοι:
+            Στόχοι εκπαιδευτικής δράσης:
             <ul>
                 @foreach ($excursion->stoxoi ?? [] as $stoxos)
                     <li>{{ $stoxos }}</li>
