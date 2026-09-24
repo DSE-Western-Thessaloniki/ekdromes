@@ -30,6 +30,7 @@ class PdfService
             throw new Exception("Δε δημιουργήθηκε διαβιβαστικό γιατί δε βρέθηκε το είδος της εκδρομής '$excursion->eidos_ekdromis'");
         }
 
+        $filenames = [];
         foreach ($views as $view) {
             $filename = $view['filename'] ?? $excursion->id.'A_Διαβιβαστικό.pdf';
             $pdfPath = $this->storageFolder.'/'.$filename;
@@ -41,10 +42,11 @@ class PdfService
                 throw new Exception('PDF was not saved to disk');
             }
 
-            Log::info('Generated transmittal PDF: '.$pdfPath);
+            Log::info('Generated PDF: '.$pdfPath);
+            $filenames[] = $filename;
         }
 
-        return array_map(fn ($item) => $item['filename'] ?? $excursion->id.'F_Διαβιβαστικό.pdf', $views);
+        return $filenames;
     }
 
     /**
