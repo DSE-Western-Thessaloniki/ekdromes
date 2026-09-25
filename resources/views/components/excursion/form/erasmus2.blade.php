@@ -14,7 +14,14 @@
             <x-excursion.form.ui.input fieldName="ar_pr_anartisisprok"
                 label="Αρ. Πρ. και ημερομηνία διαβίβασης αιτήματος ανάρτησης προκήρυξης" :value="$excursion->ar_pr_anartisisprok ?? ''"
                 placeholder="Αριθμός και ημερομηνία" />
-            <div class="text-sm">[δε γίνεται ανάρτηση όταν οι μετακινούμενοι είναι έως 10 μαζί με τους Εκπ/κούς]</div>
+            <div class="text-sm">[δε απαιτείται ανάρτηση όταν οι μετακινούμενοι είναι έως 10 μαζί με τους Εκπ/κούς]
+            </div>
+        </div>
+        <div>
+            <x-excursion.form.ui.input fieldName="ar_pr_anartisisprok"
+                label="Πράξη του διευθυντή για την επιλογή του τουριστικού γραφείου" :value="$excursion->ar_pr_anartisisprok ?? ''"
+                placeholder="Αριθμός και ημερομηνία" />
+            <div class="text-sm">[δε απαιτείται όταν οι μετακινούμενοι είναι έως 10 μαζί με τους Εκπ/κούς]</div>
         </div>
         <x-excursion.form.ui.input fieldName="erasmus_ar_prajis_syllogou_sigrotisi"
             label="Πράξη συλλόγου για τη συγκρότηση της παιδαγωγικής ομάδας" :value="$excursion->erasmus_ar_prajis_syllogou_sigrotisi ?? ''"
@@ -35,7 +42,6 @@
                 placeholder="Αριθμός και ημερομηνία" />
             <div class="text-sm">[εφόσον χρειάζεται]</div>
         </div>
-        <div></div>
         <div>
             <x-excursion.form.ui.input fieldName="erasmus_ar_prot_beb_dieythinton"
                 label="Αριθμός πρωτοκόλλου και ημερομηνία βεβαίωσης/σεων του Διευθυντή/ντών του/των σχολείου/σχολείων για τον/τους εκπαιδευτικό/κούς που διδάσκουν και σε αυτό/τά"
@@ -48,6 +54,16 @@
             :value="$excursion->asf_symbolaio ?? ''" />
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
         <x-excursion.form.ui.input fieldName="metaforika_mesa" label="Μεταφορικά μέσα" :value="$excursion->metaforika_mesa ?? ''" />
+        @php
+            $objectives = App\Services\ExcursionFieldMap::getObjectives();
+            $options = array_map(
+                fn($key, $item) => ['id' => "cb$key", 'value' => $item],
+                range(1, count($objectives)),
+                $objectives,
+            );
+        @endphp
+        <x-excursion.form.ui.checkboxset fieldName="stoxoi" legend="Στόχοι εκπαιδευτικής δράσης" :options="$options"
+            :value="$excursion->stoxoi ?? []" class="col-span-2 border p-2 space-y-1.5" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Ημερομηνίες και ώρες">
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία αναχώρησης"
