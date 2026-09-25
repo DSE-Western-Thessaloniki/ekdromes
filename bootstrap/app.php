@@ -27,6 +27,8 @@ return Application::configure(basePath: dirname(__DIR__))
             EnsureCasAccountHasAccess::class,
             AdminMiddleware::class,
         ]);
+
+        $middleware->trustProxies(at: '*');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->shouldRenderJsonWhen(
