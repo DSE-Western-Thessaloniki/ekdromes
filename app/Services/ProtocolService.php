@@ -7,6 +7,8 @@ use GuzzleHttp\Cookie\CookieJar;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProtocolService
 {
@@ -42,6 +44,7 @@ class ProtocolService
         try {
             // Get main transmittal file from the files list
             $mainFile = $this->extractMainFile($excursion, $files);
+            $otherFiles = $this->extractOtherFiles($excursion, $files, $mainFile);
             if (! $mainFile) {
                 Log::error('No main file found for protocol submission');
 
@@ -52,7 +55,7 @@ class ProtocolService
             $storageFolder = $this->getStorageFolder($excursion);
             $mainFilePath = $storageFolder.'/'.$mainFile;
 
-            if (! file_exists($mainFilePath)) {
+            if (! Storage::disk('local')->exists($mainFilePath)) {
                 Log::error('Main file does not exist: '.$mainFilePath);
 
                 return null;
@@ -66,7 +69,7 @@ class ProtocolService
             }
 
             // Create protocol entry with file
-            $protocolNumber = $this->createProtocolEntry($excursion, $mainFilePath);
+            $protocolNumber = $this->createProtocolEntry($excursion, $mainFilePath, $otherFiles);
 
             if ($protocolNumber) {
                 Log::info('Successfully submitted to protocol: '.$protocolNumber);
@@ -113,7 +116,7 @@ class ProtocolService
                 return false;
             }
 
-            $result = $this->httpClient->asForm()->post('checkLogin.php', [
+            $result = (clone $this->httpClient)->asForm()->post('checkLogin.php', [
                 'username' => $username,
                 'password' => $password,
             ]);
@@ -124,6 +127,8 @@ class ProtocolService
 
                 return false;
             }
+
+            Log::info('Login status: '.$status);
 
             $body = $result->body();
             if ($body !== '') {
@@ -144,14 +149,11 @@ class ProtocolService
      * Create a new protocol entry with the submission.
      * Ported from legacy finalsubmit protocol entry creation.
      */
-    protected function createProtocolEntry(Excursion $excursion, string $mainFilePath): ?string
+    protected function createProtocolEntry(Excursion $excursion, string $mainFilePath, array $otherFiles): ?string
     {
         try {
-            $dateObj = \DateTime::createFromFormat('Y-m-d', $excursion->hmera_diavivastikou);
-            if (! $dateObj) {
-                return null;
-            }
-            $dateDiav = $dateObj->format('d-m-Y');
+            $dateDiav = $excursion->hmera_diavivastikou->format('d-m-Y');
+            Log::info('dateDiav: '.$dateDiav);
 
             // Build protocol title
             $protocolTitle = 'Ενημέρωση-Έγκριση εκδρομής ('.$excursion->eidos_ekdromis.')';
@@ -162,9 +164,12 @@ class ProtocolService
 
             // Submit to protocol
             $response = $this->httpClient
-                ->attach('fileToUpload', fopen($mainFilePath, 'r'), basename($mainFilePath))
-                ->post('uploadFile.php', [
-                    'dateParalavis' => date('d-m-Y'),
+                ->attach([
+                    ['mainFile', Storage::disk('local')->readStream($mainFilePath), basename($mainFilePath)],
+                    ...$otherFiles,
+                ])
+                ->post('addNewProtocolEntryIN_ekdromes.php', [
+                    'dateParalavis' => now()->format('d-m-Y'),
                     'arithmosEiserxomenou' => $excursion->ar_prot_sxoleiou ?? '',
                     'dateEiserxomenou' => $dateDiav,
                     'perilipsiEiserxomenou' => $protocolTitle,
@@ -182,6 +187,7 @@ class ProtocolService
             }
 
             $body = $response->body();
+            Log::info('body: '.$body);
 
             // Extract protocol number from response
             // The legacy system returns the protocol number in the response
@@ -201,18 +207,18 @@ class ProtocolService
      */
     protected function extractProtocolNumber(string $response, Excursion $excursion): ?string
     {
-        // Try to extract from response (look for common patterns)
-        if (preg_match('/[Αα]ρ[ιί]θμ?[οό]ς?[\s:]*([0-9]+)/u', $response, $matches)) {
-            return $matches[1];
+        $data = json_decode($response, flags: JSON_THROW_ON_ERROR);
+
+        if (is_array($data)) {
+            if ($data[0] === 'done') {
+                // Success
+                return $data[2];
+            }
+
+            throw new \Exception($data[0]);
         }
 
-        // Fallback: generate protocol number based on submission
-        // Format: {school_code}-{year}-{date}-{sequence}
-        $year = date('Y');
-        $date = date('dmy');
-        $sequence = str_pad($excursion->id % 1000, 3, '0', STR_PAD_LEFT);
-
-        return "{$excursion->school->kodikos_sxoleiou}-{$year}-{$date}-{$sequence}";
+        throw new \Exception('Unknown result!');
     }
 
     /**
@@ -220,7 +226,7 @@ class ProtocolService
      */
     protected function getStorageFolder(Excursion $excursion): string
     {
-        return $this->legacyPath.'/arxeia/'.
+        return 'arxeia/'.
             $excursion->schoolYear->sxoliko_etos.'/'.
             $excursion->school->kodikos_sxoleiou;
     }
@@ -231,7 +237,7 @@ class ProtocolService
      */
     protected function extractMainFile(Excursion $excursion, array $files): ?string
     {
-        $prefix = $excursion->id.'F_';
+        $prefix = $excursion->id.'A_';
 
         foreach ($files as $file) {
             if (str_starts_with($file, $prefix)) {
@@ -240,5 +246,38 @@ class ProtocolService
         }
 
         return null;
+    }
+
+    protected function extractOtherFiles(Excursion $excursion, array $files, string $mainFile): array
+    {
+        $files = array_filter($files, fn ($value) => $value !== $mainFile);
+
+        if (! $files) {
+            return [];
+        }
+
+        $storageFolder = $this->getStorageFolder($excursion);
+
+        return array_map(function ($value, $key) use ($excursion, $storageFolder) {
+            // Build storage folder path
+            $otherFilePath = $storageFolder.'/'.$value;
+
+            return [
+                "$key", Storage::disk('local')->readStream($otherFilePath), $this->cleanFilename(basename($value), $excursion->id),
+            ];
+        }, $files, range(1, count($files)));
+    }
+
+    protected function cleanFilename(string $filename, int $id): string
+    {
+        if (Str::startsWith($filename, "$id".'A_')) {
+            $cleanFilename = Str::substr($filename, Str::length("$id".'A_'));
+        } elseif (Str::startsWith($filename, "$id".'U_')) { // user uploaded
+            $cleanFilename = Str::substr($filename, Str::length("$id".'U_'));
+        } else {
+            $cleanFilename = $filename;
+        }
+
+        return $cleanFilename;
     }
 }
