@@ -76,12 +76,16 @@ class SchoolService
     {
         $school = Session::get('school');
 
-        if (! $school && Session::get('cas_model_category') === 'user') {
-            $school = School::find(Session::get('admin_selected_school'));
-        } else {
-            throw new Exception('Δεν έχετε πρόσβαση ως σχολική μονάδα');
+        if ($school) {
+            return $school;
         }
 
-        return $school;
+        if (! $school && Session::get('cas_model_category') === 'user') {
+            $school = School::find(Session::get('admin_selected_school'));
+
+            return $school;
+        }
+
+        throw new Exception('Δεν έχετε πρόσβαση ως σχολική μονάδα');
     }
 }

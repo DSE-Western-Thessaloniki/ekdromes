@@ -256,10 +256,12 @@ class ExcursionService
     public function create(array $data): Excursion
     {
         $school = Session::get('school');
-        if (! $school && Session::get('cas_model_category') === 'user') {
-            $school = School::find(Session::get('admin_selected_school'));
-        } else {
-            throw new Exception('Δεν επιτρέπεται η δημιουργία εκδρομής');
+        if (! $school) {
+            if (Session::get('cas_model_category') === 'user') {
+                $school = School::find(Session::get('admin_selected_school'));
+            } else {
+                throw new Exception('Δεν επιτρέπεται η δημιουργία εκδρομής');
+            }
         }
 
         $data['school_id'] = $school->id;
