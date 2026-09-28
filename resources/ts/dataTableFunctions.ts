@@ -151,10 +151,10 @@ function initSchoolTable(table: HTMLTableElement): void {
           return `<span title="${data}" class="truncate block">${truncated}</span>`;
         },
       },
-      { data: "proorismos", orderable: true, searchable: true },
+      { data: "a_arithmos", orderable: true, searchable: false },
       { data: "hmera_ekdromis_anaxorisis", orderable: true, searchable: false },
-      { data: "hmera_epistrofis", orderable: true, searchable: false },
-      { data: "ar_mathiton", orderable: true, searchable: false },
+      { data: "paratiriseis", orderable: true, searchable: true },
+      { data: "submit_datetime", orderable: true, searchable: false },
       {
         data: "status",
         orderable: true,
