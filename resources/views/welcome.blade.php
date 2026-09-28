@@ -49,7 +49,7 @@
         @php
             $notes = App\Models\Option::where('name', 'login_notes')->first() ?? '';
         @endphp
-        @if ($notes)
+        @if ($notes && $notes->value)
             <div class="bg-amber-300 border-2 border-coral p-4 rounded-2xl shadow-2xl max-w-2xl text-center">
                 {{ $notes->value }}
             </div>

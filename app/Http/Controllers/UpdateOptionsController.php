@@ -18,7 +18,7 @@ class UpdateOptionsController extends Controller
         foreach ($validated as $key => $value) {
             Option::updateOrCreate(
                 ['name' => $key],
-                ['value' => $value]
+                ['value' => $value ?? '']
             );
         }
 
