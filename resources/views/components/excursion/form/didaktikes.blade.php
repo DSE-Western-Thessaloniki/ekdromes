@@ -12,7 +12,7 @@
         <div>
             <x-excursion.form.ui.input fieldName="a_arithmos"
                 label="Αύξων αριθμός εκδρομής αυτού του είδους (π.χ. 1 αν είναι η πρώτη για φέτος)" type="number"
-                min="1" :value="$excursion->a_arithmos ?? 1" />
+                min="1" max="9" :value="$excursion->a_arithmos ?? 1" />
             <div class="text-sm col-span-2">[Έως εννέα (9) διδακτικές επισκέψεις, ανά τάξη ή τμήμα ή ομάδες τμημάτων,
                 τομέα
                 ειδικότητα ή τμήμα ειδικότητας]</div>
