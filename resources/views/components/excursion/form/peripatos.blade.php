@@ -33,7 +33,7 @@
                 $objectives,
             );
         @endphp
-        <x-excursion.form.ui.checkboxset fieldname="stoxoi[]" legend="Στόχοι εκπαιδευτικής δράσης" :options="$options"
+        <x-excursion.form.ui.checkboxset fieldName="stoxoi[]" legend="Στόχοι εκπαιδευτικής δράσης" :options="$options"
             :value="$excursion->stoxoi ?? []" class="col-span-2 border p-2 space-y-1.5" />
     </x-excursion.form.ui.section>
 
