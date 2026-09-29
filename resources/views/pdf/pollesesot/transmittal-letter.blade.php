@@ -28,10 +28,10 @@
             προορισμό: <b>{{ $excursion->proorismos }}</b>, από
             <b>{{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}</b> έως
             <b>{{ $excursion->hmera_epistrofis?->format('d-m-Y') }}</b>,
-            με ώρα αναχώρησης από τη Θεσσαλονίκη {{ $excursion->ora_anaxorisis }},
-            ώρα άφιξης στον προορισμό {{ $excursion->ora_afijis }}, ώρα αναχώρησης
-            για επιστροφή {{ $excursion->ora_apoxorisis }} και ώρα άφιξης στη
-            Θεσσαλονίκη {{ $excursion->ora_epistrofis }}.<br>
+            με ώρα αναχώρησης από τη Θεσσαλονίκη {{ $excursion->ora_anaxorisis?->format('H:i') }},
+            ώρα άφιξης στον προορισμό {{ $excursion->ora_afijis?->format('H:i') }}, ώρα αναχώρησης
+            για επιστροφή {{ $excursion->ora_apoxorisis?->format('H:i') }} και ώρα άφιξης στη
+            Θεσσαλονίκη {{ $excursion->ora_epistrofis?->format('H:i') }}.<br>
             Στόχοι εκπαιδευτικής δράσης:
             <ul>
                 @foreach ($excursion->stoxoi ?? [] as $stoxos)

@@ -36,13 +36,13 @@
             με τον εξής προορισμό: <b>{{ $excursion->proorismos }}</b>,
             @if ($excursion->dianyktereush === 'Ναι')
                 από <b>{{ $hmera_ekdromis }}</b> έως <b>{{ $hmera_epistrofis }}</b>,
-                με ώρα αναχώρησης από Θεσσαλονίκη {{ $excursion->ora_anaxorisis }},
-                ώρα άφιξης στον προορισμό {{ $excursion->ora_afijis }}, ώρα
-                αναχώρησης για επιστροφή {{ $excursion->ora_apoxorisis }} και ώρα
-                άφιξης στη Θεσσαλονίκη {{ $excursion->ora_epistrofis }}.<br>
+                με ώρα αναχώρησης από Θεσσαλονίκη {{ $excursion->ora_anaxorisis?->format('H:i') }},
+                ώρα άφιξης στον προορισμό {{ $excursion->ora_afijis?->format('H:i') }}, ώρα
+                αναχώρησης για επιστροφή {{ $excursion->ora_apoxorisis?->format('H:i') }} και ώρα
+                άφιξης στη Θεσσαλονίκη {{ $excursion->ora_epistrofis?->format('H:i') }}.<br>
             @else
-                στις <b>{{ $hmera_ekdromis }}</b>, με ώρα αναχώρησης {{ $excursion->ora_anaxorisis }}
-                και επιστροφής {{ $excursion->ora_epistrofis }}.<br>
+                στις <b>{{ $hmera_ekdromis }}</b>, με ώρα αναχώρησης {{ $excursion->ora_anaxorisis?->format('H:i') }}
+                και επιστροφής {{ $excursion->ora_epistrofis?->format('H:i') }}.<br>
             @endif
             Στόχοι εκπαιδευτικής δράσης:
             <ul>

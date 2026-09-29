@@ -33,7 +33,9 @@
             <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί του σχολείου μας
             πρόκειται να πραγματοποιήσουν διδακτική επίσκεψη του άρθρου <b>5</b>
             με προορισμό: <b>{{ $excursion->proorismos }}</b>, στις
-            {{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}.<br>
+            {{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}, με ώρα
+            αναχώρησης {{ $excursion->ora_anaxorisis?->format('H:i') }} και επιστροφής
+            {{ $excursion->ora_epistrofis?->format('H:i') }}.<br>
             Στόχοι εκπαιδευτικής δράσης:
             <ul>
                 @foreach ($excursion->stoxoi ?? [] as $stoxos)
@@ -42,6 +44,7 @@
             </ul>
         </li>
         <li>Αρχηγός μετακίνησης: {{ $excursion->onoma_arxigos }}</li>
+        <li>Πρόκειται για την {{ $excursion->a_arithmos }} διδακτική επίσκεψη του τμήματος.</li>
         <li>Συνοδοί:
             <ul>
                 @foreach (explode("\n", $excursion->onomata_synodoi) as $synodos)
