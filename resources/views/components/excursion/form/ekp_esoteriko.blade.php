@@ -30,9 +30,9 @@
             :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
         <x-excursion.form.ui.date fieldName="hmera_epistrofis" label="Ημερομηνία επιστροφής" :value="$excursion?->hmera_epistrofis?->format('Y-m-d')" />
         <x-excursion.form.ui.input fieldName="diarkeia_hmeres" label="Διάρκεια (ημέρες)" type="number" min="1"0
-            :value="$excursion->diarkeia_hmeres ?? ''" />
-        <x-excursion.form.ui.time fieldName="ora_anaxorisis" label="Ώρα αναχώρησης από το σχολείο" :value="$excursion->ora_anaxorisis?->format('H:i') ?? ''" />
-        <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής στο σχολείο" :value="$excursion->ora_epistrofis?->format('H:i') ?? ''" />
+            :value="$excursion?->diarkeia_hmeres ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_anaxorisis" label="Ώρα αναχώρησης από το σχολείο" :value="$excursion?->ora_anaxorisis?->format('H:i') ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής στο σχολείο" :value="$excursion?->ora_epistrofis?->format('H:i') ?? ''" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
         <x-excursion.form.ui.input fieldName="tmimata" label="Τάξεις ή τμήματα (διαχωρίστε με κόμματα αν χρειάζεται)"

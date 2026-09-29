@@ -37,12 +37,12 @@
             δύο (2)
             αργίες]</div>
         <x-excursion.form.ui.time fieldName="ora_anaxorisis"
-            label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο" :value="$excursion->ora_anaxorisis?->format('H:i') ?? ''" />
+            label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο" :value="$excursion?->ora_anaxorisis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_afijis" label="Εκτιμώμενη ώρα άφιξης στον/στους προορισμό/σμούς"
-            :value="$excursion->ora_afijis?->format('H:i') ?? ''" />
-        <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη ώρα αποχώρησης" :value="$excursion->ora_apoxorisis?->format('H:i') ?? ''" />
+            :value="$excursion?->ora_afijis?->format('H:i') ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη ώρα αποχώρησης" :value="$excursion?->ora_apoxorisis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_epistrofis"
-            label="Ώρα επιστροφής στο σχολείο ή σε άλλο καθορισμένο χώρο" :value="$excursion->ora_epistrofis?->format('H:i') ?? ''" />
+            label="Ώρα επιστροφής στο σχολείο ή σε άλλο καθορισμένο χώρο" :value="$excursion?->ora_epistrofis?->format('H:i') ?? ''" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
         <x-excursion.form.ui.input fieldName="ar_metakinoumenon" label="Αριθμός μετακινούμενων μαθητών" type="number"

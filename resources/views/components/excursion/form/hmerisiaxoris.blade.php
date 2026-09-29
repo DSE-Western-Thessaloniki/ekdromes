@@ -31,8 +31,8 @@
             label="Ημερομηνία εκδρομής [Ενημερώστε τη ΔΔΕ (με οριστική υποβολή) τουλάχιστον μία ημέρα πριν]"
             :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
         <div></div>
-        <x-excursion.form.ui.time fieldName="ora_anaxorisis" label="Ώρα αναχώρησης από το σχολείο" :value="$excursion->ora_anaxorisis?->format('H:i') ?? ''" />
-        <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής στο σχολείο" :value="$excursion->ora_epistrofis?->format('H:i') ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_anaxorisis" label="Ώρα αναχώρησης από το σχολείο" :value="$excursion?->ora_anaxorisis?->format('H:i') ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής στο σχολείο" :value="$excursion?->ora_epistrofis?->format('H:i') ?? ''" />
     </x-excursion.form.ui.section>
 
     <x-excursion.form.ui.section title="Συμμετοχές">
