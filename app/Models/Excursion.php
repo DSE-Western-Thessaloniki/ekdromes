@@ -75,6 +75,10 @@ class Excursion extends Model
         'plithos_synodoi' => 'integer',
         'plithos_ektosomadas_synodoi' => 'integer',
         'stoxoi' => 'array',
+        'ora_anaxorisis' => 'date',
+        'ora_afijis' => 'date',
+        'ora_apoxorisis' => 'date',
+        'ora_epistrofis' => 'date',
     ];
 
     public function schoolYear(): BelongsTo
