@@ -39,14 +39,14 @@
         <div class="text-sm col-span-2">[Έως πέντε (5) εργάσιμες ημέρες ή έως επτά (7) ημέρες, εάν συμπεριληφθούν έως
             δύο (2) αργίες]</div>
         <x-excursion.form.ui.time fieldName="ora_anaxorisis"
-            label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο (μετά τις 6:00πμ)" :value="$excursion->ora_anaxorisis ?? ''" />
+            label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο (μετά τις 6:00πμ)" :value="$excursion->ora_anaxorisis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_afijis"
-            label="Εκτιμώμενη (τοπική) ώρα άφιξης στον/στους προορισμό/σμούς" :value="$excursion->ora_afijis ?? ''" />
+            label="Εκτιμώμενη (τοπική) ώρα άφιξης στον/στους προορισμό/σμούς" :value="$excursion->ora_afijis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη (τοπική) ώρα αποχώρησης"
-            :value="$excursion->ora_apoxorisis ?? ''" />
+            :value="$excursion->ora_apoxorisis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_epistrofis"
             label="Ώρα επιστροφής στο σχολείο ή σε άλλο καθορισμένο χώρο (το αργότερο έως τις 10:00μμ)"
-            :value="$excursion->ora_epistrofis ?? ''" />
+            :value="$excursion->ora_epistrofis?->format('H:i') ?? ''" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
         <x-excursion.form.ui.input fieldName="ar_mathiton" label="Αριθμός φοιτούντων μαθητών/τριών" type="number"

@@ -11,7 +11,7 @@
             placeholder="Αριθμός και ημερομηνία" />
         <x-excursion.form.ui.input fieldName="a_arithmos"
             label="Αύξων αριθμός εκδρομής αυτού του είδους (π.χ. 1 αν είναι η πρώτη για φέτος)" type="number"
-            min="1" :value="$excursion->a_arithmos ?? 1" />
+            min="1" max="5" :value="$excursion->a_arithmos ?? 1" />
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
         @php
             if ($isEdit && $excursion->metaforika_mesa !== '') {
@@ -40,8 +40,8 @@
     <x-excursion.form.ui.section title="Ημερομηνίες και ώρες">
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία εκδρομής" :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
         <div></div>
-        <x-excursion.form.ui.time fieldName="ora_anaxorisis" label="Ώρα αναχώρησης από το σχολείο" :value="$excursion->ora_anaxorisis ?? ''" />
-        <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής στο σχολείο" :value="$excursion->ora_epistrofis ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_anaxorisis" label="Ώρα αναχώρησης από το σχολείο" :value="$excursion->ora_anaxorisis?->format('H:i') ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής στο σχολείο" :value="$excursion->ora_epistrofis?->format('H:i') ?? ''" />
     </x-excursion.form.ui.section>
 
     <x-excursion.form.ui.section title="Συμμετοχές">
