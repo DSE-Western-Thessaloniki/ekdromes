@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 
 class Excursion extends Model
 {
@@ -75,7 +76,6 @@ class Excursion extends Model
         'plithos_synodoi' => 'integer',
         'plithos_ektosomadas_synodoi' => 'integer',
         'stoxoi' => 'array',
-        'ora_anaxorisis' => 'date',
         'ora_afijis' => 'date',
         'ora_apoxorisis' => 'date',
         'ora_epistrofis' => 'date',
@@ -148,6 +148,16 @@ class Excursion extends Model
 
                 throw new Exception("Μη έγκυρη τιμή '$value' περάστηκε ως τιμή για το πεδίο διανυκτέρευση!");
             }
+        );
+    }
+
+    /**
+     * Get the user's first name.
+     */
+    protected function ora_anaxorisis(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => is_null($value) ? $value : Carbon::createFromTimeString($value),
         );
     }
 }
