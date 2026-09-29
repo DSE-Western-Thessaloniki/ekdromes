@@ -154,7 +154,7 @@ class Excursion extends Model
     /**
      * Get the user's first name.
      */
-    protected function ora_anaxorisis(): Attribute
+    protected function oraAnaxorisis(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => is_null($value) ? $value : Carbon::createFromTimeString($value),
