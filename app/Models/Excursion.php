@@ -76,9 +76,6 @@ class Excursion extends Model
         'plithos_synodoi' => 'integer',
         'plithos_ektosomadas_synodoi' => 'integer',
         'stoxoi' => 'array',
-        'ora_afijis' => 'date',
-        'ora_apoxorisis' => 'date',
-        'ora_epistrofis' => 'date',
     ];
 
     public function schoolYear(): BelongsTo
@@ -151,10 +148,28 @@ class Excursion extends Model
         );
     }
 
-    /**
-     * Get the user's first name.
-     */
     protected function oraAnaxorisis(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => is_null($value) ? $value : Carbon::createFromTimeString($value),
+        );
+    }
+
+    protected function oraAfijis(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => is_null($value) ? $value : Carbon::createFromTimeString($value),
+        );
+    }
+
+    protected function oraΑpoxorisis(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value) => is_null($value) ? $value : Carbon::createFromTimeString($value),
+        );
+    }
+
+    protected function oraΕpistrofis(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => is_null($value) ? $value : Carbon::createFromTimeString($value),
