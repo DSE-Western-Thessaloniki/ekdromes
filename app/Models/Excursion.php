@@ -162,14 +162,14 @@ class Excursion extends Model
         );
     }
 
-    protected function oraΑpoxorisis(): Attribute
+    protected function oraApoxorisis(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => is_null($value) ? $value : Carbon::createFromTimeString($value),
         );
     }
 
-    protected function oraΕpistrofis(): Attribute
+    protected function oraEpistrofis(): Attribute
     {
         return Attribute::make(
             get: fn ($value) => is_null($value) ? $value : Carbon::createFromTimeString($value),
