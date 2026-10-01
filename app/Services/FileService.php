@@ -85,6 +85,10 @@ class FileService
 
     public function deleteFile(Excursion $excursion, string $filename): bool
     {
+        if (! $excursion->isDraft()) {
+            return false;
+        }
+
         $dir = $this->getSchoolDir($excursion->schoolYear, $excursion->school);
         $path = $dir.'/'.$filename;
 
