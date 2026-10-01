@@ -179,6 +179,11 @@ class ExcursionController extends Controller
                 ->with('error', 'Δεν είναι δυνατή η υποβολή. Λείπουν απαιτούμενα πεδία: '.implode(', ', $missing));
         }
 
+        if (! $this->excursionService->validateEscort($excursion)) {
+            return redirect()->route('excursion.edit', $excursion)
+                ->with('error', 'Δεν είναι δυνατή η υποβολή. Δεν έχουν συμπληρωθεί σωστά τα πεδία των συνοδών.');
+        }
+
         $files = $this->fileService->getFileList($excursion);
         if ($files === []) {
             return redirect()->route('excursion.files', $excursion)
