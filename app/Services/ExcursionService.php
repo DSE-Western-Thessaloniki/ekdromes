@@ -392,4 +392,19 @@ class ExcursionService
 
         return '';
     }
+
+    public function validateEscort(Excursion $excursion): bool
+    {
+        if ($excursion->eidos_ekdromis === 'Σχολικός Περίπατος') {
+            return true;
+        }
+
+        $escortCount = $excursion->plithos_synodoi;
+        $escortNames = explode("\n", $excursion->onomata_synodoi);
+        $escortNamesCount = collect($escortNames)
+            ->filter(fn ($name) => trim($name) !== '')
+            ->count();
+
+        return $escortCount === $escortNamesCount;
+    }
 }
