@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\ExcursionStatus;
 use App\Http\Controllers\ExcursionController;
 use App\Models\Excursion;
 use App\Models\School;
@@ -129,7 +130,7 @@ class ExcursionSubmissionPipelineTest extends TestCase
         $submitted = $service->submit($this->excursion, $protocolNumber);
 
         $this->assertTrue($submitted->isSubmitted());
-        $this->assertEquals('ΥΠΟΒΛΗΘΗΚΕ', $submitted->status);
+        $this->assertEquals(ExcursionStatus::SUBMITTED, $submitted->status);
         $this->assertEquals($protocolNumber, $submitted->ar_prot);
     }
 
@@ -164,7 +165,7 @@ class ExcursionSubmissionPipelineTest extends TestCase
         // Step 4: Verify submission would update status correctly
         $protocolNumber = 'TEST-123-2026';
         $submitted = $excursionService->submit($this->excursion, $protocolNumber);
-        $this->assertEquals('ΥΠΟΒΛΗΘΗΚΕ', $submitted->status);
+        $this->assertEquals(ExcursionStatus::SUBMITTED, $submitted->status);
     }
 
     public function test_submission_can_skip_protocol_in_manual_testing_mode(): void

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enums\ExcursionStatus;
 use App\Models\Excursion;
 use App\Models\School;
 use App\Models\SchoolYear;
@@ -331,7 +332,7 @@ class ExcursionService
     public function submit(Excursion $excursion, string $protocolNumber): Excursion
     {
         $excursion->update([
-            'status' => 'ΥΠΟΒΛΗΘΗΚΕ',
+            'status' => ExcursionStatus::SUBMITTED,
             'ar_prot' => $protocolNumber,
             'submit_datetime' => now(),
         ]);
@@ -384,7 +385,7 @@ class ExcursionService
     {
         $school = SchoolService::getActiveSchool();
 
-        $excursion = $school->excursions()->where('status', 'ΥΠΟΒΛΗΘΗΚΕ')->orderBy('id', 'desc')->first();
+        $excursion = $school->excursions()->submitted()->orderBy('id', 'desc')->first();
 
         if ($excursion) {
             return $excursion->onoma_ypografonta;
@@ -406,5 +407,19 @@ class ExcursionService
             ->count();
 
         return $escortCount === $escortNamesCount;
+    }
+
+    public function validateExcursionNumber(Excursion $excursion): bool
+    {
+        $existing = Excursion::query()
+            ->submitted()
+            ->forYear($this->currentYear)
+            ->forSchool($excursion->school)
+            ->where('eidos_ekdromis', $excursion->eidos_ekdromis)
+            ->where('tmimata', $excursion->tmimata)
+            ->where('a_arithmos', $excursion->a_arithmos)
+            ->first();
+
+        return ! $existing || $existing->id === $excursion->id;
     }
 }

@@ -25,7 +25,7 @@
             $hmera_epistrofis = $excursion->hmera_epistrofis?->format('d-m-Y');
         @endphp
         <li class="justify"><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές και μαθήτριες
-            των τάξεων/τμημάτων: {{ $excursion->tmimata }} και
+            της τάξης {{ $excursion->tmimata }} και
             <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί του
             σχολείου μας πρόκειται να μετακινηθούν
             με τον εξής προορισμό: <b>{{ $excursion->proorismos }}</b>,

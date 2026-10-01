@@ -2,7 +2,10 @@
 
 namespace App\Models;
 
+use App\Enums\ExcursionStatus;
 use Exception;
+use Illuminate\Database\Eloquent\Attributes\Scope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -76,6 +79,7 @@ class Excursion extends Model
         'plithos_synodoi' => 'integer',
         'plithos_ektosomadas_synodoi' => 'integer',
         'stoxoi' => 'array',
+        'status' => ExcursionStatus::class,
     ];
 
     public function schoolYear(): BelongsTo
@@ -88,29 +92,44 @@ class Excursion extends Model
         return $this->belongsTo(School::class);
     }
 
-    public function scopeForYear($query, SchoolYear $year)
+    #[Scope]
+    public function forYear(Builder $query, SchoolYear $year): Builder
     {
         return $query->where('school_year_id', $year->id);
     }
 
-    public function scopeForSchool($query, School $school)
+    #[Scope]
+    public function forSchool(Builder $query, School $school): Builder
     {
         return $query->where('school_id', $school->id);
     }
 
-    public function scopeByStatus($query, string $status)
+    #[Scope]
+    public function byStatus(Builder $query, ExcursionStatus $status): Builder
     {
         return $query->where('status', $status);
     }
 
+    #[Scope]
+    public function draft(Builder $query): Builder
+    {
+        return $query->where('status', ExcursionStatus::DRAFT);
+    }
+
+    #[Scope]
+    public function submitted(Builder $query): Builder
+    {
+        return $query->where('status', ExcursionStatus::SUBMITTED);
+    }
+
     public function isDraft(): bool
     {
-        return $this->status === 'ΠΡΟΣΩΡΙΝΑ ΑΠΟΘΗΚΕΥΜΕΝΗ';
+        return $this->status === ExcursionStatus::DRAFT;
     }
 
     public function isSubmitted(): bool
     {
-        return $this->status === 'ΥΠΟΒΛΗΘΗΚΕ';
+        return $this->status === ExcursionStatus::SUBMITTED;
     }
 
     public function hasProtocol(): bool

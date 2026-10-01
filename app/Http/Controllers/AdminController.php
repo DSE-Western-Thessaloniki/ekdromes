@@ -97,8 +97,9 @@ class AdminController extends Controller
             $currentYear = SchoolYear::orderBy('sxoliko_etos', 'desc')->first();
         }
 
-        $excursions = Excursion::where('school_id', $school->id)
-            ->where('school_year_id', $currentYear->id)
+        $excursions = Excursion::query()
+            ->forSchool($school)
+            ->forYear($currentYear)
             ->with(['school', 'schoolYear'])
             ->orderBy('id', 'desc')
             ->get();

@@ -7,9 +7,8 @@
         <x-excursion.form.ui.input fieldName="ar_prajis_syllogou"
             label="Πράξη συλλόγου βάσει της οποίας γίνεται η μετακίνηση" :value="$excursion->ar_prajis_syllogou ?? ''"
             placeholder="Αριθμός και ημερομηνία" />
-        <x-excursion.form.ui.input fieldName="a_arithmos"
-            label="Αύξων αριθμός εκδρομής αυτού του είδους (π.χ. 1 αν είναι η πρώτη για φέτος)" type="number"
-            min="1" :value="$excursion->a_arithmos ?? 1" placeholder="π.χ. 1 αν είναι η πρώτη για φέτος" />
+        <x-excursion.form.ui.input fieldName="a_arithmos" readonly="true"
+            label="Αύξων αριθμός εκδρομής αυτού του είδους (επιτρέπεται μόνο 1 ανά τάξη)" value="1" />
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
         <x-excursion.form.ui.input fieldName="onoma_jenodoxeio" label="Όνομα ξενοδοχείου" :value="$excursion->onoma_jenodoxeio ?? ''" />
         <x-excursion.form.ui.input fieldName="onoma_praktoreio" label="Όνομα πρακτορείου" :value="$excursion->onoma_praktoreio ?? ''" />
@@ -29,14 +28,13 @@
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία αναχώρησης"
             :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
         <x-excursion.form.ui.date fieldName="hmera_epistrofis" label="Ημερομηνία επιστροφής" :value="$excursion?->hmera_epistrofis?->format('Y-m-d')" />
-        <x-excursion.form.ui.input fieldName="diarkeia_hmeres" label="Διάρκεια (ημέρες)" type="number" min="1"0
+        <x-excursion.form.ui.input fieldName="diarkeia_hmeres" label="Διάρκεια (ημέρες)" type="number" min="1"
             :value="$excursion?->diarkeia_hmeres ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_anaxorisis" label="Ώρα αναχώρησης από το σχολείο" :value="$excursion?->ora_anaxorisis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής στο σχολείο" :value="$excursion?->ora_epistrofis?->format('H:i') ?? ''" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
-        <x-excursion.form.ui.input fieldName="tmimata" label="Τάξεις ή τμήματα (διαχωρίστε με κόμματα αν χρειάζεται)"
-            :value="$excursion->tmimata ?? ''" />
+        <x-excursion.form.ui.input fieldName="tmimata" label="Τάξη" :value="$excursion->tmimata ?? ''" />
         <x-excursion.form.ui.input fieldName="ar_metakinoumenon" label="Αριθμός μετακινούμενων μαθητών" type="number"
             min="1" :value="$excursion->ar_metakinoumenon ?? 0" />
         <x-excursion.form.ui.input fieldName="plithos_synodoi"
