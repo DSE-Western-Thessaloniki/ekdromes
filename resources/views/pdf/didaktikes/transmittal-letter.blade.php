@@ -44,7 +44,7 @@
             </ul>
         </li>
         <li>Αρχηγός μετακίνησης: {{ $excursion->onoma_arxigos }}</li>
-        <li>Πρόκειται για την {{ $excursion->a_arithmos }} διδακτική επίσκεψη του τμήματος.</li>
+        <li>Πρόκειται για την {{ $excursion->a_arithmos }}η διδακτική επίσκεψη του τμήματος.</li>
         <li>Συνοδοί:
             <ul>
                 @foreach (explode("\n", $excursion->onomata_synodoi) as $synodos)
