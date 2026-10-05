@@ -422,4 +422,30 @@ class ExcursionService
 
         return ! $existing || $existing->id === $excursion->id;
     }
+
+    public function validatePupilPercentage(Excursion $excursion): bool
+    {
+        if ($excursion->eidos_ekdromis === 'Σχολικός Περίπατος' ||
+            $excursion->eidos_ekdromis === 'Διδακτική επίσκεψη' ||
+            $excursion->eidos_ekdromis === 'Συμμετοχή μαθητών/τριών σε διαγωνισμούς/εκδηλώσεις εσωτερικού' ||
+            $excursion->eidos_ekdromis === 'Εκπαιδευτικών ανταλλαγών σε συνέχεια διακρατικών συμφωνιών/μνημονίων συνεργασίας/εκτελεστικών προγραμμάτων' ||
+            $excursion->eidos_ekdromis === 'Αδελφοποιήσεων' ||
+            $excursion->eidos_ekdromis === 'Εκπαιδευτικών προγραμμάτων της Γενικής Γραμματείας Θρησκευμάτων' ||
+            $excursion->eidos_ekdromis === 'Ευρωπαϊκών προγραμμάτων δραστηριοτήτων/προγραμμάτων που δε γίνονται στο πλαίσιο του ευρωπαϊκού προγράμματος Erasmus' ||
+            $excursion->eidos_ekdromis === 'Προγραμμάτων διεθνών οργανισμών' ||
+            $excursion->eidos_ekdromis === 'Συμμετοχών σε διεθνείς συναντήσεις, συνέδρια, ημερίδες, διαγωνισμούς, μαθητικές επιστημονικές ολυμπιάδες και άλλες διεθνής εκδηλώσεις' ||
+            $excursion->eidos_ekdromis === 'Προσκλήσεις σχολείων της περ.α του άρθρου 3 του ν. 4415/2016 (Α΄ 159)' ||
+            $excursion->eidos_ekdromis === 'Βράβευσης με ταξίδι στο εξωτερικό κατόπιν συμμετοχής σε διαγωνιστική διαδικασία εγκεκριμένη από το Υπουργείο Παιδείας' ||
+            $excursion->eidos_ekdromis === 'Πιλοτικών προγραμμάτων διεθνών σχολικών δικτύων που εγκρίνονται ή συντονίζονται από το Υπουργείο Παιδείας' ||
+            $excursion->eidos_ekdromis === 'Επισκέψεων σε ερευνητικά κέντρα, εκπαιδευτικά ιδρύματα, πανεπιστήμια, κέντρα πολιτισμού και/ή αθλητισμού' ||
+            $excursion->eidos_ekdromis === 'Επισκέψεων σε ευρωπαϊκούς θεσμούς/διεθνείς οργανώσεις κατόπιν σχετικής πρόσκλησης και αποδοχής τυχόν αιτήματος από το διεθνή οργανισμό' ||
+            $excursion->eidos_ekdromis === 'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' ||
+            $excursion->eidos_ekdromis === 'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1') {
+            return true;
+        }
+
+        $pupilPercentage = ($excursion->ar_metakinoumenon / $excursion->ar_mathiton) * 100;
+
+        return $pupilPercentage >= 70;
+    }
 }

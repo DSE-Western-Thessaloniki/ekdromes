@@ -189,6 +189,11 @@ class ExcursionController extends Controller
                 ->with('error', 'Δεν είναι δυνατή η υποβολή. Ο αύξων αριθμός εκδρομής αυτού του είδους έχει ήδη χρησιμοποιηθεί για την τάξη/τάξεις που επιλέξατε.');
         }
 
+        if (! $this->excursionService->validatePupilPercentage($excursion)) {
+            return redirect()->route('excursion.edit', $excursion)
+                ->with('error', 'Δεν είναι δυνατή η υποβολή. Το ποσοστό συμμετοχής των μαθητών δεν πληροί τις απαιτήσεις.');
+        }
+
         $files = $this->fileService->getFileList($excursion);
         if ($files === []) {
             return redirect()->route('excursion.files', $excursion)
