@@ -46,7 +46,8 @@
         </div>
         <x-excursion.form.ui.time fieldName="ora_afijis" label="Εκτιμώμενη ώρα άφιξης στον/στους προορισμό/σμούς"
             :value="$excursion->ora_afijis?->format('H:i') ?? ''" />
-        <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη ώρα αποχώρησης" :value="$excursion?->ora_apoxorisis?->format('H:i') ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη ώρα αναχώρησης για επιστροφή"
+            :value="$excursion?->ora_apoxorisis?->format('H:i') ?? ''" />
         <div>
             <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής" :value="$excursion?->ora_epistrofis?->format('H:i') ?? ''" />
             <div class="text-sm">[το αργότερο έως τις 10.00 μ.μ. όταν η εκδρομή πραγματοποιείται οδικώς]</div>

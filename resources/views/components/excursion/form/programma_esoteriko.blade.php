@@ -10,7 +10,7 @@
             label="Αριθμός πρωτοκόλλου έγκρισης προγράμματος" :value="$excursion->ar_pr_egrisis_programmatosdde ?? ''" />
         <x-excursion.form.ui.input fieldName="a_arithmos"
             label="Αύξων αριθμός εκδρομής αυτού του είδους (π.χ. 1 αν είναι η πρώτη για φέτος)" type="number"
-            min="1" :value="$excursion->a_arithmos ?? 1" />
+            min="1" max="2" :value="$excursion->a_arithmos ?? 1" />
         <x-excursion.form.ui.input fieldName="ar_prajis_syllogou"
             label="Αριθμός και ημερομηνία πράξης συλλόγου βάσει της οποίας γίνεται η μετακίνηση" :value="$excursion->ar_prajis_syllogou ?? ''" />
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
@@ -35,13 +35,12 @@
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία αναχώρησης"
             :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
         <x-excursion.form.ui.date fieldName="hmera_epistrofis" label="Ημερομηνία επιστροφής" :value="$excursion?->hmera_epistrofis?->format('Y-m-d')" />
-        <x-excursion.form.ui.time fieldName="ora_anaxorisis"
-            label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο" :value="$excursion?->ora_anaxorisis?->format('H:i') ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_anaxorisis" label="Ώρα αναχώρησης από το σχολείο" :value="$excursion?->ora_anaxorisis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_afijis" label="Εκτιμώμενη ώρα άφιξης στον/στους προορισμό/σμούς"
             :value="$excursion?->ora_afijis?->format('H:i') ?? ''" />
-        <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη ώρα αποχώρησης" :value="$excursion?->ora_apoxorisis?->format('H:i') ?? ''" />
-        <x-excursion.form.ui.time fieldName="ora_epistrofis"
-            label="Ώρα επιστροφής στο σχολείο ή σε άλλο καθορισμένο χώρο" :value="$excursion?->ora_epistrofis?->format('H:i') ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη ώρα αναχώρησης για επιστροφή"
+            :value="$excursion?->ora_apoxorisis?->format('H:i') ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής στο σχολείο" :value="$excursion?->ora_epistrofis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.input fieldName="diarkeia_hmeres" label="Διάρκεια (ημέρες)" type="number" min="1"
             :value="$excursion->diarkeia_hmeres ?? ''" />
     </x-excursion.form.ui.section>

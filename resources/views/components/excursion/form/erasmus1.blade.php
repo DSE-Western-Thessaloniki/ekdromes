@@ -76,7 +76,7 @@
             label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο" :value="$excursion?->ora_anaxorisis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_afijis"
             label="Εκτιμώμενη (τοπική) ώρα άφιξης στον/στους προορισμό/σμούς" :value="$excursion?->ora_afijis?->format('H:i') ?? ''" />
-        <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη (τοπική) ώρα αποχώρησης"
+        <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη (τοπική) ώρα αναχώρησης για επιστροφή"
             :value="$excursion?->ora_apoxorisis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_epistrofis"
             label="Ώρα επιστροφής στο σχολείο ή σε άλλο καθορισμένο χώρο" :value="$excursion?->ora_epistrofis?->format('H:i') ?? ''" />

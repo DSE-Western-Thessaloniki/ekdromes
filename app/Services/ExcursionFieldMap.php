@@ -35,7 +35,7 @@ class ExcursionFieldMap
         'diarkeia_hmeres' => ['label' => 'Διάρκεια (ημέρες)', 'type' => 'text'],
         'ora_anaxorisis' => ['label' => 'Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο', 'type' => 'time'],
         'ora_afijis' => ['label' => 'Εκτιμώμενη (τοπική) ώρα άφιξης', 'type' => 'time'],
-        'ora_apoxorisis' => ['label' => 'Εκτιμώμενη (τοπική) ώρα αποχώρησης', 'type' => 'time'],
+        'ora_apoxorisis' => ['label' => 'Εκτιμώμενη (τοπική) ώρα αναχώρησης για επιστροφή', 'type' => 'time'],
         'ora_epistrofis' => ['label' => 'Ώρα επιστροφής στο σχολείο ή σε άλλο καθορισμένο χώρο', 'type' => 'time'],
         'ar_mathiton' => ['label' => 'Αρ. μαθητών', 'type' => 'number', 'min' => 0],
         'ar_metakinoumenon' => ['label' => 'Αρ. μετακινούμενων μαθητών', 'type' => 'number', 'min' => 0],
