@@ -27,15 +27,9 @@
         <x-excursion.form.ui.date fieldName="hmera_ekdromis_anaxorisis" label="Ημερομηνία αναχώρησης"
             :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
         <x-excursion.form.ui.date fieldName="hmera_epistrofis" label="Ημερομηνία επιστροφής" :value="$excursion?->hmera_epistrofis?->format('Y-m-d')" />
-        <div class="text-sm col-span-2">[επιτρεπτό χρονικό διάστημα διεξαγωγής από 15 Οκτωβρίου έως 19 Δεκεμβρίου &amp;
-            από
-            1
-            Φεβρουαρίου έως και δέκα (10) ημέρες πριν από τη λήξη των μαθημάτων]</div>
-        <x-excursion.form.ui.input fieldName="diarkeia_hmeres" label="Διάρκεια (ημέρες)" type="number" min="1"
-            :value="$excursion->diarkeia_hmeres ?? ''" />
-        <div class="text-sm col-span-2">[Έως πέντε (5) εργάσιμες ημέρες ή έως επτά (7) ημέρες, εάν συμπεριληφθούν έως
-            δύο (2)
-            αργίες]</div>
+        <div class="text-sm col-span-2">[επιτρεπτό χρονικό διάστημα διεξαγωγής από 15 Οκτωβρίου έως την τελευταία ημέρα
+            μαθημάτων πριν από την έναρξη των διακοπών των Χριστουγέννων &amp;
+            από 1 Φεβρουαρίου έως και δέκα (10) ημέρες πριν από τη λήξη των μαθημάτων]</div>
         <x-excursion.form.ui.time fieldName="ora_anaxorisis"
             label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο" :value="$excursion?->ora_anaxorisis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_afijis" label="Εκτιμώμενη ώρα άφιξης στον/στους προορισμό/σμούς"
@@ -46,9 +40,10 @@
             label="Ώρα επιστροφής στο σχολείο ή σε άλλο καθορισμένο χώρο" :value="$excursion?->ora_epistrofis?->format('H:i') ?? ''" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
+        <x-excursion.form.ui.input fieldName="ar_mathiton" label="Σύνολο μαθητών/τριών της τάξης" type="number"
+            min="1" :value="$excursion->ar_mathiton ?? 0" />
         <x-excursion.form.ui.input fieldName="ar_metakinoumenon" label="Αριθμός μετακινούμενων μαθητών" type="number"
             min="1" :value="$excursion->ar_metakinoumenon ?? 0" />
-        <div></div>
         <x-excursion.form.ui.input fieldName="plithos_synodoi" label="Πλήθος συνοδών (εκτός του αρχηγού)" type="number"
             min="0" :value="$excursion->plithos_synodoi ?? 0" />
         <x-excursion.form.ui.input fieldName="covered" label="Καλυπτόμενοι μαθητές" type="number" :value="0"
