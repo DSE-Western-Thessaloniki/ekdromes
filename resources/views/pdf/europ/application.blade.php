@@ -20,6 +20,14 @@
                 <b>Β. ΤΟΠΟΣ, ΠΛΑΙΣΙΟ ΜΕΤΑΚΙΝΗΣΗΣ</b><br>
                 Τόπος μετακίνησης: {{ $excursion->proorismos }}<br>
                 Η μετακίνηση ανήκει στην περίπτωση: {{ $excursion->eidos_ekdromis }}
+                @if ($excursion->eidos_ekdromis === \App\Services\ExcursionService::ARTICLE_11_GENERAL_TITLE)
+                    <br>Συγκεκριμένες περιπτώσεις:
+                    <ul>
+                        @foreach ($excursion->eideis_arthrou_11 ?? [] as $eidos11)
+                            <li>{{ $eidos11 }}</li>
+                        @endforeach
+                    </ul>
+                @endif
             </td>
         </tr>
     </table>
@@ -43,7 +51,10 @@
         Αρ. Πρ. &amp; ημ. διαβίβασης αιτήματος ανάρτησης προκήρυξης: {{ $excursion->ar_pr_anartisisprok }}<br>
         Αριθμός ασφαλιστηρίου συμβολαίου για τη διάρκεια του ταξιδιού και της διαμονής:
         {{ $excursion->asf_symbolaio }}<br>
-        @if ($excursion->eidos_ekdromis === 'Αδελφοποιήσεων')
+        @if (
+            $excursion->eidos_ekdromis === 'Αδελφοποιήσεων' ||
+                ($excursion->eidos_ekdromis === \App\Services\ExcursionService::ARTICLE_11_GENERAL_TITLE &&
+                    in_array('Αδελφοποιήσεων', $excursion->eideis_arthrou_11 ?? [], true)))
             Αρ. Πρ. έγκρισης του εκπαιδευτικού προγράμματος της επίσκεψης, από το/την Διευθυντή/τρια της ΔΔΕ:
             {{ $excursion->ar_pr_egrisis_programmatosdde }}<br>
         @endif

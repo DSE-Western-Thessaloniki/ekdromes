@@ -22,7 +22,7 @@ class StoreExcursionRequest extends FormRequest
     {
         $school = SchoolService::getActiveSchool();
         $excursionTypes = $school
-            ? array_keys($this->excursionService->getExcursionTypes($school))
+            ? array_keys($this->excursionService->getSelectableExcursionTypes($school))
             : [];
         $rules = [
             'eidos_ekdromis' => ['string', 'required', Rule::in($excursionTypes)],
@@ -34,7 +34,10 @@ class StoreExcursionRequest extends FormRequest
 
         $rules += $this->excursionFieldMap->getBasicValidationRules();
 
-        return $rules;
+        return array_replace(
+            $rules,
+            $this->excursionFieldMap->getArticle11SelectionRules($this->input('eidos_ekdromis')),
+        );
     }
 
     /**

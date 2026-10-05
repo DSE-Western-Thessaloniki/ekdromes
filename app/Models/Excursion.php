@@ -65,6 +65,7 @@ class Excursion extends Model
         'erasmus_lista_kathig_kaieidikotita',
         'erasmus_lista_anaplirkathig_kaieid',
         'stoxoi',
+        'eideis_arthrou_11',
         'dianyktereush',
         'aa_programmatos',
     ];
@@ -79,6 +80,7 @@ class Excursion extends Model
         'plithos_synodoi' => 'integer',
         'plithos_ektosomadas_synodoi' => 'integer',
         'stoxoi' => 'array',
+        'eideis_arthrou_11' => 'array',
         'status' => ExcursionStatus::class,
     ];
 
