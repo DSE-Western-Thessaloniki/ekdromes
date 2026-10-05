@@ -29,16 +29,14 @@
         <div class="text-sm col-span-2">[Από την έναρξη του διδακτικού έτους έως και δέκα (10) ημέρες πριν από τη λήξη
             των μαθημάτων]</div>
         <div>
-            <x-excursion.form.ui.input fieldName="diarkeia_hmeres" label="Διάρκεια (ημέρες)" type="number"
-                min="1" :value="$excursion->diarkeia_hmeres ?? ''" />
-            <div class="text-sm col-span-2">[Μπορεί να συμπεριλαμβάνονται έως 2 διανυκτερεύσεις]</div>
-        </div>
-        <div></div>
-        <div>
             <x-excursion.form.ui.time fieldName="ora_anaxorisis"
                 label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο " :value="$excursion->ora_anaxorisis ?? ''" />
             <div class="text-sm">[μετά τις 6.00 π.μ.]</div>
         </div>
+        <x-excursion.form.ui.time fieldName="ora_afijis" label="Εκτιμώμενη ώρα άφιξης στον/στους προορισμό/σμούς"
+            :value="$excursion?->ora_afijis?->format('H:i') ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη ώρα αναχώρησης για επιστροφή"
+            :value="$excursion?->ora_apoxorisis?->format('H:i') ?? ''" />
         <div>
             <x-excursion.form.ui.time fieldName="ora_epistrofis"
                 label="Ώρα επιστροφής στο σχολείο ή σε άλλο καθορισμένο χώρο" :value="$excursion->ora_epistrofis ?? ''" />

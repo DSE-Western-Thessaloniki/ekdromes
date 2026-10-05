@@ -33,8 +33,10 @@
             @else
                 στις <b>{{ $hmera_ekdromis }}</b>,
             @endif
-            με ώρα αναχώρησης {{ $excursion->ora_anaxorisis?->format('H:i') }} και επιστροφής
-            {{ $excursion->ora_epistrofis?->format('H:i') }}.
+            με ώρα αναχώρησης από Θεσσαλονίκη {{ $excursion->ora_anaxorisis?->format('H:i') }},
+            ώρα άφιξης στον προορισμό {{ $excursion->ora_afijis?->format('H:i') }}, ώρα
+            αναχώρησης για επιστροφή {{ $excursion->ora_apoxorisis?->format('H:i') }} και ώρα
+            άφιξης στη Θεσσαλονίκη {{ $excursion->ora_epistrofis?->format('H:i') }}.<br>
             Στόχοι εκπαιδευτικής δράσης:
             <ul>
                 @foreach ($excursion->stoxoi ?? [] as $stoxos)
