@@ -49,7 +49,10 @@ class UpdateExcursionRequest extends FormRequest
 
         $rules += $this->excursionFieldMap->getBasicValidationRules();
 
-        return $rules;
+        return array_replace(
+            $rules,
+            $this->excursionFieldMap->getArticle11SelectionRules($this->input('eidos_ekdromis')),
+        );
     }
 
     /**

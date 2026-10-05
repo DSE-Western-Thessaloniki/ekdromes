@@ -1,7 +1,19 @@
 @props(['excursion' => null, 'mode' => 'create', 'excursionType'])
 
+@php
+    $selectedEidos = $mode === 'edit' ? $excursion->eidos_ekdromis : ($excursionType ?? null);
+    $isArticle11Group = $selectedEidos === \App\Services\ExcursionService::ARTICLE_11_GENERAL_TITLE;
+    $showDdeApproval = in_array($selectedEidos, ['Αδελφοποιήσεων', \App\Services\ExcursionService::ARTICLE_11_GENERAL_TITLE], true);
+@endphp
+
 <div class="flex flex-col gap-2 mb-4">
     <x-excursion.form.ui.section title="Γενικά">
+        @if ($isArticle11Group)
+            <x-excursion.form.ui.checkboxset fieldName="eideis_arthrou_11[]"
+                legend="{{ \App\Services\ExcursionService::ARTICLE_11_GENERAL_TITLE }}"
+                :options="\App\Services\ExcursionService::article11CheckboxOptions()"
+                :value="$excursion->eideis_arthrou_11 ?? []" class="col-span-2 border p-2 space-y-1.5" />
+        @endif
         <div>
             <x-excursion.form.ui.input fieldName="titlos_programmatos" label="Κυρίως έγγραφο μετακίνησης"
                 :value="$excursion->titlos_programmatos ?? ''" />
@@ -12,9 +24,7 @@
         <x-excursion.form.ui.input fieldName="ar_prajis_syllogou"
             label="Πράξη συλλόγου βάσει της οποίας γίνεται η μετακίνηση" :value="$excursion->ar_prajis_syllogou ?? ''"
             placeholder="Αριθμός και ημερομηνία" />
-        @if (
-            ($mode === 'edit' && $excursion->eidos_ekdromis === 'Αδελφοποιήσεων') ||
-                ($mode === 'create' && $excursionType === 'Αδελφοποιήσεων'))
+        @if ($showDdeApproval)
             <x-excursion.form.ui.input fieldName="ar_pr_egrisis_programmatosdde"
                 label="Αρ. Πρ. έγκρισης του εκπαιδευτικού προγράμματος της επίσκεψης, από το/την  Διευθυντή/τρια της ΔΔΕ"
                 :value="$excursion->ar_pr_egrisis_programmatosdde ?? ''" />

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use Illuminate\Validation\Rule;
+
 class ExcursionFieldMap
 {
     private const array FIELD_DEFINITIONS = [
@@ -113,6 +115,11 @@ class ExcursionFieldMap
         'Συμμετοχή μαθητών/τριών σε διαγωνισμούς/εκδηλώσεις εσωτερικού' => [
             'general' => ['titlos_programmatos', 'ar_prajis_syllogou', 'a_arithmos', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_epistrofis'],
+            'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
+        ],
+        ExcursionService::ARTICLE_11_GENERAL_TITLE => [
+            'general' => ['titlos_programmatos', 'ar_pr_egrisis_programmatosdde', 'ar_prajis_syllogou', 'asf_symbolaio', 'praji_epilogi_praktoreiou', 'ar_pr_anartisisprok', 'proorismos', 'onoma_jenodoxeio', 'onoma_praktoreio', 'metaforika_mesa'],
+            'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
             'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
         ],
         'Εκπαιδευτικών ανταλλαγών σε συνέχεια διακρατικών συμφωνιών/μνημονίων συνεργασίας/εκτελεστικών προγραμμάτων' => [
@@ -282,6 +289,26 @@ class ExcursionFieldMap
     public function getBasicValidationRules(): array
     {
         return self::BASIC_VALIDATION_RULES;
+    }
+
+    /**
+     * Κανόνες για το checkboxset με τους τίτλους των εκδρομών άρθρου 11.
+     * Όταν η εκδρομή ανήκει στον γενικό τίτλο πρέπει να επιλεγεί τουλάχιστον ένας τίτλος.
+     *
+     * @return array<string, array<mixed>>
+     */
+    public function getArticle11SelectionRules(mixed $eidos): array
+    {
+        $rules = [
+            'eideis_arthrou_11' => ['nullable', 'array'],
+            'eideis_arthrou_11.*' => ['string', Rule::in(ExcursionService::ARTICLE_11_TYPES)],
+        ];
+
+        if ($eidos === ExcursionService::ARTICLE_11_GENERAL_TITLE) {
+            $rules['eideis_arthrou_11'] = ['required', 'array', 'min:1'];
+        }
+
+        return $rules;
     }
 
     public function getValidationRules(string $type): array

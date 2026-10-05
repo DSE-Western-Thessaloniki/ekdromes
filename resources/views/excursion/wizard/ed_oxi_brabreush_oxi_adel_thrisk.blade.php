@@ -7,8 +7,9 @@
         Με βάση τις προηγούμενες απαντήσεις, καταχωρήστε νέα εκδρομή:
         <!-- TODO: Add a form to create a new excursion -->
         <a class='btn btn-primary'
-            href="{{ route('excursion.create', ['excursionType' => 'Εκπαιδευτικών προγραμμάτων της Γενικής Γραμματείας Θρησκευμάτων']) }}">Εκπαιδευτικών
-            προγραμμάτων της Γενικής Γραμματείας Θρησκευμάτων</a>
+            href="{{ route('excursion.create', ['excursionType' => \App\Services\ExcursionService::ARTICLE_11_GENERAL_TITLE]) }}">{{ \App\Services\ExcursionService::ARTICLE_11_GENERAL_TITLE }}</a>
+        <p class="text-sm text-center">Η συγκεκριμένη περίπτωση (π.χ. Εκπαιδευτικών προγραμμάτων της Γενικής Γραμματείας
+            Θρησκευμάτων) επιλέγεται ως checkbox μέσα στη φόρμα.</p>
     </div>
 
     <p><a href="{{ route('excursion.wizard', ['step' => '>ΕΔ>ΟΧΙΒΡΑΒΕΥΣΗ>ΟΧΙΑΔΕΛ']) }}" class='btn btn-warning'> <i

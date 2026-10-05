@@ -16,6 +16,30 @@ use Illuminate\Support\Str;
 class ExcursionService
 {
     /**
+     * Γενικός τίτλος που ομαδοποιεί όλες τις εκδρομές άρθρου 11.
+     */
+    public const ARTICLE_11_GENERAL_TITLE = 'Εκπαιδευτικές επισκέψεις στο εξωτερικό στο πλαίσιο ευρωπαϊκών προγραμμάτων, διεθνών προγραμμάτων και λοιπών εκπαιδευτικών δράσεων';
+
+    /**
+     * Οι ήδη υπάρχουσες εκδρομές άρθρου 11 που ομαδοποιούνται κάτω από τον γενικό τίτλο.
+     *
+     * @var list<string>
+     */
+    public const ARTICLE_11_TYPES = [
+        'Εκπαιδευτικών ανταλλαγών σε συνέχεια διακρατικών συμφωνιών/μνημονίων συνεργασίας/εκτελεστικών προγραμμάτων',
+        'Αδελφοποιήσεων',
+        'Εκπαιδευτικών προγραμμάτων της Γενικής Γραμματείας Θρησκευμάτων',
+        'Ευρωπαϊκών προγραμμάτων δραστηριοτήτων/προγραμμάτων που δε γίνονται στο πλαίσιο του ευρωπαϊκού προγράμματος Erasmus',
+        'Προγραμμάτων διεθνών οργανισμών',
+        'Συμμετοχών σε διεθνείς συναντήσεις, συνέδρια, ημερίδες, διαγωνισμούς, μαθητικές επιστημονικές ολυμπιάδες και άλλες διεθνής εκδηλώσεις',
+        'Προσκλήσεις σχολείων της περ.α του άρθρου 3 του ν. 4415/2016 (Α΄ 159)',
+        'Βράβευσης με ταξίδι στο εξωτερικό κατόπιν συμμετοχής σε διαγωνιστική διαδικασία εγκεκριμένη από το Υπουργείο Παιδείας',
+        'Πιλοτικών προγραμμάτων διεθνών σχολικών δικτύων που εγκρίνονται ή συντονίζονται από το Υπουργείο Παιδείας',
+        'Επισκέψεων σε ερευνητικά κέντρα, εκπαιδευτικά ιδρύματα, πανεπιστήμια, κέντρα πολιτισμού και/ή αθλητισμού',
+        'Επισκέψεων σε ευρωπαϊκούς θεσμούς/διεθνείς οργανώσεις κατόπιν σχετικής πρόσκλησης και αποδοχής τυχόν αιτήματος από το διεθνή οργανισμό',
+    ];
+
+    /**
      * @var SchoolYear|null
      */
     public $currentYear;
@@ -112,6 +136,14 @@ class ExcursionService
                 'min_files' => 2,
                 'legislation' => 'Άρθρο 10 της Υ.Α. 109113/ΓΔ4/19-8-2026, (ΦΕΚ 5237/τ.Β\'/19-08-2026)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/vouli/'),
+            ],
+            self::ARTICLE_11_GENERAL_TITLE => [
+                'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 4,
+                'legislation' => 'Άρθρο 11 της Υ.Α. 109113/ΓΔ4/19-8-2026, (ΦΕΚ 5237/τ.Β\'/19-08-2026)',
+                'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/'),
+                'legislation_special_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/eidika/'),
             ],
             'Εκπαιδευτικών ανταλλαγών σε συνέχεια διακρατικών συμφωνιών/μνημονίων συνεργασίας/εκτελεστικών προγραμμάτων' => [
                 'category' => '(Μέσω ευρωπαϊκών ή διεθνών δράσεων)',
@@ -224,6 +256,43 @@ class ExcursionService
         return array_filter(
             $types,
             fn (array $type): bool => in_array($school->typos_sxoleiou, $type['school_types'], true)
+        );
+    }
+
+    /**
+     * Οι τύποι εκδρομών που επιτρέπεται να επιλεχθούν για νέα εκδρομή.
+     * Οι εκδρομές άρθρου 11 έχουν ομαδοποιηθεί κάτω από τον γενικό τίτλο και
+     * δεν εμφανίζονται ξεχωριστά, παραμένουν όμως διαθέσιμες για παλαιότερες εγγραφές.
+     *
+     * @return array<string, array<string, string|int|string[]>>
+     */
+    public function getSelectableExcursionTypes(?School $school = null): array
+    {
+        return array_diff_key(
+            $this->getExcursionTypes($school),
+            array_flip(self::ARTICLE_11_TYPES),
+        );
+    }
+
+    /**
+     * @param  string  $type  Το είδος της εκδρομής ως αποθηκευμένο σε μια παλαιότερη εγγραφή
+     */
+    public static function isLegacyArticle11Type(string $type): bool
+    {
+        return in_array($type, self::ARTICLE_11_TYPES, true);
+    }
+
+    /**
+     * Οι επιλογές του checkboxset με τους τίτλων των εκδρομών άρθρου 11.
+     *
+     * @return list<array{id: string, value: string}>
+     */
+    public static function article11CheckboxOptions(): array
+    {
+        return array_map(
+            fn (int $index, string $title): array => ['id' => "e11_$index", 'value' => $title],
+            range(1, count(self::ARTICLE_11_TYPES)),
+            self::ARTICLE_11_TYPES,
         );
     }
 
@@ -373,6 +442,7 @@ class ExcursionService
             'Διδακτική επίσκεψη' => 'excursion.form.didaktikes',
             'Επίσκεψη στη Βουλή των Ελλήνων' => 'excursion.form.vouli',
             'Συμμετοχή μαθητών/τριών σε διαγωνισμούς/εκδηλώσεις εσωτερικού' => 'excursion.form.diagon',
+            self::ARTICLE_11_GENERAL_TITLE,
             'Εκπαιδευτικών ανταλλαγών σε συνέχεια διακρατικών συμφωνιών/μνημονίων συνεργασίας/εκτελεστικών προγραμμάτων',
             'Αδελφοποιήσεων',
             'Εκπαιδευτικών προγραμμάτων της Γενικής Γραμματείας Θρησκευμάτων',
@@ -449,7 +519,8 @@ class ExcursionService
             $excursion->eidos_ekdromis === 'Επισκέψεων σε ερευνητικά κέντρα, εκπαιδευτικά ιδρύματα, πανεπιστήμια, κέντρα πολιτισμού και/ή αθλητισμού' ||
             $excursion->eidos_ekdromis === 'Επισκέψεων σε ευρωπαϊκούς θεσμούς/διεθνείς οργανώσεις κατόπιν σχετικής πρόσκλησης και αποδοχής τυχόν αιτήματος από το διεθνή οργανισμό' ||
             $excursion->eidos_ekdromis === 'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' ||
-            $excursion->eidos_ekdromis === 'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1') {
+            $excursion->eidos_ekdromis === 'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' ||
+            $excursion->eidos_ekdromis === self::ARTICLE_11_GENERAL_TITLE) {
             return true;
         }
 

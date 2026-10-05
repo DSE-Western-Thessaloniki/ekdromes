@@ -37,7 +37,7 @@ class ExcursionController extends Controller
         }
 
         if (request()->query('excursionType', false)) {
-            $types = $this->excursionService->getExcursionTypes($school);
+            $types = $this->excursionService->getSelectableExcursionTypes($school);
             $excursionType = request()->query('excursionType');
 
             if (! is_string($excursionType) || ! array_key_exists($excursionType, $types)) {
@@ -60,7 +60,7 @@ class ExcursionController extends Controller
         }
 
         if (request()->query('IKnowWhatIAmDoing', false)) {
-            $types = $this->excursionService->getExcursionTypes($school);
+            $types = $this->excursionService->getSelectableExcursionTypes($school);
 
             return view('excursion.show-all', ['types' => $types]);
         }
