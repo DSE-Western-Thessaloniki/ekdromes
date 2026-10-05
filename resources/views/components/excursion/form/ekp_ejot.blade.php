@@ -49,6 +49,7 @@
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
         <x-excursion.form.ui.input fieldName="tmimata" label="Τάξη" :value="$excursion->tmimata ?? ''" />
+        <div></div>
         <x-excursion.form.ui.input fieldName="ar_mathiton" label="Συνολικός αριθμός φοιτούντων μαθητών/τριών"
             type="number" min="1" :value="$excursion->ar_mathiton ?? 0" />
         <x-excursion.form.ui.input fieldName="ar_metakinoumenon" label="Αριθμός μετακινούμενων μαθητών/τριών"
