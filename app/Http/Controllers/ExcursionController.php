@@ -29,32 +29,38 @@ class ExcursionController extends Controller
 
     public function create(): View|RedirectResponse
     {
-        if (! SchoolService::getActiveSchool()) {
+        $school = SchoolService::getActiveSchool();
+        if (! $school) {
             // Αν φτάσουμε εδώ τότε σαν admin δεν έχουμε επιλέξει σχολείο...
             // Πάμε από την αρχή
             return to_route('admin.index');
         }
 
         if (request()->query('excursionType', false)) {
-            $types = $this->excursionService->getExcursionTypes();
+            $types = $this->excursionService->getExcursionTypes($school);
+            $excursionType = request()->query('excursionType');
+
+            if (! is_string($excursionType) || ! array_key_exists($excursionType, $types)) {
+                return to_route('excursion.create');
+            }
 
             if (! request()->query('informed', false)) {
-                return view('excursion.guidelines', ['types' => $types, 'excursionType' => request()->query('excursionType')]);
+                return view('excursion.guidelines', ['types' => $types, 'excursionType' => $excursionType]);
             }
 
             $fieldMap = $this->fieldMap;
 
             return view('excursion.create', [
-                'form' => $this->excursionService->formComponent(request()->query('excursionType')),
+                'form' => $this->excursionService->formComponent($excursionType),
                 'fieldMap' => $fieldMap,
                 'IKnowWhatIAmDoing' => true,
-                'excursionType' => request()->query('excursionType'),
+                'excursionType' => $excursionType,
                 'signerName' => $this->excursionService->getLastSigner(),
             ]);
         }
 
         if (request()->query('IKnowWhatIAmDoing', false)) {
-            $types = $this->excursionService->getExcursionTypes();
+            $types = $this->excursionService->getExcursionTypes($school);
 
             return view('excursion.show-all', ['types' => $types]);
         }

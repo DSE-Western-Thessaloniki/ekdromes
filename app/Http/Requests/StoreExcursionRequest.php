@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Services\ExcursionFieldMap;
 use App\Services\ExcursionService;
+use App\Services\SchoolService;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -19,7 +20,10 @@ class StoreExcursionRequest extends FormRequest
      */
     public function rules(): array
     {
-        $excursionTypes = array_keys($this->excursionService->getExcursionTypes());
+        $school = SchoolService::getActiveSchool();
+        $excursionTypes = $school
+            ? array_keys($this->excursionService->getExcursionTypes($school))
+            : [];
         $rules = [
             'eidos_ekdromis' => ['string', 'required', Rule::in($excursionTypes)],
         ];
