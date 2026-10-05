@@ -33,9 +33,9 @@ class ExcursionService
     /**
      * @return array<string, array<string, string|int|string[]>>
      */
-    public function getExcursionTypes(): array
+    public function getExcursionTypes(?School $school = null): array
     {
-        return [
+        $types = [
             'Σχολικός Περίπατος' => [
                 'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
@@ -216,6 +216,15 @@ class ExcursionService
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/erasmus1/'),
             ],
         ];
+
+        if ($school === null) {
+            return $types;
+        }
+
+        return array_filter(
+            $types,
+            fn (array $type): bool => in_array($school->typos_sxoleiou, $type['school_types'], true)
+        );
     }
 
     private function getExcursionTypeFiles(string $path): array

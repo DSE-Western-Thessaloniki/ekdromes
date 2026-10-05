@@ -66,6 +66,60 @@ it('resolves a Blade component for every excursion form type', function (): void
     }
 });
 
+it('filters excursion types to those allowed for the active school type', function (): void {
+    $types = app(ExcursionService::class)->getExcursionTypes($this->school);
+
+    $this->assertArrayHasKey('Σχολικός Περίπατος', $types);
+    $this->assertArrayNotHasKey('Πολυήμερη τελευταίας τάξης στο εσωτερικό', $types);
+});
+
+it('does not show excursion types unavailable to the active school', function (): void {
+    $response = $this->withoutMiddleware(CASAuth::class)
+        ->withSession(['school' => $this->school])
+        ->get(route('excursion.create', ['IKnowWhatIAmDoing' => true]));
+
+    $response->assertSee('Σχολικός Περίπατος');
+    $response->assertDontSee('Πολυήμερη τελευταίας τάξης στο εσωτερικό');
+});
+
+it('rejects creating an excursion type unavailable to the active school', function (): void {
+    $response = $this->withoutMiddleware(CASAuth::class)
+        ->withSession(['school' => $this->school])
+        ->post(route('excursion.store'), [
+            'eidos_ekdromis' => 'Πολυήμερη τελευταίας τάξης στο εσωτερικό',
+        ]);
+
+    $response->assertSessionHasErrors('eidos_ekdromis');
+    $this->assertDatabaseMissing('excursions', [
+        'school_id' => $this->school->id,
+        'eidos_ekdromis' => 'Πολυήμερη τελευταίας τάξης στο εσωτερικό',
+    ]);
+});
+
+it('rejects updating an excursion to a type unavailable to its school', function (): void {
+    $excursion = Excursion::create([
+        'school_year_id' => $this->year->id,
+        'school_id' => $this->school->id,
+        'kodikos_sxoleiou' => $this->school->kodikos_sxoleiou,
+        'eidos_ekdromis' => 'Σχολικός Περίπατος',
+        'proorismos' => 'Θεσσαλονίκη',
+        'hmera_ekdromis_anaxorisis' => '2026-11-05',
+        'status' => 'ΠΡΟΣΩΡΙΝΑ ΑΠΟΘΗΚΕΥΜΕΝΗ',
+    ]);
+
+    $response = $this->withoutMiddleware(CASAuth::class)
+        ->withSession(['school' => $this->school])
+        ->put(route('excursion.update', $excursion), [
+            'eidos_ekdromis' => 'Πολυήμερη τελευταίας τάξης στο εσωτερικό',
+        ]);
+
+    $response->assertSessionHasErrors('eidos_ekdromis');
+    $this->assertDatabaseHas('excursions', [
+        'id' => $excursion->id,
+        'eidos_ekdromis' => 'Σχολικός Περίπατος',
+    ]);
+});
+
 it('creates excursion with peripatos type fields', function (): void {
     $response = $this->withoutMiddleware(CASAuth::class)
         ->withSession(['school' => $this->school])

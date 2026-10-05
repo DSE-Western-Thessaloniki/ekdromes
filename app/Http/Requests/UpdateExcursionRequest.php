@@ -37,7 +37,8 @@ class UpdateExcursionRequest extends FormRequest
      */
     public function rules(): array
     {
-        $excursionTypes = array_keys($this->excursionService->getExcursionTypes());
+        $school = $this->route('excursion')->school;
+        $excursionTypes = array_keys($this->excursionService->getExcursionTypes($school));
         $rules = [
             'eidos_ekdromis' => ['string', 'required', Rule::in($excursionTypes)],
         ];
