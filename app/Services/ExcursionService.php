@@ -455,6 +455,10 @@ class ExcursionService
 
         $pupilPercentage = ($excursion->ar_metakinoumenon / $excursion->ar_mathiton) * 100;
 
+        if ($excursion->eidos_ekdromis === 'Επίσκεψη στη Βουλή των Ελλήνων') {
+            return $pupilPercentage >= 50;
+        }
+
         return $pupilPercentage >= 70;
     }
 }

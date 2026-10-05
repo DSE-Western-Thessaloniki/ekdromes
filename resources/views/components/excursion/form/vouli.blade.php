@@ -66,7 +66,7 @@
         <div class="flex flex-col gap-2">
             <div class="space-x-2">
                 <input type="hidden" name="70percent" value="true">
-                <label for="inp_70_percent">Συμμετέχουν σε ποσοστό 70%:</label><input type="checkbox" checked
+                <label for="inp_70_percent">Συμμετέχουν σε ποσοστό 50%:</label><input type="checkbox" checked
                     name="inp_70_percent" id="inp_70_percent" />
             </div>
             <div class="space-x-2">
