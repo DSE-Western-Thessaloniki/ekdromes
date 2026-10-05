@@ -6,16 +6,9 @@
             <x-excursion.form.ui.input fieldName="titlos_programmatos" label="Τίτλος εκδήλωσης" :value="$excursion->titlos_programmatos ?? ''" />
             <div class="text-sm">[διαγωνισμός/εκδήλωση/συνέδριο κτλ.]</div>
         </div>
-        <div>
-            <x-excursion.form.ui.input fieldName="ar_prajis_syllogou"
-                label="Πράξη συλλόγου βάσει της οποίας γίνεται η μετακίνηση" :value="$excursion->ar_prajis_syllogou ?? ''"
-                placeholder="Αριθμός και ημερομηνία" />
-            <div class="text-sm">[10 ημέρες πριν από ημερήσια μετακίνηση και 20 ημέρες πριν από μετακίνηση με
-                διανυκτέρευση]</div>
-        </div>
-        <x-excursion.form.ui.input fieldName="a_arithmos"
-            label="Αύξων αριθμός εκδρομής αυτού του είδους (π.χ. 1 αν είναι η πρώτη για φέτος)" type="number"
-            min="1" :value="$excursion->a_arithmos ?? 1" />
+        <x-excursion.form.ui.input fieldName="ar_prajis_syllogou"
+            label="Πράξη συλλόγου βάσει της οποίας γίνεται η μετακίνηση" :value="$excursion->ar_prajis_syllogou ?? ''"
+            placeholder="Αριθμός και ημερομηνία" />
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
         <x-excursion.form.ui.select fieldName="dianyktereush" label="Διανυκτέρευση" :value="$excursion->dianyktereush ?? 'Όχι'" :options="['Όχι', 'Ναι']"
             :emptyItem="false" />
