@@ -21,8 +21,10 @@
                 $plithos_ekp = $excursion->plithos_synodoi + 1; // increase one to include leader
             }
         @endphp
-        <li><b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές/τριες του σχολείου μας και
-            <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί πρόκειται να πραγματοποιήσουν ημερήσια
+        <li>Από τους <b>{{ $excursion->ar_mathiton }}</b> μαθητές και
+            μαθήτριες όλων των τάξεων, θα μετακινηθούν
+            <b>{{ $excursion->ar_metakinoumenon }}</b> μαθητές/τριες του σχολείου μας και
+            <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί. Πρόκειται να πραγματοποιήσουν ημερήσια
             εκπαιδευτική εκδρομή του άρθρου <b>8</b> με τον εξής
             προορισμό: <b>{{ $excursion->proorismos }}</b>, στις
             <b>{{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}</b>,
