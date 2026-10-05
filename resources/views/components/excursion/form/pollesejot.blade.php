@@ -36,8 +36,8 @@
             1 Φεβρουαρίου έως και δέκα (10) ημέρες πριν από τη λήξη των μαθημάτων]</div>
         <x-excursion.form.ui.input fieldName="diarkeia_hmeres" label="Διάρκεια (ημέρες)" type="number" min="1"
             :value="$excursion->diarkeia_hmeres ?? ''" />
-        <div class="text-sm col-span-2">[Έως πέντε (5) εργάσιμες ημέρες ή έως επτά (7) ημέρες, εάν συμπεριληφθούν έως
-            δύο (2) αργίες]</div>
+        <div class="text-sm col-span-2">[Αν είναι άνω των τεσσάρων (4) εργάσιμων ημερών, πραγματοποιούνται σε συνδυασμό
+            με τουλάχιστον μία (1) ημέρα Σαββατοκύριακου ή αργίας]</div>
         <x-excursion.form.ui.time fieldName="ora_anaxorisis"
             label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο (μετά τις 6:00πμ)" :value="$excursion?->ora_anaxorisis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_afijis"
