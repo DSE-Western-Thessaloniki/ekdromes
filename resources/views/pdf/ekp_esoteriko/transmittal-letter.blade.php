@@ -31,8 +31,13 @@
             με τον εξής προορισμό: <b>{{ $excursion->proorismos }}</b>,
             @if ($hmera_ekdromis !== $hmera_epistrofis)
                 από <b>{{ $hmera_ekdromis }}</b> έως <b>{{ $hmera_epistrofis }}</b>
+                με ώρα αναχώρησης από Θεσσαλονίκη {{ $excursion->ora_anaxorisis?->format('H:i') }},
+                ώρα άφιξης στον προορισμό {{ $excursion->ora_afijis?->format('H:i') }}, ώρα
+                αναχώρησης για επιστροφή {{ $excursion->ora_apoxorisis?->format('H:i') }} και ώρα
+                άφιξης στη Θεσσαλονίκη {{ $excursion->ora_epistrofis?->format('H:i') }}.<br>
             @else
-                στις <b>{{ $hmera_ekdromis }}</b>
+                στις <b>{{ $hmera_ekdromis }}</b>, με ώρα αναχώρησης {{ $excursion->ora_anaxorisis?->format('H:i') }}
+                και επιστροφής {{ $excursion->ora_epistrofis?->format('H:i') }}.<br>
             @endif
             με το Αναλυτικό Πρόγραμμα σχετικά με το/τα μάθημα/ματα:
             <i>{{ $excursion->mathimata }}</i>.<br />

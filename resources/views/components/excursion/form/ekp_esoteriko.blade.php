@@ -31,10 +31,16 @@
         <x-excursion.form.ui.input fieldName="diarkeia_hmeres" label="Διάρκεια (ημέρες)" type="number" min="1"
             :value="$excursion?->diarkeia_hmeres ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_anaxorisis" label="Ώρα αναχώρησης από το σχολείο" :value="$excursion?->ora_anaxorisis?->format('H:i') ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_afijis"
+            label="Εκτιμώμενη (τοπική) ώρα άφιξης στον/στους προορισμό/σμούς" :value="$excursion?->ora_afijis?->format('H:i') ?? ''" />
+        <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη (τοπική) ώρα αναχώρησης για επιστροφή"
+            :value="$excursion?->ora_apoxorisis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_epistrofis" label="Ώρα επιστροφής στο σχολείο" :value="$excursion?->ora_epistrofis?->format('H:i') ?? ''" />
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
         <x-excursion.form.ui.input fieldName="tmimata" label="Τάξη" :value="$excursion->tmimata ?? ''" />
+        <x-excursion.form.ui.input fieldName="ar_mathiton" label="Συνολικός αριθμός φοιτούντων μαθητών/τριών"
+            type="number" min="1" :value="$excursion->ar_mathiton ?? 0" />
         <x-excursion.form.ui.input fieldName="ar_metakinoumenon" label="Αριθμός μετακινούμενων μαθητών" type="number"
             min="1" :value="$excursion->ar_metakinoumenon ?? 0" />
         <x-excursion.form.ui.input fieldName="plithos_synodoi"
