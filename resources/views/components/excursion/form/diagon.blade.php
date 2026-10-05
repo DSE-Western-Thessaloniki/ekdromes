@@ -45,7 +45,7 @@
             <div class="text-sm">[μετά τις 6.00 π.μ.]</div>
         </div>
         <x-excursion.form.ui.time fieldName="ora_afijis" label="Εκτιμώμενη ώρα άφιξης στον/στους προορισμό/σμούς"
-            :value="$excursion->ora_afijis?->format('H:i') ?? ''" />
+            :value="$excursion?->ora_afijis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_apoxorisis" label="Εκτιμώμενη ώρα αναχώρησης για επιστροφή"
             :value="$excursion?->ora_apoxorisis?->format('H:i') ?? ''" />
         <div>
