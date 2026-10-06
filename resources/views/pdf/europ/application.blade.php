@@ -21,7 +21,7 @@
                 Τόπος μετακίνησης: {{ $excursion->proorismos }}<br>
                 Η μετακίνηση ανήκει στην περίπτωση: {{ $excursion->eidos_ekdromis }}
                 @if ($excursion->eidos_ekdromis === \App\Services\ExcursionService::ARTICLE_11_GENERAL_TITLE)
-                    <br>Συγκεκριμένες περιπτώσεις:
+                    <br>Πλαίσιο μετακίνησης:
                     <ul>
                         @foreach ($excursion->eidos_arthrou_11 ?? [] as $eidos11)
                             <li>{{ $eidos11 }}</li>
