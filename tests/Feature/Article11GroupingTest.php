@@ -37,7 +37,7 @@ function article11GroupedPayload(array $overrides = []): array
         'hmera_epistrofis' => '2026-11-08',
         'ar_metakinoumenon' => 20,
         'plithos_synodoi' => 2,
-        'eideis_arthrou_11' => ['Αδελφοποιήσεων', 'Προγραμμάτων διεθνών οργανισμών'],
+        'eidos_arthrou_11' => ['Αδελφοποιήσεων', 'Προγραμμάτων διεθνών οργανισμών'],
     ], $overrides);
 }
 
@@ -66,8 +66,8 @@ it('renders one checkbox per article 11 title on the grouped form', function ():
         ]));
 
     $response->assertOk();
-    $response->assertSee('name="eideis_arthrou_11[]"', false);
-    expect(substr_count($response->getContent(), 'name="eideis_arthrou_11[]"'))
+    $response->assertSee('name="eidos_arthrou_11[]"', false);
+    expect(substr_count($response->getContent(), 'name="eidos_arthrou_11[]"'))
         ->toBe(count(ExcursionService::ARTICLE_11_TYPES));
 });
 
@@ -88,28 +88,28 @@ it('stores the article 11 titles selected for the grouped type', function (): vo
 
     $excursion = Excursion::sole();
     expect($excursion->eidos_ekdromis)->toBe(ExcursionService::ARTICLE_11_GENERAL_TITLE)
-        ->and($excursion->eideis_arthrou_11)
+        ->and($excursion->eidos_arthrou_11)
         ->toBe(['Αδελφοποιήσεων', 'Προγραμμάτων διεθνών οργανισμών']);
 });
 
 it('requires at least one article 11 title for the grouped type', function (): void {
     $payload = article11GroupedPayload();
-    unset($payload['eideis_arthrou_11']);
+    unset($payload['eidos_arthrou_11']);
 
     $response = $this->withSession(['school' => $this->school])
         ->post(route('excursion.store'), $payload);
 
-    $response->assertSessionHasErrors('eideis_arthrou_11');
+    $response->assertSessionHasErrors('eidos_arthrou_11');
     expect(Excursion::count())->toBe(0);
 });
 
 it('rejects an article 11 title outside the predefined list', function (): void {
     $response = $this->withSession(['school' => $this->school])
         ->post(route('excursion.store'), article11GroupedPayload([
-            'eideis_arthrou_11' => ['Τίτλος που δεν υπάρχει'],
+            'eidos_arthrou_11' => ['Τίτλος που δεν υπάρχει'],
         ]));
 
-    $response->assertSessionHasErrors('eideis_arthrou_11.0');
+    $response->assertSessionHasErrors('eidos_arthrou_11.0');
     expect(Excursion::count())->toBe(0);
 });
 
@@ -125,7 +125,7 @@ it('does not require article 11 titles for other excursion types', function (): 
 
     $response->assertRedirect();
     $response->assertSessionHasNoErrors();
-    expect(Excursion::sole()->eideis_arthrou_11)->toBeNull();
+    expect(Excursion::sole()->eidos_arthrou_11)->toBeNull();
 });
 
 it('rejects storing a legacy article 11 type', function (): void {
@@ -168,7 +168,7 @@ it('lists the selected article 11 titles in the europ application view', functio
         'school_id' => $this->school->id,
         'kodikos_sxoleiou' => $this->school->kodikos_sxoleiou,
         'eidos_ekdromis' => ExcursionService::ARTICLE_11_GENERAL_TITLE,
-        'eideis_arthrou_11' => ['Αδελφοποιήσεων', 'Προγραμμάτων διεθνών οργανισμών'],
+        'eidos_arthrou_11' => ['Αδελφοποιήσεων', 'Προγραμμάτων διεθνών οργανισμών'],
         'proorismos' => 'Βρυξέλλες',
         'hmera_ekdromis_anaxorisis' => '2026-11-05',
         'status' => 'ΠΡΟΣΩΡΙΝΑ ΑΠΟΘΗΚΕΥΜΕΝΗ',
@@ -189,7 +189,7 @@ it('keeps the stored article 11 titles checked on the edit form', function (): v
         'school_id' => $this->school->id,
         'kodikos_sxoleiou' => $this->school->kodikos_sxoleiou,
         'eidos_ekdromis' => ExcursionService::ARTICLE_11_GENERAL_TITLE,
-        'eideis_arthrou_11' => ['Αδελφοποιήσεων', 'Προγραμμάτων διεθνών οργανισμών'],
+        'eidos_arthrou_11' => ['Αδελφοποιήσεων', 'Προγραμμάτων διεθνών οργανισμών'],
         'proorismos' => 'Βρυξέλλες',
         'hmera_ekdromis_anaxorisis' => '2026-11-05',
         'status' => 'ΠΡΟΣΩΡΙΝΑ ΑΠΟΘΗΚΕΥΜΕΝΗ',
@@ -201,7 +201,7 @@ it('keeps the stored article 11 titles checked on the edit form', function (): v
     $response->assertOk();
 
     $html = $response->getContent();
-    expect($html)->toContain('name="eideis_arthrou_11[]"')
+    expect($html)->toContain('name="eidos_arthrou_11[]"')
         ->and(preg_match('/value="Αδελφοποιήσεων"\s+checked/', $html))->toBe(1)
         ->and(preg_match('/value="Προγραμμάτων διεθνών οργανισμών"\s+checked/', $html))->toBe(1)
         ->and(preg_match('/value="Πιλοτικών προγραμμάτων[^"]*"\s+checked/', $html))->toBe(0);
@@ -213,7 +213,7 @@ it('requires an article 11 title when updating a grouped excursion', function ()
         'school_id' => $this->school->id,
         'kodikos_sxoleiou' => $this->school->kodikos_sxoleiou,
         'eidos_ekdromis' => ExcursionService::ARTICLE_11_GENERAL_TITLE,
-        'eideis_arthrou_11' => ['Αδελφοποιήσεων'],
+        'eidos_arthrou_11' => ['Αδελφοποιήσεων'],
         'proorismos' => 'Βρυξέλλες',
         'hmera_ekdromis_anaxorisis' => '2026-11-05',
         'status' => 'ΠΡΟΣΩΡΙΝΑ ΑΠΟΘΗΚΕΥΜΕΝΗ',
@@ -226,7 +226,7 @@ it('requires an article 11 title when updating a grouped excursion', function ()
             'hmera_ekdromis_anaxorisis' => '2026-11-10',
         ]);
 
-    $response->assertSessionHasErrors('eideis_arthrou_11');
+    $response->assertSessionHasErrors('eidos_arthrou_11');
     expect($excursion->fresh()->proorismos)->toBe('Βρυξέλλες');
 });
 
@@ -236,7 +236,7 @@ it('updates the selected article 11 titles', function (): void {
         'school_id' => $this->school->id,
         'kodikos_sxoleiou' => $this->school->kodikos_sxoleiou,
         'eidos_ekdromis' => ExcursionService::ARTICLE_11_GENERAL_TITLE,
-        'eideis_arthrou_11' => ['Αδελφοποιήσεων'],
+        'eidos_arthrou_11' => ['Αδελφοποιήσεων'],
         'proorismos' => 'Βρυξέλλες',
         'hmera_ekdromis_anaxorisis' => '2026-11-05',
         'status' => 'ΠΡΟΣΩΡΙΝΑ ΑΠΟΘΗΚΕΥΜΕΝΗ',
@@ -247,10 +247,10 @@ it('updates the selected article 11 titles', function (): void {
             'eidos_ekdromis' => ExcursionService::ARTICLE_11_GENERAL_TITLE,
             'proorismos' => 'Άμστερνταμ',
             'hmera_ekdromis_anaxorisis' => '2026-11-10',
-            'eideis_arthrou_11' => ['Προγραμμάτων διεθνών οργανισμών'],
+            'eidos_arthrou_11' => ['Προγραμμάτων διεθνών οργανισμών'],
         ]);
 
     $response->assertRedirect();
     $response->assertSessionHasNoErrors();
-    expect($excursion->fresh()->eideis_arthrou_11)->toBe(['Προγραμμάτων διεθνών οργανισμών']);
+    expect($excursion->fresh()->eidos_arthrou_11)->toBe(['Προγραμμάτων διεθνών οργανισμών']);
 });

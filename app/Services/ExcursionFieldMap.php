@@ -300,12 +300,12 @@ class ExcursionFieldMap
     public function getArticle11SelectionRules(mixed $eidos): array
     {
         $rules = [
-            'eideis_arthrou_11' => ['nullable', 'array'],
-            'eideis_arthrou_11.*' => ['string', Rule::in(ExcursionService::ARTICLE_11_TYPES)],
+            'eidos_arthrou_11' => ['nullable', 'array'],
+            'eidos_arthrou_11.*' => ['string', Rule::in(ExcursionService::ARTICLE_11_TYPES)],
         ];
 
         if ($eidos === ExcursionService::ARTICLE_11_GENERAL_TITLE) {
-            $rules['eideis_arthrou_11'] = ['required', 'array', 'min:1'];
+            $rules['eidos_arthrou_11'] = ['required', 'array', 'min:1'];
         }
 
         return $rules;
