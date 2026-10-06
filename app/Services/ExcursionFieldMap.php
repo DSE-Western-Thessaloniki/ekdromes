@@ -397,6 +397,7 @@ class ExcursionFieldMap
             'eidos_ekdromis' => 'είδος εκδρομής',
             'ar_prot_sxoleiou' => 'αριθμός πρωτοκόλλου σχολείου',
             'onoma_ypografonta' => 'ονοματεπώνυμο υπογράφοντα',
+            'eidos_arthrou_11' => 'πλαίσιο μετακίνησης άρθρου 11',
         ];
     }
 
