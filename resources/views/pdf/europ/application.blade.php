@@ -23,7 +23,7 @@
                 @if ($excursion->eidos_ekdromis === \App\Services\ExcursionService::ARTICLE_11_GENERAL_TITLE)
                     <br>Συγκεκριμένες περιπτώσεις:
                     <ul>
-                        @foreach ($excursion->eideis_arthrou_11 ?? [] as $eidos11)
+                        @foreach ($excursion->eidos_arthrou_11 ?? [] as $eidos11)
                             <li>{{ $eidos11 }}</li>
                         @endforeach
                     </ul>
@@ -54,7 +54,7 @@
         @if (
             $excursion->eidos_ekdromis === 'Αδελφοποιήσεων' ||
                 ($excursion->eidos_ekdromis === \App\Services\ExcursionService::ARTICLE_11_GENERAL_TITLE &&
-                    in_array('Αδελφοποιήσεων', $excursion->eideis_arthrou_11 ?? [], true)))
+                    in_array('Αδελφοποιήσεων', $excursion->eidos_arthrou_11 ?? [], true)))
             Αρ. Πρ. έγκρισης του εκπαιδευτικού προγράμματος της επίσκεψης, από το/την Διευθυντή/τρια της ΔΔΕ:
             {{ $excursion->ar_pr_egrisis_programmatosdde }}<br>
         @endif
