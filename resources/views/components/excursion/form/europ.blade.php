@@ -3,19 +3,14 @@
 @php
     $selectedEidos = $mode === 'edit' ? $excursion->eidos_ekdromis : $excursionType ?? null;
     $isArticle11Group = $selectedEidos === \App\Services\ExcursionService::ARTICLE_11_GENERAL_TITLE;
-    $showDdeApproval = in_array(
-        $selectedEidos,
-        ['Αδελφοποιήσεων', \App\Services\ExcursionService::ARTICLE_11_GENERAL_TITLE],
-        true,
-    );
 @endphp
 
 <div class="flex flex-col gap-2 mb-4">
     <x-excursion.form.ui.section title="Γενικά">
         @if ($isArticle11Group)
             <x-excursion.form.ui.checkboxset fieldName="eidos_arthrou_11[]"
-                legend="{{ \App\Services\ExcursionService::ARTICLE_11_GENERAL_TITLE }}" :options="\App\Services\ExcursionService::article11CheckboxOptions()"
-                :value="$excursion->eidos_arthrou_11 ?? []" class="col-span-2 border p-2 space-y-1.5" />
+                legend="Πλαίσιο μετακίνησης (επιλέξτε τουλάχιστον ένα)" :options="\App\Services\ExcursionService::article11CheckboxOptions()" :value="$excursion->eidos_arthrou_11 ?? []"
+                class="col-span-2 border p-2 space-y-1.5" />
         @endif
         <div>
             <x-excursion.form.ui.input fieldName="titlos_programmatos" label="Κυρίως έγγραφο μετακίνησης"
@@ -27,12 +22,10 @@
         <x-excursion.form.ui.input fieldName="ar_prajis_syllogou"
             label="Πράξη συλλόγου βάσει της οποίας γίνεται η μετακίνηση" :value="$excursion->ar_prajis_syllogou ?? ''"
             placeholder="Αριθμός και ημερομηνία" />
-        @if ($showDdeApproval)
-            <x-excursion.form.ui.input fieldName="ar_pr_egrisis_programmatosdde"
-                label="Αρ. Πρ. έγκρισης του εκπαιδευτικού προγράμματος της επίσκεψης, από το/την  Διευθυντή/τρια της ΔΔΕ"
-                :value="$excursion->ar_pr_egrisis_programmatosdde ?? ''" />
-            <div></div>
-        @endif
+        <x-excursion.form.ui.input fieldName="ar_pr_egrisis_programmatosdde" class="adel-only"
+            label="Αρ. Πρ. έγκρισης του εκπαιδευτικού προγράμματος της επίσκεψης, από το/την  Διευθυντή/τρια της ΔΔΕ"
+            :value="$excursion->ar_pr_egrisis_programmatosdde ?? ''" />
+        <div class="adel-only"></div>
         <x-excursion.form.ui.input fieldName="asf_symbolaio"
             label="Αριθμός ασφαλιστηρίου συμβολαίου για τη διάρκεια του ταξιδιού και της διαμονής" :value="$excursion->asf_symbolaio ?? ''" />
         <x-excursion.form.ui.input fieldName="praji_epilogi_praktoreiou"
@@ -102,6 +95,25 @@
         document.querySelector('#inp_declarations').addEventListener("change", (event) => {
             console.log(event.target.checked);
             document.querySelector('input[name="declarations"]').value = event.target.checked;
+        });
+
+        function updateTypeOfArticle11() {
+            const is_adel_checked = [...document.querySelectorAll('input[name="eidos_arthrou_11[]"]:checked')
+                .values().filter((item) => item.value == "Αδελφοποιήσεων")
+            ].length;
+
+            if (is_adel_checked) {
+                document.querySelectorAll('.adel-only').forEach((el) => el.classList.remove('hidden'));
+            } else {
+                document.querySelectorAll('.adel-only').forEach((el) => el.classList.add('hidden'));
+            }
+        }
+
+        updateTypeOfArticle11();
+        [...document.querySelectorAll('input[name="eidos_arthrou_11[]"]')].forEach((item) => {
+            item.addEventListener("change", () => {
+                updateTypeOfArticle11();
+            });
         });
     })();
 </script>
