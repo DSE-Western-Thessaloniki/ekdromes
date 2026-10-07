@@ -64,8 +64,6 @@
         <x-excursion.form.ui.input fieldName="plithos_ektosomadas_synodoi"
             label="Πόσοι από τους παραπάνω συνοδούς δεν ανήκουν στην παιδαγωγική ομάδα" type="number" min="0"
             :value="$excursion->plithos_ektosomadas_synodoi ?? 0" />
-        <div class="text-sm col-span-2">[Φυσιολογικά είναι μηδέν(εισάγετε 0 ή αφήστε κενό). Μόνο σε εξαιρετικές
-            περιπτώσεις για λόγους ανωτέρας βίας επιτρέπονται συνοδοί εκτός ομάδας]</div>
         <div class="flex flex-col gap-2">
             <div class="space-x-2">
                 <input type="hidden" name="70percent" value="true">
