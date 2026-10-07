@@ -66,11 +66,11 @@
 
         Διάρκεια μετακίνησης (σύνολο ημερών): {{ $excursion->diarkeia_hmeres }}<br>
 
-        Ώρα αναχώρησης: {{ $excursion->ora_anaxorisis?->format('H:i') }} Ώρα επιστροφής:
-        {{ $excursion->ora_epistrofis?->format('H:i') }}<br>
-
-        Ώρα άφιξης στον προορισμό: {{ $excursion->ora_afijis?->format('H:i') }} Ώρα αναχώρησης για επιστροφή:
+        Ώρα αναχώρησης: {{ $excursion->ora_anaxorisis?->format('H:i') }} Ώρα αναχώρησης για επιστροφή:
         {{ $excursion->ora_apoxorisis?->format('H:i') }}<br>
+
+        Ώρα άφιξης στον προορισμό: {{ $excursion->ora_afijis?->format('H:i') }} Ώρα επιστροφής:
+        {{ $excursion->ora_epistrofis?->format('H:i') }}<br>
 
         Μεταφορικό μέσο: {{ $excursion->metaforika_mesa }}<br>
 
