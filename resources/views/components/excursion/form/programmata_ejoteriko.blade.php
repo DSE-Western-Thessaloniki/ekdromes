@@ -20,7 +20,7 @@
             placeholder="Αριθμός και ημερομηνία" />
         <x-excursion.form.ui.input fieldName="a_arithmos"
             label="Αύξων αριθμός εκδρομής αυτού του είδους (π.χ. 1 αν είναι η πρώτη για φέτος)" type="number"
-            min="1" :value="$excursion->a_arithmos ?? 1" />
+            min="1" max="2" :value="$excursion->a_arithmos ?? 1" />
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
         <x-excursion.form.ui.input fieldName="onoma_jenodoxeio" label="Όνομα ξενοδοχείου" :value="$excursion->onoma_jenodoxeio ?? ''" />
         <x-excursion.form.ui.input fieldName="onoma_praktoreio" label="Όνομα πρακτορείου" :value="$excursion->onoma_praktoreio ?? ''" />

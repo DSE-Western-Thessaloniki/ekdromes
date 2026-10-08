@@ -12,9 +12,8 @@
             placeholder="Αριθμός και ημερομηνία" />
         <x-excursion.form.ui.input fieldName="ar_pr_anartisisprok"
             label="Αρ. πρ. και ημερομηνία διαβίβασης αιτήματος ανάρτησης προκήρυξης" :value="$excursion->ar_pr_anartisisprok ?? ''" />
-        <x-excursion.form.ui.input fieldName="a_arithmos"
-            label="Αύξων αριθμός εκδρομής αυτού του είδους (π.χ. 1 αν είναι η πρώτη για φέτος)" type="number"
-            min="1" max="2" :value="$excursion->a_arithmos ?? 1" />
+        <x-excursion.form.ui.input fieldName="a_arithmos" readonly="true"
+            label="Αύξων αριθμός εκδρομής αυτού του είδους (επιτρέπεται μόνο 1 ανά τάξη)" value="1" />
         <div></div>
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
         <x-excursion.form.ui.input fieldName="onoma_jenodoxeio" label="Όνομα ξενοδοχείου" :value="$excursion->onoma_jenodoxeio ?? ''" />
