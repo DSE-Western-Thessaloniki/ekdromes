@@ -176,7 +176,7 @@ function initSchoolTable(table: HTMLTableElement): void {
         render: function (data: number, _type: unknown, row: ExcursionRow) {
           let html = `<a href="${route("excursion.edit", data)}" class="inline-block bg-coral text-white px-3 py-1 rounded text-sm hover:bg-coral-dark" title="Επεξεργασία"><i class="fas fa-edit"></i></a>`;
           // TODO -v Έλεγξε αν υπάρχει σύνδεσμος για τα αρχεία και στην αρχική εφαρμογή
-          html += ` <a href="/excursion/${data}/files" class="inline-block bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600" title="Αρχεία"><i class="fas fa-folder-open"></i></a>`;
+          html += ` <a href="${route("excursion.files", data)}" class="inline-block bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600" title="Αρχεία"><i class="fas fa-folder-open"></i></a>`;
           if (row.isDraft) {
             html += ` <form action="${route("excursion.destroy", data)}" method="POST" class="inline"><input type="hidden" name="_token" value="${csrfToken || ""}"><input type="hidden" name="_method" value="DELETE"><button type="submit" class="inline-block bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600" onclick="return confirm('Είστε σίγουρος;')" title="Διαγραφή"><i class="fas fa-trash"></i></button></form>`;
           }
