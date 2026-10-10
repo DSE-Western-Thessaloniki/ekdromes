@@ -30,6 +30,8 @@
         <div class="text-sm col-span-2">[επιτρεπτό χρονικό διάστημα διεξαγωγής από 15 Οκτωβρίου έως την τελευταία ημέρα
             μαθημάτων πριν από την έναρξη των διακοπών των Χριστουγέννων &amp;
             από 1 Φεβρουαρίου έως και δέκα (10) ημέρες πριν από τη λήξη των μαθημάτων]</div>
+        <x-excursion.form.ui.duration />
+        <div></div>
         <x-excursion.form.ui.time fieldName="ora_anaxorisis"
             label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο" :value="$excursion?->ora_anaxorisis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_afijis" label="Εκτιμώμενη ώρα άφιξης στον/στους προορισμό/σμούς"

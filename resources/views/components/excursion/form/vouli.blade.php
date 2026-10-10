@@ -28,6 +28,8 @@
         <x-excursion.form.ui.date fieldName="hmera_epistrofis" label="Ημερομηνία επιστροφής" :value="$excursion?->hmera_epistrofis?->format('Y-m-d')" />
         <div class="text-sm col-span-2">[Από την έναρξη του διδακτικού έτους έως και δέκα (10) ημέρες πριν από τη λήξη
             των μαθημάτων]</div>
+        <x-excursion.form.ui.duration />
+        <div></div>
         <div>
             <x-excursion.form.ui.time fieldName="ora_anaxorisis"
                 label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο " :value="$excursion->ora_anaxorisis ?? ''" />
