@@ -39,7 +39,7 @@
                                     <select id="school-year-select" name="year_id" @change="$el.form.submit()"
                                         class="rounded border border-gray-300 px-3 py-2 text-gray-900 focus:border-coral focus:outline-none focus:ring-2 focus:ring-coral">
                                         @foreach ($schoolYears as $schoolYear)
-                                            <option value="{{ $schoolYear->id }}" @selected($schoolYear->id === $currentYear['id'])>
+                                            <option value="{{ $schoolYear->id }}" @selected($schoolYear->id === ($currentYear['id'] ?? null))>
                                                 {{ $schoolYear->sxoliko_etos }} @if ($schoolYear->is_current)
                                                     (τρέχον)
                                                 @endif
@@ -75,6 +75,12 @@
                             <a href="{{ route('admin.option.index') }}"
                                 class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
                                     class="fas fa-cogs mr-2"></i>Ρυθμίσεις</a>
+                            <a href="{{ route('admin.schools') }}"
+                                class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
+                                    class="fas fa-school mr-2"></i>Σχολικές μονάδες</a>
+                            <a href="{{ route('admin.users.index') }}"
+                                class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
+                                    class="fas fa-users mr-2"></i>Διαχειριστές</a>
 
                             @if ($selectedSchool)
                                 <a href="{{ route('excursion.create') }}"
@@ -116,6 +122,16 @@
                     <a href="{{ route('info') }}"
                         class="text-white hover:text-coral-light px-3 py-2 rounded-md text-sm font-medium"><i
                             class="fas fa-info-circle mr-2"></i>Οδηγίες</a>
+                    @if ($isAdmin)
+                        <a href="{{ route('admin.schools') }}"
+                            class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">
+                            <i class="fas fa-school mr-2"></i>Σχολικές μονάδες
+                        </a>
+                        <a href="{{ route('admin.users.index') }}"
+                            class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium">
+                            <i class="fas fa-users mr-2"></i>Διαχειριστές
+                        </a>
+                    @endif
                     <a href="{{ route('excursion.create') }}"
                         class="block text-white hover:text-coral-light px-3 py-2 rounded-md text-base font-medium"><i
                             class="fas fa-plus-circle mr-2"></i>Νέα

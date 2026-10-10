@@ -13,6 +13,7 @@ class SchoolService
     public function getSchoolsForYear(SchoolYear $year): Collection
     {
         return School::where('school_year_id', $year->id)
+            ->withCount('excursions')
             ->orderBy('displayname')
             ->get();
     }
