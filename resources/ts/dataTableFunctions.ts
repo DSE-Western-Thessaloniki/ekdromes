@@ -72,7 +72,10 @@ function initAdminTable(table: HTMLTableElement): void {
         data: "id",
         orderable: false,
         searchable: false,
-        render: function (data: number) {
+        render: function (data: number, _type: unknown, row: ExcursionRow) {
+          const viewLink = `<a href="${route("excursion.edit", data)}" class="btn btn-gray border font-medium" title="Προβολή"><i class="fas fa-eye"></i></a>`;
+          if (!row.isDraft) return viewLink;
+
           const form = document.createElement("form");
           form.method = "POST";
           form.action = route("excursion.destroy", data);
@@ -81,10 +84,7 @@ function initAdminTable(table: HTMLTableElement): void {
             <input type="hidden" name="_token" value="${csrfToken || ""}">
             <button type="submit" class="btn btn-gray border font-medium" title="Ακύρωση/Διαγραφή"><i class="far fa-circle-xmark"></i></button>`;
 
-          return (
-            `<a href="${route("excursion.edit", data)}" class="btn btn-gray border font-medium" title="Προβολή"><i class="fas fa-eye"></i></a>` +
-            form.outerHTML
-          );
+          return viewLink + form.outerHTML;
         },
       },
     ],

@@ -183,6 +183,31 @@ class AdminSchoolContextTest extends TestCase
         $response->assertSee($this->excursion2->eidos_ekdromis);
     }
 
+    public function test_excursion_search_marks_only_drafts_as_deletable(): void
+    {
+        $this->excursion1->update(['status' => 'ΥΠΟΒΛΗΘΗΚΕ']);
+
+        $response = $this->withoutMiddleware()
+            ->withSession(['cas_model_category' => 'user'])
+            ->post(route('api.excursion.search'), [
+                'draw' => 1,
+                'start' => 0,
+                'length' => 10,
+                'columns' => [
+                    ['data' => 'index'],
+                ],
+                'order' => [
+                    ['column' => 0, 'dir' => 'asc'],
+                ],
+            ]);
+
+        $response->assertOk();
+        $response->assertJsonPath('data.0.id', $this->excursion1->id);
+        $response->assertJsonPath('data.0.isDraft', false);
+        $response->assertJsonPath('data.1.id', $this->excursion2->id);
+        $response->assertJsonPath('data.1.isDraft', true);
+    }
+
     public function test_admin_selected_school_info_displays_in_dashboard(): void
     {
         $response = $this->withoutMiddleware()

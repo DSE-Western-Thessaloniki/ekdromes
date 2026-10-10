@@ -19,6 +19,10 @@ class UpdateExcursionRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        if ($this->route('excursion')->isSubmitted()) {
+            return false;
+        }
+
         if (Session::get('cas_model_category') === 'user') { // Admin
             return true;
         }

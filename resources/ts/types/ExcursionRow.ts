@@ -1,6 +1,7 @@
 import { SchoolRow } from "./SchoolRow";
 
 export interface ExcursionRow {
+  id: number;
   school: SchoolRow | null;
   ar_prot: string;
   ar_prot_sxoleiou: string;

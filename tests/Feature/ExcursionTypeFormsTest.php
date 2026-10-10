@@ -1,5 +1,7 @@
 <?php
 
+use App\Enums\ExcursionStatus;
+use App\Http\Middleware\EnsureCasAccountHasAccess;
 use App\Models\Excursion;
 use App\Models\School;
 use App\Models\SchoolYear;
@@ -8,6 +10,8 @@ use App\Services\ExcursionService;
 use Subfission\Cas\Middleware\CASAuth;
 
 beforeEach(function (): void {
+    $this->withoutMiddleware([CASAuth::class, EnsureCasAccountHasAccess::class]);
+
     $this->year = SchoolYear::create([
         'sxoliko_etos' => '2026_2027',
         'is_current' => true,
@@ -21,6 +25,8 @@ beforeEach(function (): void {
         'email' => 'school@example.com',
         'phonenumbers' => '2310000000',
     ]);
+
+    $this->withSession(['school' => $this->school]);
 
     $this->fieldMap = new ExcursionFieldMap;
 });
@@ -52,6 +58,55 @@ it('passes field map to edit view', function (): void {
     $response->assertViewHas('fieldMap');
     $response->assertSee('data-unsaved-changes-form');
     $response->assertSee('data-unsaved-changes-link');
+    $response->assertSee('Αποθήκευση');
+    $response->assertDontSee('<fieldset disabled', false);
+});
+
+it('renders submitted excursions as read-only and hides the save button', function (): void {
+    $excursion = Excursion::create([
+        'school_year_id' => $this->year->id,
+        'school_id' => $this->school->id,
+        'kodikos_sxoleiou' => $this->school->kodikos_sxoleiou,
+        'eidos_ekdromis' => 'Σχολικός Περίπατος',
+        'proorismos' => 'Θεσσαλονίκη',
+        'hmera_ekdromis_anaxorisis' => '2026-11-05',
+        'status' => ExcursionStatus::SUBMITTED,
+    ]);
+
+    $response = $this->withoutMiddleware([CASAuth::class, EnsureCasAccountHasAccess::class])
+        ->withSession(['school' => $this->school])
+        ->get(route('excursion.edit', $excursion));
+
+    $response->assertOk();
+    $response->assertSee('disabled  class="min-w-0"', false);
+    $response->assertSee('Θεσσαλονίκη');
+    $response->assertDontSee('Αποθήκευση Αλλαγών');
+});
+
+it('rejects update requests for submitted excursions without changing their data', function (): void {
+    $excursion = Excursion::create([
+        'school_year_id' => $this->year->id,
+        'school_id' => $this->school->id,
+        'kodikos_sxoleiou' => $this->school->kodikos_sxoleiou,
+        'eidos_ekdromis' => 'Σχολικός Περίπατος',
+        'proorismos' => 'Θεσσαλονίκη',
+        'hmera_ekdromis_anaxorisis' => '2026-11-05',
+        'status' => ExcursionStatus::SUBMITTED,
+    ]);
+
+    $response = $this->withoutMiddleware([CASAuth::class, EnsureCasAccountHasAccess::class])
+        ->withSession(['cas_model_category' => 'user'])
+        ->put(route('excursion.update', $excursion), [
+            'eidos_ekdromis' => 'Σχολικός Περίπατος',
+            'proorismos' => 'Αθήνα',
+        ]);
+
+    $response->assertForbidden();
+    $this->assertDatabaseHas('excursions', [
+        'id' => $excursion->id,
+        'proorismos' => 'Θεσσαλονίκη',
+        'status' => ExcursionStatus::SUBMITTED->value,
+    ]);
 });
 
 it('resolves a Blade component for every excursion form type', function (): void {

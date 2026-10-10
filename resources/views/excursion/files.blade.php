@@ -139,9 +139,11 @@
                 @php
                     $files_count = count($files);
                 @endphp
-                <button type="button" command="show-modal" commandfor="submit_excursion"
-                    class="btn btn-danger">Οριστική
-                    υποβολή ({{ $files_count }} {{ $files_count === 1 ? 'αρχείο' : 'αρχεία' }}) στη ΔΔΕ</button>
+                @unless ($excursion->isSubmitted())
+                    <button type="button" command="show-modal" commandfor="submit_excursion"
+                        class="btn btn-danger">Οριστική
+                        υποβολή ({{ $files_count }} {{ $files_count === 1 ? 'αρχείο' : 'αρχεία' }}) στη ΔΔΕ</button>
+                @endunless
             </div>
         </div>
         <dialog id="submit_excursion" class="m-auto rounded-md">

@@ -106,6 +106,7 @@ final class SearchDataTablesSSPService implements DataTablesSSPInterface
                 'notes' => $record->paratiriseis,
                 'submit_datetime' => $record->submit_datetime?->format('d-m-Y H:i'),
                 'id' => $record->id,
+                'isDraft' => $record->isDraft(),
             ]);
 
         $this->returnedData = [

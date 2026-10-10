@@ -41,6 +41,7 @@
                     @method('PUT')
                 @endif
 
+                <fieldset @if ($isEdit && $excursion->isSubmitted()) disabled @endif class="min-w-0">
                 {{-- Type Selector --}}
                 <div class="mb-6">
                     <label for="eidos_ekdromis" class="block text-sm font-medium text-gray-700 mb-1">Είδος
@@ -112,6 +113,7 @@
                     <textarea name="paratiriseis" id="paratiriseis" rows="3" placeholder="Σημειώσεις (που δεν θα εκτυπωθούν πουθενά)"
                         class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-coral focus:border-transparent">{{ old('paratiriseis', $isEdit ? $excursion->paratiriseis ?? '' : '') }}</textarea>
                 </div>
+                </fieldset>
 
                 {{-- Actions --}}
                 <div class="flex items-center justify-between">
@@ -121,10 +123,12 @@
                         <i class="fas fa-arrow-left"></i>
                         {{ $isEdit ? 'Επιστροφή' : 'Ακύρωση' }}
                     </a>
+                    @unless ($isEdit && $excursion->isSubmitted())
                     <button type="submit"
                         class="bg-coral text-white px-6 py-2 rounded-lg text-lg hover:bg-coral-dark cursor-pointer">
                         <i class="fas fa-save"></i> {{ $isEdit ? 'Αποθήκευση Αλλαγών' : 'Δημιουργία' }}
                     </button>
+                    @endunless
                     @if ($isEdit)
                         <a href="{{ route('excursion.files', $excursion) }}" data-unsaved-changes-link
                             class="bg-blue-500 text-white px-6 py-2 rounded-lg text-lg hover:bg-blue-600">
