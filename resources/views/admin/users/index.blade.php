@@ -19,9 +19,16 @@
                     @enderror
                 </div>
                 <div>
-                    <label for="email" class="block text-sm font-medium mb-1">Email ΠΣΔ</label>
-                    <input id="email" name="email" type="email" value="{{ old('email') }}" maxlength="255" required
-                        class="w-full rounded border border-gray-300 px-3 py-2">
+                    <label for="email_username" class="block text-sm font-medium mb-1">Email ΠΣΔ</label>
+                    <div class="flex rounded border border-gray-300 focus-within:border-coral focus-within:ring-2 focus-within:ring-coral">
+                        <input id="email_username" name="email_username" type="text" inputmode="email"
+                            value="{{ old('email_username') }}" maxlength="248" required
+                            class="min-w-0 flex-1 rounded-l px-3 py-2 outline-none">
+                        <span class="flex items-center rounded-r bg-gray-100 px-3 text-gray-700">@sch.gr</span>
+                    </div>
+                    @error('email_username')
+                        <p class="text-sm text-red-700 mt-1">{{ $message }}</p>
+                    @enderror
                     @error('email')
                         <p class="text-sm text-red-700 mt-1">{{ $message }}</p>
                     @enderror
