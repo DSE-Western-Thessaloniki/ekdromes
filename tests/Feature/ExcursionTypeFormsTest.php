@@ -58,6 +58,10 @@ it('passes field map to edit view', function (): void {
     $response->assertViewHas('fieldMap');
     $response->assertSee('data-unsaved-changes-form');
     $response->assertSee('data-unsaved-changes-link');
+    $response->assertSee('id="mobile-navigation"', false);
+    $response->assertSee('aria-controls="mobile-navigation"', false);
+    $response->assertSee('focus-visible:outline-2', false);
+    $response->assertSee('sm:w-auto', false);
     $response->assertSee('Αποθήκευση');
     $response->assertDontSee('<fieldset disabled', false);
 });
@@ -169,6 +173,8 @@ it('does not show excursion types unavailable to the active school', function ()
 
     $response->assertSee('Σχολικός Περίπατος');
     $response->assertDontSee('Πολυήμερη τελευταίας τάξης στο εσωτερικό');
+    $response->assertSee('admin-list-table', false);
+    $response->assertSee('overflow-x-auto', false);
 });
 
 it('rejects creating an excursion type unavailable to the active school', function (): void {
@@ -251,6 +257,22 @@ it('preserves submitted create values after validation fails', function (): void
 
     $response->assertSessionHasErrors('hmera_ekdromis_anaxorisis');
     $response->assertSessionHasInput('proorismos', 'Νέος Προορισμός');
+});
+
+it('renders accessible inline feedback when excursion dates are invalid', function (): void {
+    $response = $this->withoutMiddleware(CASAuth::class)
+        ->followingRedirects()
+        ->from(route('excursion.create', ['excursionType' => 'Σχολικός Περίπατος', 'informed' => true]))
+        ->post(route('excursion.store'), [
+            'eidos_ekdromis' => 'Σχολικός Περίπατος',
+            'proorismos' => 'Νέος Προορισμός',
+            'hmera_ekdromis_anaxorisis' => 'not-a-date',
+            'ar_prajis_syllogou' => '123/2026',
+            'a_arithmos' => '1',
+        ]);
+
+    $response->assertSee('aria-invalid="true"', false);
+    $response->assertSee('id="hmera_ekdromis_anaxorisis-error"', false);
 });
 
 it('validates required fields for hmerisiaxoris type', function (): void {

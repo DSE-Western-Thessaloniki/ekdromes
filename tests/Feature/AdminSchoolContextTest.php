@@ -159,6 +159,8 @@ class AdminSchoolContextTest extends TestCase
         $excursions = $response->viewData('excursions');
         $this->assertCount(1, $excursions);
         $this->assertEquals($this->excursion1->id, $excursions->first()->id);
+        $response->assertSee('aria-label="Εκδρομές σχολικής μονάδας"', false);
+        $response->assertSee('inline-flex whitespace-nowrap rounded-full border border-amber-200', false);
     }
 
     public function test_admin_dashboard_shows_all_excursions_grouped_by_school(): void
@@ -181,6 +183,16 @@ class AdminSchoolContextTest extends TestCase
         $response->assertSee($this->school2->displayname);
         $response->assertSee($this->excursion1->eidos_ekdromis);
         $response->assertSee($this->excursion2->eidos_ekdromis);
+    }
+
+    public function test_admin_dashboard_renders_an_accessibly_labeled_excursion_table(): void
+    {
+        $response = $this->withoutMiddleware()
+            ->session(['cas_is_admin' => true])
+            ->get(route('admin.index'));
+
+        $response->assertSee('aria-label="Λίστα όλων των εκδρομών"', false);
+        $response->assertSee('data-selected-school-id=""', false);
     }
 
     public function test_excursion_search_marks_only_drafts_as_deletable(): void
@@ -213,6 +225,7 @@ class AdminSchoolContextTest extends TestCase
         $response = $this->withoutMiddleware()
             ->session([
                 'cas_is_admin' => true,
+                'cas_model_category' => 'user',
                 'admin_selected_school' => $this->school1->id,
             ])
             ->get(route('admin.index'));
@@ -220,6 +233,7 @@ class AdminSchoolContextTest extends TestCase
         $selectedSchool = $response->viewData('selectedSchool');
         $this->assertNotNull($selectedSchool);
         $this->assertEquals($this->school1->id, $selectedSchool->id);
+        $response->assertSee('data-selected-school-id="'.$this->school1->id.'"', false);
     }
 
     public function test_non_admin_cannot_select_school(): void

@@ -13,36 +13,59 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
         'Segoe UI Symbol', 'Noto Color Emoji';
 
-    --color-coral: rgb(255, 122, 89);
-    --color-coral-dark: #ff6b52;
-    --color-coral-light: #ffe0d6;
+    --color-brand: #1f3a5f;
+    --color-brand-dark: #172d49;
+    --color-brand-light: #bfdbfe;
+    --color-page-bg: #f3f6fa;
 }
 
 body {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 16px;
-    background: linear-gradient(to bottom, #ffffff, var(--color-coral));
+    background-color: var(--color-page-bg);
     min-height: 100vh;
 }
 
+[x-cloak] {
+    display: none !important;
+}
+
+:where(a, button, input, select, textarea, [role='button'], [tabindex]:not([tabindex='-1'])):focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+}
+
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled,
+[aria-disabled='true'] {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 .btn {
-    @apply px-6 py-2 rounded cursor-pointer inline-block;
+    @apply inline-block cursor-pointer rounded px-6 py-2 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand disabled:cursor-not-allowed disabled:opacity-60;
 }
 
 .btn-primary {
-    @apply bg-blue-500 text-white hover:bg-blue-600;
+    @apply bg-brand text-white hover:bg-brand-dark;
 }
 
 .btn-info {
-    @apply bg-cyan-500 text-white hover:bg-cyan-600;
+    @apply bg-brand text-white hover:bg-brand-dark;
 }
 
 .btn-warning {
     @apply bg-orange-400 text-white hover:bg-orange-500;
 }
 
-.btn-coral {
-    @apply bg-coral text-white hover:bg-coral-dark;
+a.btn-warning[href*="/excursion/wizard"] {
+    @apply inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:border-brand hover:text-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand;
+}
+
+.btn-brand {
+    @apply bg-brand text-white hover:bg-brand-dark;
 }
 
 .btn-success {
@@ -55,4 +78,100 @@ body {
 
 .btn-gray {
     @apply bg-gray-300 hover:bg-gray-400;
+}
+
+div.dt-container {
+    @apply text-sm text-gray-600;
+}
+
+div.dt-container div.dt-layout-row {
+    @apply flex-wrap items-center gap-3;
+}
+
+div.dt-container .dt-layout-cell {
+    @apply min-w-0;
+}
+
+div.dt-container .dt-search input,
+div.dt-container .dt-length select {
+    @apply rounded-md border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 shadow-sm;
+}
+
+div.dt-container .dt-search input:focus,
+div.dt-container .dt-length select:focus {
+    @apply border-brand outline-none ring-2 ring-brand/20;
+}
+
+div.dt-container .dt-search input {
+    @apply max-w-full;
+}
+
+div.dt-container .dt-paging .dt-paging-button {
+    @apply rounded-md border border-transparent px-2 py-1.5 text-sm text-gray-700 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand sm:px-3;
+}
+
+div.dt-container .dt-paging .dt-paging-button.current {
+    @apply border-brand bg-brand text-white;
+    color: #fff !important;
+}
+
+div.dt-container .dt-paging .dt-paging-button:hover:not(.disabled):not(.current) {
+    @apply border-gray-200 bg-gray-100 text-gray-900;
+}
+
+table.dataTable thead > tr > th,
+table.admin-list-table thead > tr > th {
+    @apply whitespace-nowrap border-b border-gray-200 bg-gray-50 px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600;
+}
+
+table.dataTable tbody > tr > td,
+table.admin-list-table tbody > tr > td {
+    @apply border-b border-gray-100 px-4 py-3 align-middle text-sm text-gray-700;
+}
+
+table.admin-list-table tbody > tr:nth-child(even) > * {
+    @apply bg-gray-50/60;
+}
+
+table.dataTable tbody > tr:hover > *,
+table.admin-list-table tbody > tr:hover > * {
+    @apply bg-blue-50;
+}
+
+.table-actions {
+    @apply flex flex-wrap items-center gap-2;
+}
+
+.table-actions form {
+    @apply m-0;
+}
+
+.table-action {
+    @apply inline-flex size-9 items-center justify-center rounded-md border border-gray-200 bg-white text-brand shadow-sm transition-colors hover:border-brand hover:bg-brand hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand;
+}
+
+.table-action-danger {
+    @apply border-red-200 text-red-700 hover:border-red-600 hover:bg-red-600 hover:text-white focus-visible:outline-red-700;
+}
+
+@media (max-width: 639px) {
+    div.dt-container div.dt-layout-row {
+        @apply flex-col items-stretch;
+    }
+
+    div.dt-container .dt-layout-cell {
+        @apply w-full;
+    }
+
+    div.dt-container .dt-search {
+        @apply flex flex-wrap items-center gap-2;
+    }
+
+    div.dt-container .dt-search input {
+        @apply w-full;
+    }
+
+    div.dt-container .dt-paging {
+        @apply overflow-x-auto;
+    }
 }
