@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminSchoolController;
+use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ExcursionController;
 use App\Http\Controllers\ExcursionWizardController;
@@ -62,6 +64,10 @@ Route::middleware([CASAuth::class, EnsureCasAccountHasAccess::class])->group(fun
         Route::post('/clear-school', [AdminController::class, 'clearSchoolSelection'])->name('clear-school');
         Route::get('/excursions/{schoolCode}', [AdminController::class, 'excursionsBySchool'])->name('excursions-by-school');
         Route::get('/schools', [AdminController::class, 'schools'])->name('schools');
+        Route::post('/schools', [AdminSchoolController::class, 'store'])->name('schools.store');
+        Route::post('/schools/copy', [AdminSchoolController::class, 'copy'])->name('schools.copy');
+        Route::delete('/schools/{school}', [AdminSchoolController::class, 'destroy'])->name('schools.destroy');
+        Route::resource('users', AdminUserController::class)->only(['index', 'store', 'destroy']);
 
         Route::prefix('option')->name('option.')->group(function () {
             Route::get('/', fn () => view('admin.option.index', [

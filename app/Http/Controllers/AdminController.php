@@ -91,7 +91,7 @@ class AdminController extends Controller
 
         $currentYear = $school->schoolYear;
         if (! $currentYear) {
-            $currentYear = SchoolYear::getCurrent();
+            $currentYear = SchoolYear::getSessionCurrent();
         }
         if (! $currentYear) {
             $currentYear = SchoolYear::orderBy('sxoliko_etos', 'desc')->first();
@@ -109,9 +109,17 @@ class AdminController extends Controller
 
     public function schools()
     {
-        $currentYear = SchoolYear::getCurrent();
+        $currentYear = SchoolYear::getSessionCurrent();
+        if (! $currentYear) {
+            return redirect()->route('dashboard')->with('error', 'Δεν υπάρχει διαθέσιμο σχολικό έτος');
+        }
+
         $schools = $this->schoolService->getSchoolsForYear($currentYear);
 
-        return view('admin.schools', ['schools' => $schools, 'currentYear' => $currentYear]);
+        return view('admin.schools', [
+            'schools' => $schools,
+            'currentYear' => $currentYear,
+            'schoolTypes' => $this->schoolService->getSchoolTypes(),
+        ]);
     }
 }
