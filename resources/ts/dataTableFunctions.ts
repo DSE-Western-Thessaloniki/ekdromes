@@ -28,6 +28,7 @@ function initAdminTable(table: HTMLTableElement): void {
       { data: "index", orderable: true, searchable: false },
       {
         data: "school.displayname",
+        visible: !selectedSchoolId,
         orderable: true,
         searchable: true,
         render: function (data: string, _type: unknown, row: ExcursionRow) {
@@ -37,7 +38,7 @@ function initAdminTable(table: HTMLTableElement): void {
           form.method = "POST";
           form.action = route("admin.select-school");
           form.className = "inline";
-          form.innerHTML = `<input type="hidden" name="_token" value="${csrfToken || ""}"><input type="hidden" name="school_id" value="${school.id}"><button type="submit" class="btn btn-coral hover:underline font-medium text-sm">${school.displayname}</button>`;
+          form.innerHTML = `<input type="hidden" name="_token" value="${csrfToken || ""}"><input type="hidden" name="school_id" value="${school.id}"><button type="submit" class="btn btn-brand hover:underline font-medium text-sm">${school.displayname}</button>`;
           return form.outerHTML;
         },
       },
@@ -58,12 +59,12 @@ function initAdminTable(table: HTMLTableElement): void {
         searchable: true,
         render: function (data: string, _type: unknown, row: ExcursionRow) {
           if (data === "ΥΠΟΒΛΗΘΗΚΕ") {
-            return `<span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">ΥΠΟΒΛΗΘΗΚΕ (${row.ar_prot || ""})</span>`;
+            return `<span class="inline-flex whitespace-nowrap rounded-full border border-green-200 bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-800">ΥΠΟΒΛΗΘΗΚΕ (${row.ar_prot || ""})</span>`;
           }
           if (data === "ΠΡΟΣΩΡΙΝΑ ΑΠΟΘΗΚΕΥΜΕΝΗ") {
-            return `<span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-semibold">ΠΡΟΣΧΕΔΙΟ</span>`;
+            return `<span class="inline-flex whitespace-nowrap rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-800">ΠΡΟΣΧΕΔΙΟ</span>`;
           }
-          return `<span class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs font-semibold">${data || ""}</span>`;
+          return `<span class="inline-flex whitespace-nowrap rounded-full border border-gray-200 bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-700">${data || ""}</span>`;
         },
       },
       { data: "notes", orderable: true, searchable: true },
@@ -73,18 +74,18 @@ function initAdminTable(table: HTMLTableElement): void {
         orderable: false,
         searchable: false,
         render: function (data: number, _type: unknown, row: ExcursionRow) {
-          const viewLink = `<a href="${route("excursion.edit", data)}" class="btn btn-gray border font-medium" title="Προβολή"><i class="fas fa-eye"></i></a>`;
-          if (!row.isDraft) return viewLink;
+          const viewLink = `<a href="${route("excursion.edit", data)}" class="table-action" title="Προβολή" aria-label="Προβολή εκδρομής"><i class="fas fa-eye" aria-hidden="true"></i></a>`;
+          if (!row.isDraft) return `<div class="table-actions">${viewLink}</div>`;
 
           const form = document.createElement("form");
           form.method = "POST";
           form.action = route("excursion.destroy", data);
-          form.className = "inline";
+          form.className = "";
           form.innerHTML = `<input type="hidden" name="_method" value="DELETE" />
             <input type="hidden" name="_token" value="${csrfToken || ""}">
-            <button type="submit" class="btn btn-gray border font-medium" title="Ακύρωση/Διαγραφή"><i class="far fa-circle-xmark"></i></button>`;
+            <button type="submit" class="table-action table-action-danger" title="Ακύρωση/Διαγραφή" aria-label="Ακύρωση ή διαγραφή εκδρομής"><i class="far fa-circle-xmark" aria-hidden="true"></i></button>`;
 
-          return viewLink + form.outerHTML;
+          return `<div class="table-actions">${viewLink}${form.outerHTML}</div>`;
         },
       },
     ],
@@ -161,12 +162,12 @@ function initSchoolTable(table: HTMLTableElement): void {
         searchable: true,
         render: function (data: string, _type: unknown, row: ExcursionRow) {
           if (data === "ΥΠΟΒΛΗΘΗΚΕ") {
-            return `<span class="bg-green-100 text-green-800 px-2 py-1 rounded text-xs font-semibold">Υποβλήθηκε (${row.ar_prot || ""})</span>`;
+            return `<span class="inline-flex whitespace-nowrap rounded-full border border-green-200 bg-green-50 px-2.5 py-1 text-xs font-semibold text-green-800">Υποβλήθηκε (${row.ar_prot || ""})</span>`;
           }
           if (data === "ΠΡΟΣΩΡΙΝΑ ΑΠΟΘΗΚΕΥΜΕΝΗ") {
-            return `<span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-xs font-semibold">Προσωρινή</span>`;
+            return `<span class="inline-flex whitespace-nowrap rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-800">Προσωρινή</span>`;
           }
-          return `<span class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-xs font-semibold">${data || ""}</span>`;
+          return `<span class="inline-flex whitespace-nowrap rounded-full border border-gray-200 bg-gray-100 px-2.5 py-1 text-xs font-semibold text-gray-700">${data || ""}</span>`;
         },
       },
       {
@@ -174,13 +175,13 @@ function initSchoolTable(table: HTMLTableElement): void {
         orderable: false,
         searchable: false,
         render: function (data: number, _type: unknown, row: ExcursionRow) {
-          let html = `<a href="${route("excursion.edit", data)}" class="inline-block bg-coral text-white px-3 py-1 rounded text-sm hover:bg-coral-dark" title="Επεξεργασία"><i class="fas fa-edit"></i></a>`;
+          let html = `<div class="table-actions"><a href="${route("excursion.edit", data)}" class="table-action" title="Επεξεργασία" aria-label="Επεξεργασία εκδρομής"><i class="fas fa-edit" aria-hidden="true"></i></a>`;
           // TODO -v Έλεγξε αν υπάρχει σύνδεσμος για τα αρχεία και στην αρχική εφαρμογή
-          html += ` <a href="${route("excursion.files", data)}" class="inline-block bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600" title="Αρχεία"><i class="fas fa-folder-open"></i></a>`;
+          html += `<a href="${route("excursion.files", data)}" class="table-action" title="Αρχεία" aria-label="Αρχεία εκδρομής"><i class="fas fa-folder-open" aria-hidden="true"></i></a>`;
           if (row.isDraft) {
-            html += ` <form action="${route("excursion.destroy", data)}" method="POST" class="inline"><input type="hidden" name="_token" value="${csrfToken || ""}"><input type="hidden" name="_method" value="DELETE"><button type="submit" class="inline-block bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600" onclick="return confirm('Είστε σίγουρος;')" title="Διαγραφή"><i class="fas fa-trash"></i></button></form>`;
+            html += `<form action="${route("excursion.destroy", data)}" method="POST"><input type="hidden" name="_token" value="${csrfToken || ""}"><input type="hidden" name="_method" value="DELETE"><button type="submit" class="table-action table-action-danger" onclick="return confirm('Είστε σίγουρος;')" title="Διαγραφή" aria-label="Διαγραφή εκδρομής"><i class="fas fa-trash" aria-hidden="true"></i></button></form>`;
           }
-          return html;
+          return `${html}</div>`;
         },
       },
     ],

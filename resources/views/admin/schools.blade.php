@@ -2,7 +2,7 @@
     <x-slot:title>Σχολεία</x-slot:title>
 
     <div class="space-y-6">
-        <div class="bg-coral text-white px-6 py-4 rounded-lg shadow-md">
+        <div class="bg-brand text-white px-6 py-4 rounded-lg shadow-md">
             <h3 class="text-xl font-semibold">
                 Σχολικές μονάδες - {{ $currentYear->sxoliko_etos }}
                 <span class="ml-2 inline-block bg-white/20 text-white text-xs px-2 py-1 rounded-full">{{ count($schools) }}</span>
@@ -65,7 +65,7 @@
                             @enderror
                         </div>
                     </div>
-                    <button type="submit" class="rounded bg-coral px-4 py-2 font-semibold text-white hover:bg-coral-dark">
+                    <button type="submit" class="rounded bg-brand px-4 py-2 font-semibold text-white hover:bg-brand-dark">
                         Προσθήκη
                     </button>
                 </form>
@@ -106,35 +106,35 @@
                         @enderror
                     </div>
                     <p class="text-sm text-gray-600">Οι μονάδες που υπάρχουν ήδη στο έτος προορισμού δεν θα τροποποιηθούν.</p>
-                    <button type="submit" class="rounded bg-coral px-4 py-2 font-semibold text-white hover:bg-coral-dark">
+                    <button type="submit" class="rounded bg-brand px-4 py-2 font-semibold text-white hover:bg-brand-dark">
                         Αντιγραφή
                     </button>
                 </form>
             </section>
         </div>
 
-        <section class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="p-6 overflow-x-auto">
-                <table id="schoolsTable" class="w-full text-left border-collapse">
+        <section class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+            <div class="overflow-x-auto p-4 sm:p-6">
+                <table id="schoolsTable" aria-label="Σχολικές μονάδες" class="admin-list-table w-full text-left">
                     <thead>
                         <tr class="bg-gray-100">
-                            <th class="px-4 py-2 border">Κωδικός</th>
-                            <th class="px-4 py-2 border">Τύπος</th>
-                            <th class="px-4 py-2 border">Επωνυμία</th>
-                            <th class="px-4 py-2 border">Τηλέφωνο</th>
-                            <th class="px-4 py-2 border">Email</th>
-                            <th class="px-4 py-2 border">Ενέργειες</th>
+                            <th scope="col">Κωδικός</th>
+                            <th scope="col">Τύπος</th>
+                            <th scope="col">Επωνυμία</th>
+                            <th scope="col">Τηλέφωνο</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Ενέργειες</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($schools as $school)
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-2 border">{{ $school->kodikos_sxoleiou }}</td>
-                                <td class="px-4 py-2 border">{{ $school->typos_sxoleiou }}</td>
-                                <td class="px-4 py-2 border">{{ $school->displayname }}</td>
-                                <td class="px-4 py-2 border">{{ $school->phonenumbers }}</td>
-                                <td class="px-4 py-2 border">{{ $school->email }}</td>
-                                <td class="px-4 py-2 border">
+                            <tr class="transition-colors odd:bg-white even:bg-gray-50/50 hover:bg-blue-50">
+                                <td class="whitespace-nowrap">{{ $school->kodikos_sxoleiou }}</td>
+                                <td class="whitespace-nowrap">{{ $school->typos_sxoleiou }}</td>
+                                <td>{{ $school->displayname }}</td>
+                                <td class="whitespace-nowrap">{{ $school->phonenumbers }}</td>
+                                <td>{{ $school->email }}</td>
+                                <td class="whitespace-nowrap">
                                     @if ($school->excursions_count === 0)
                                         <form action="{{ route('admin.schools.destroy', $school) }}" method="POST"
                                             onsubmit="return confirm('Να διαγραφεί η σχολική μονάδα;')">
@@ -151,7 +151,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="px-4 py-2 border text-center text-gray-500">
+                                <td colspan="6" class="px-4 py-8 text-center text-sm text-gray-500">
                                     Δεν υπάρχουν σχολικές μονάδες
                                 </td>
                             </tr>

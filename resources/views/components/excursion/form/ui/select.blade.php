@@ -10,13 +10,16 @@
 
 @php
     $selectedValue = old($fieldName, $value ?? $default);
+    $hasError = isset($errors) && $errors->has($fieldName);
 @endphp
 
 <div {{ $attributes }}>
-    <label for="{{ $fieldName }}"
-        class="block text-sm font-medium text-gray-700 mb-1">{{ $label }}{{ $required ? ' *' : '' }}</label>
+    <label for="{{ $fieldName }}" class="mb-1.5 block text-sm font-medium text-gray-700">
+        {{ $label }}{{ $required ? ' *' : '' }}
+    </label>
     <select name="{{ $fieldName }}" id="{{ $fieldName }}"
-        class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-coral focus:border-transparent"
+        @if ($hasError) aria-invalid="true" aria-describedby="{{ $fieldName }}-error" @endif
+        class="w-full rounded-md border bg-white px-3 py-2.5 text-sm text-gray-900 shadow-sm transition focus:outline-none focus:ring-2 {{ $hasError ? 'border-red-400 focus:border-red-500 focus:ring-red-500/20' : 'border-gray-300 focus:border-brand focus:ring-brand/20' }}"
         {{ $required ? 'required' : '' }}>
         @if ($emptyItem ?? true)
             <option value="">-- Επιλέξτε --</option>
@@ -25,4 +28,7 @@
             <option value="{{ $opt }}" @selected($selectedValue === $opt)>{{ $opt }}</option>
         @endforeach
     </select>
+    @if ($hasError)
+        <p id="{{ $fieldName }}-error" class="mt-1.5 text-sm text-red-700" role="alert">{{ $errors->first($fieldName) }}</p>
+    @endif
 </div>

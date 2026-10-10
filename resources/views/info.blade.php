@@ -50,7 +50,7 @@
 
     </p>
     <p class="p-4">Για παρατηρήσεις ή απορίες απευθυνθείτε στα γραφεία υπευθύνων Εκδρομών ή/και Πληροφορικής της <a
-            class="text-blue-600 visited:text-purple-600 underline"
+            class="text-brand visited:text-brand-dark underline"
             href="https://srv-dide-v.thess.sch.gr/portal/mainmenu-29" target="_blank">Διεύθυνσης</a>.
     </p>
 
