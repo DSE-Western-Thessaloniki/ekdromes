@@ -121,6 +121,40 @@ it('resolves a Blade component for every excursion form type', function (): void
     }
 });
 
+it('renders a readonly calculated duration for every form with a return date', function (): void {
+    $service = app(ExcursionService::class);
+    $formsWithReturnDate = 0;
+    $checkedComponents = [];
+
+    foreach ($service->getExcursionTypes() as $type => $definition) {
+        $excursion = new Excursion(['eidos_ekdromis' => $type]);
+        $component = $service->formComponent($excursion);
+
+        if (isset($checkedComponents[$component])) {
+            continue;
+        }
+
+        $checkedComponents[$component] = true;
+        $html = view('components.'.$component, ['excursion' => $excursion])->render();
+
+        if (! str_contains($html, 'id="hmera_epistrofis"')) {
+            continue;
+        }
+
+        $formsWithReturnDate++;
+
+        preg_match('/<input\b[^>]*\bid="diarkeia_hmeres"[^>]*>/s', $html, $durationInput);
+        preg_match('/<input\b[^>]*\bid="hmera_epistrofis"[^>]*>/s', $html, $returnDateInput);
+
+        $this->assertArrayHasKey(0, $durationInput, $type);
+        $this->assertStringContainsString('readonly', $durationInput[0], $type);
+        $this->assertArrayHasKey(0, $returnDateInput, $type);
+        $this->assertStringNotContainsString('readonly', $returnDateInput[0], $type);
+    }
+
+    $this->assertSame(11, $formsWithReturnDate);
+});
+
 it('filters excursion types to those allowed for the active school type', function (): void {
     $types = app(ExcursionService::class)->getExcursionTypes($this->school);
 
