@@ -35,6 +35,8 @@ class AdminManagementTest extends TestCase
         $response->assertOk();
         $response->assertSee('Προσθήκη διαχειριστή ΠΣΔ');
         $response->assertSee('admin@sch.gr');
+        $response->assertSee('name="email_username"', false);
+        $response->assertSee('@sch.gr');
         $this->assertStringContainsString('&lt;script&gt;alert(1)&lt;/script&gt;', $response->getContent());
         $this->assertStringNotContainsString($name, $response->getContent());
     }
@@ -45,7 +47,7 @@ class AdminManagementTest extends TestCase
 
         $response = $this->asAdmin()->post(route('admin.users.store'), [
             'name' => 'Νέος Διαχειριστής',
-            'email' => 'new-admin@sch.gr',
+            'email_username' => 'new-admin',
         ]);
 
         $response->assertRedirect(route('admin.users.index'));
@@ -56,13 +58,26 @@ class AdminManagementTest extends TestCase
         ]);
     }
 
+    public function test_admin_email_username_cannot_include_a_domain(): void
+    {
+        $this->createAdmin();
+
+        $response = $this->asAdmin()->post(route('admin.users.store'), [
+            'name' => 'Νέος Διαχειριστής',
+            'email_username' => 'new-admin@sch.gr',
+        ]);
+
+        $response->assertSessionHasErrors('email_username');
+        $this->assertDatabaseCount('users', 1);
+    }
+
     public function test_admin_email_must_be_unique(): void
     {
         $this->createAdmin('existing@sch.gr');
 
         $response = $this->asAdmin()->post(route('admin.users.store'), [
             'name' => 'Διπλός Διαχειριστής',
-            'email' => 'existing@sch.gr',
+            'email_username' => 'existing',
         ]);
 
         $response->assertSessionHasErrors('email');

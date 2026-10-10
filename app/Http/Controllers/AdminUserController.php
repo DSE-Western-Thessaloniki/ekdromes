@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class AdminUserController extends Controller
@@ -19,12 +20,24 @@ class AdminUserController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
-        ]);
+        $emailUsername = $request->input('email_username');
+        $email = is_string($emailUsername) ? $emailUsername.'@sch.gr' : null;
 
-        User::create($validated + ['active' => true]);
+        $validated = Validator::make([
+            'name' => $request->input('name'),
+            'email_username' => $emailUsername,
+            'email' => $email,
+        ], [
+            'name' => ['required', 'string', 'max:255'],
+            'email_username' => ['required', 'string', 'max:248', 'regex:/^[^@\s]+$/u'],
+            'email' => ['required', 'email', 'max:255', 'unique:users,email'],
+        ])->validate();
+
+        User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'active' => true,
+        ]);
 
         return redirect()->route('admin.users.index')
             ->with('success', 'Ο διαχειριστής προστέθηκε επιτυχώς.');
