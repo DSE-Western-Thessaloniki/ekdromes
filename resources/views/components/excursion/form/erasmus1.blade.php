@@ -82,7 +82,7 @@
     </x-excursion.form.ui.section>
     <x-excursion.form.ui.section title="Συμμετοχές">
         <x-excursion.form.ui.textarea fieldName="erasmus_lista_kathig_kaieidikotita"
-            label="Ονομαστική λίστα μετακινούμενων εκπαιδευτικών (ονοματεπώνυμο και ειδικότητα)"
-            lineNumbers>{{ $excursion->erasmus_lista_kathig_kaieidikotita ?? '' }}</x-excursion.form.ui.textarea>
+            label="Ονομαστική λίστα μετακινούμενων εκπαιδευτικών (ονοματεπώνυμο και ειδικότητα)" lineNumbers
+            :value="$excursion->erasmus_lista_kathig_kaieidikotita ?? ''" />
     </x-excursion.form.ui.section>
 </div>
