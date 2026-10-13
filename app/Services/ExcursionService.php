@@ -247,6 +247,13 @@ class ExcursionService
                 'legislation' => 'Άρθρο 12 της Υ.Α. 109113/ΓΔ4/19-8-2026, (ΦΕΚ 5237/τ.Β\'/19-08-2026)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/erasmus1/'),
             ],
+            'Συμμετοχή μαθητών/τριών σε Σχολικές Αθλητικές Δραστηριότητες - Αγώνες' => [
+                'category' => '',
+                'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
+                'min_files' => 2,
+                'legislation' => 'Άρθρο 13 της Υ.Α. 109113/ΓΔ4/19-8-2026, (ΦΕΚ 5237/τ.Β\'/19-08-2026)',
+                'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/athletic/'),
+            ],
         ];
 
         if ($school === null) {
@@ -456,6 +463,7 @@ class ExcursionService
             'Επισκέψεων σε ευρωπαϊκούς θεσμούς/διεθνείς οργανώσεις κατόπιν σχετικής πρόσκλησης και αποδοχής τυχόν αιτήματος από το διεθνή οργανισμό' => 'excursion.form.europ',
             'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' => 'excursion.form.erasmus2',
             'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' => 'excursion.form.erasmus1',
+            'Συμμετοχή μαθητών/τριών σε Σχολικές Αθλητικές Δραστηριότητες - Αγώνες' => 'excursion.form.athletic',
             default => '',
         };
     }
@@ -520,6 +528,7 @@ class ExcursionService
             $excursion->eidos_ekdromis === 'Επισκέψεων σε ευρωπαϊκούς θεσμούς/διεθνείς οργανώσεις κατόπιν σχετικής πρόσκλησης και αποδοχής τυχόν αιτήματος από το διεθνή οργανισμό' ||
             $excursion->eidos_ekdromis === 'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' ||
             $excursion->eidos_ekdromis === 'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' ||
+            $excursion->eidos_ekdromis === 'Συμμετοχή μαθητών/τριών σε Σχολικές Αθλητικές Δραστηριότητες - Αγώνες' ||
             $excursion->eidos_ekdromis === self::ARTICLE_11_GENERAL_TITLE) {
             return true;
         }

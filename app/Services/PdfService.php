@@ -161,6 +161,11 @@ class PdfService
                     'filename' => $excursion->id.'A_Αίτηση.pdf',
                 ],
             ],
+            'Συμμετοχή μαθητών/τριών σε Σχολικές Αθλητικές Δραστηριότητες - Αγώνες' => [
+                [
+                    'view' => 'pdf.athletic.transmittal-letter',
+                ],
+            ],
             default => [],
         };
     }
