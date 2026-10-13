@@ -488,12 +488,23 @@ class ExcursionService
         }
 
         $escortCount = $excursion->plithos_synodoi;
-        $escortNames = explode("\n", $excursion->onomata_synodoi);
-        $escortNamesCount = collect($escortNames)
+
+        // Εφαρμόζουμε διαφορετικό τρόπο μέτρησης των συνοδών για τις εκδρομές Erasmus, καθώς οι συνοδοί καταγράφονται σε διαφορετικά πεδία.
+        if ($excursion->onomata_synodoi !== null) { // Δεν είναι εκδρομή Erasmus, χρησιμοποιούμε το πεδίο onomata_synodoi για να μετρήσουμε τους συνοδούς.
+            $escortNames = explode("\n", $excursion->onomata_synodoi);
+            $escortNamesCount = collect($escortNames)
+                ->filter(fn ($name) => trim($name) !== '')
+                ->count();
+
+            return $escortCount === $escortNamesCount;
+        }
+
+        $erasmusEscortNames = $excursion->erasmus_lista_kathig_kaieidikotita;
+        $erasmusEscortNamesCount = collect(explode("\n", $erasmusEscortNames))
             ->filter(fn ($name) => trim($name) !== '')
             ->count();
 
-        return $escortCount === $escortNamesCount;
+        return $escortCount === $erasmusEscortNamesCount;
     }
 
     public function validateExcursionNumber(Excursion $excursion): bool
