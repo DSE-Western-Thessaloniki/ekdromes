@@ -51,7 +51,8 @@
             min="1" :value="$excursion->ar_metakinoumenon ?? 0" />
         <x-excursion.form.ui.input fieldName="plithos_synodoi" label="Πλήθος συνοδών" type="number" min="0"
             :value="$excursion->plithos_synodoi ?? 0" />
-        <div></div>
+        <x-excursion.form.ui.input fieldName="covered" label="Καλυπτόμενοι μαθητές" type="number" :value="0"
+            :readonly="true" />
         <x-excursion.form.ui.input fieldName="onoma_arxigos" label="Αρχηγός" :value="$excursion->onoma_arxigos ?? ''"
             placeholder="Ονοματεπώνυμο και ειδικότητα" />
         <div></div>
@@ -74,6 +75,7 @@
 </div>
 <script>
     (function() {
+        document.querySelector('#covered').value = document.querySelector('#plithos_synodoi').value * 25;
         document.querySelector('#plithos_synodoi').addEventListener("input", () => {
             document.querySelector('#covered').value = document.querySelector('#plithos_synodoi')
                 .value * 25;
