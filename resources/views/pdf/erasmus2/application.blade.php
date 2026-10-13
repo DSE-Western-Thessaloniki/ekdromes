@@ -92,7 +92,7 @@
         <ol>
             @foreach (explode("\n", $excursion->erasmus_lista_mathites_kaitaji ?? '') as $student)
                 @if ($student)
-                    <li>$student</li>
+                    <li>{{ $student }}</li>
                 @endif
             @endforeach
         </ol>
@@ -102,7 +102,7 @@
         <ol>
             @foreach (explode("\n", $excursion->erasmus_lista_kathig_kaieidikotita ?? '') as $teacher)
                 @if ($teacher)
-                    <li>$teacher</li>
+                    <li>{{ $teacher }}</li>
                 @endif
             @endforeach
         </ol>
@@ -112,7 +112,7 @@
         <ol>
             @foreach (explode("\n", $excursion->erasmus_lista_anaplirkathig_kaieid ?? '') as $teacher)
                 @if ($teacher)
-                    <li>$teacher</li>
+                    <li>{{ $teacher }}</li>
                 @endif
             @endforeach
         </ol>
@@ -150,7 +150,7 @@
     <ol>
         @foreach (explode("\n", $excursion->erasmus_lista_kathig_kaieidikotita ?? '') as $teacher)
             @if ($teacher)
-                <li>$teacher _________</li>
+                <li>{{ $teacher }} _________</li>
             @endif
         @endforeach
     </ol>

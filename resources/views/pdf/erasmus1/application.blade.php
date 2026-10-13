@@ -91,7 +91,7 @@
     <ol>
         @foreach (explode("\n", $excursion->erasmus_lista_kathig_kaieidikotita ?? '') as $teacher)
             @if ($teacher)
-                <li>$teacher</li>
+                <li>{{ $teacher }}</li>
             @endif
         @endforeach
     </ol>
@@ -129,7 +129,7 @@
     <ol>
         @foreach (explode("\n", $excursion->erasmus_lista_kathig_kaieidikotita ?? '') as $teacher)
             @if ($teacher)
-                <li>$teacher _________</li>
+                <li>{{ $teacher }} _________</li>
             @endif
         @endforeach
     </ol>
