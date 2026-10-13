@@ -90,14 +90,12 @@
         <x-excursion.form.ui.input fieldName="onoma_anaplirotis_arxigos" label="Αναπληρωτής αρχηγός"
             :value="$excursion->onoma_anaplirotis_arxigos ?? ''" />
         <x-excursion.form.ui.textarea fieldName="erasmus_lista_kathig_kaieidikotita"
-            label="Ονομαστική λίστα συνοδών (Ονοματεπώνυμο και ειδικότητα)"
-            lineNumbers>{{ $excursion->erasmus_lista_kathig_kaieidikotita ?? '' }}</x-excursion.form.ui.textarea>
+            label="Ονομαστική λίστα συνοδών (Ονοματεπώνυμο και ειδικότητα)" lineNumbers :value="$excursion->erasmus_lista_kathig_kaieidikotita ?? ''" />
         <x-excursion.form.ui.textarea fieldName="erasmus_lista_anaplirkathig_kaieid"
-            label="Ονομαστική λίστα αναπληρωτών συνοδών (Ονοματεπώνυμο και ειδικότητα)"
-            lineNumbers>{{ $excursion->erasmus_lista_anaplirkathig_kaieid ?? '' }}</x-excursion.form.ui.textarea>
+            label="Ονομαστική λίστα αναπληρωτών συνοδών (Ονοματεπώνυμο και ειδικότητα)" lineNumbers
+            :value="$excursion->erasmus_lista_anaplirkathig_kaieid ?? ''" />
         <x-excursion.form.ui.textarea fieldName="erasmus_lista_mathites_kaitaji"
-            label="Ονομαστική λίστα μαθητών/τριών (ονοματεπώνυμο και τάξη)"
-            lineNumbers>{{ $excursion->erasmus_lista_mathites_kaitaji ?? '' }}</x-excursion.form.ui.textarea>
+            label="Ονομαστική λίστα μαθητών/τριών (ονοματεπώνυμο και τάξη)" lineNumbers :value="$excursion->erasmus_lista_mathites_kaitaji ?? ''" />
         <div></div>
         <div class="flex flex-col gap-2">
             <div class="space-x-2">

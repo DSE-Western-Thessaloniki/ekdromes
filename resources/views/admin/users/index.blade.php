@@ -2,7 +2,7 @@
     <x-slot:title>Διαχείριση διαχειριστών</x-slot:title>
 
     <div class="space-y-6">
-        <div class="bg-coral text-white px-6 py-4 rounded-lg shadow-md">
+        <div class="bg-brand text-white px-6 py-4 rounded-lg shadow-md">
             <h3 class="text-xl font-semibold">Διαχειριστές εφαρμογής</h3>
         </div>
 
@@ -20,7 +20,7 @@
                 </div>
                 <div>
                     <label for="email_username" class="block text-sm font-medium mb-1">Email ΠΣΔ</label>
-                    <div class="flex rounded border border-gray-300 focus-within:border-coral focus-within:ring-2 focus-within:ring-coral">
+                    <div class="flex rounded border border-gray-300 focus-within:border-brand focus-within:ring-2 focus-within:ring-brand">
                         <input id="email_username" name="email_username" type="text" inputmode="email"
                             value="{{ old('email_username') }}" maxlength="248" required
                             class="min-w-0 flex-1 rounded-l px-3 py-2 outline-none">
@@ -34,29 +34,29 @@
                     @enderror
                 </div>
                 <div class="sm:col-span-2">
-                    <button type="submit" class="rounded bg-coral px-4 py-2 font-semibold text-white hover:bg-coral-dark">
+                    <button type="submit" class="rounded bg-brand px-4 py-2 font-semibold text-white hover:bg-brand-dark">
                         Προσθήκη διαχειριστή
                     </button>
                 </div>
             </form>
         </section>
 
-        <section class="bg-white rounded-lg shadow-md overflow-hidden">
-            <div class="p-6 overflow-x-auto">
-                <table id="usersTable" class="w-full text-left border-collapse">
+        <section class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+            <div class="overflow-x-auto p-4 sm:p-6">
+                <table id="usersTable" aria-label="Διαχειριστές εφαρμογής" class="admin-list-table w-full text-left">
                     <thead>
                         <tr class="bg-gray-100">
-                            <th class="px-4 py-2 border">Ονοματεπώνυμο</th>
-                            <th class="px-4 py-2 border">Email</th>
-                            <th class="px-4 py-2 border">Ενέργειες</th>
+                            <th scope="col">Ονοματεπώνυμο</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Ενέργειες</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($users as $user)
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-4 py-2 border">{{ $user->name }}</td>
-                                <td class="px-4 py-2 border">{{ $user->email }}</td>
-                                <td class="px-4 py-2 border">
+                            <tr class="transition-colors odd:bg-white even:bg-gray-50/50 hover:bg-blue-50">
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td class="whitespace-nowrap">
                                     @if ($users->count() > 1)
                                         <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
                                             onsubmit="return confirm('Να διαγραφεί ο διαχειριστής;')">

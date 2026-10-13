@@ -28,13 +28,22 @@ class AdminManagementTest extends TestCase
     {
         $this->createSchoolYear('2026_2027', true);
         $name = '<script>alert(1)</script>';
-        $this->createAdmin('admin@sch.gr', $name);
+        $admin = $this->createAdmin('admin@sch.gr', $name);
 
-        $response = $this->asAdmin()->withoutVite()->get(route('admin.users.index'));
+        $response = $this->asAdmin()
+            ->withSession(['user' => $admin])
+            ->withoutVite()
+            ->get(route('admin.users.index'));
 
         $response->assertOk();
         $response->assertSee('Προσθήκη διαχειριστή ΠΣΔ');
         $response->assertSee('admin@sch.gr');
+        $response->assertSee('aria-controls="desktop-account-menu"', false);
+        $response->assertSee('>&lt;script&gt;alert(1)&lt;/script&gt;</span>', false);
+        $response->assertSee(route('admin.option.index'), false);
+        $response->assertSee(route('admin.schools'), false);
+        $response->assertSee(route('admin.users.index'), false);
+        $response->assertSee(route('logout'), false);
         $response->assertSee('name="email_username"', false);
         $response->assertSee('@sch.gr');
         $this->assertStringContainsString('&lt;script&gt;alert(1)&lt;/script&gt;', $response->getContent());

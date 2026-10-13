@@ -2,7 +2,7 @@
     <x-slot:title>Αρχεία Εκδρομής</x-slot:title>
 
     <div class="bg-white rounded-lg shadow-md overflow-hidden">
-        <div class="bg-coral text-white px-6 py-4">
+        <div class="bg-brand text-white px-6 py-4">
             <h3 class="text-xl font-semibold">
                 Αρχεία Εκδρομής #{{ $excursion->id }}
                 - {{ $excursion->eidos_ekdromis }}
@@ -27,8 +27,8 @@
                     </p>
                     <div x-show="show_dropzone" x-transition @click="$refs.fileInput.click()"
                         @dragover.prevent="isDragging = true" @dragleave.prevent="isDragging = false"
-                        @drop.prevent="handleDrop($event)" :class="{ 'border-coral bg-orange-50': isDragging }"
-                        class="cursor-pointer rounded-lg border-2 border-dashed border-gray-300 p-8 text-center hover:border-coral">
+                        @drop.prevent="handleDrop($event)" :class="{ 'border-brand bg-orange-50': isDragging }"
+                        class="cursor-pointer rounded-lg border-2 border-dashed border-gray-300 p-8 text-center hover:border-brand">
                         <input x-ref="fileInput" type="file" multiple class="hidden"
                             accept=".pdf,.doc,.docx,.xls,.xlsx,.txt" @change="handleFiles($event.target.files)" />
                         <i class="fas fa-cloud-arrow-up mb-2 text-3xl text-gray-400"></i>
@@ -99,7 +99,7 @@
                                         </td>
                                         <td class="px-4 py-2 border">
                                             <a href="{{ route('excursion.download-file', [$excursion, $file['name']]) }}"
-                                                class="inline-block bg-green-500 text-white px-3 py-1 rounded text-sm hover:bg-green-600"
+                                                class="inline-block bg-brand text-white px-3 py-1 rounded text-sm hover:bg-brand-dark"
                                                 title="Λήψη">
                                                 <i class="fas fa-download"></i>
                                             </a>

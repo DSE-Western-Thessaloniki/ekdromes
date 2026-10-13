@@ -32,6 +32,7 @@
             σχολείου μας των τάξεων/τμημάτων: {{ $excursion->tmimata }} και
             <b>{{ $plithos_ekp }}</b> εκπαιδευτικοί του σχολείου μας
             πρόκειται να πραγματοποιήσουν διδακτική επίσκεψη του άρθρου <b>5</b>
+            στο πλαίσιο του μαθήματος {{ $excursion->titlos_programmatos }},
             με προορισμό: <b>{{ $excursion->proorismos }}</b>, στις
             {{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }}, με ώρα
             αναχώρησης {{ $excursion->ora_anaxorisis?->format('H:i') }} και επιστροφής

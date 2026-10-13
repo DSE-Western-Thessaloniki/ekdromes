@@ -5,7 +5,7 @@
     <p>{{ $excursionType }}</p>
     <p>Κατεβάστε τις οδηγίες και τη νομοθεσία:</p>
     @foreach ($types[$excursionType]['legislation_files']() as $file)
-        <a class="hover:underline text-blue-600" href="{{ str_replace('+', '%2B', Storage::disk('public')->url($file)) }}"
+        <a class="hover:underline text-brand" href="{{ str_replace('+', '%2B', Storage::disk('public')->url($file)) }}"
             target="_blank">{{ basename($file) }}<i class="fas fa-download"></i></a><br>
     @endforeach
 
@@ -83,7 +83,7 @@
             <ul class="list-disc list-inside">
                 @foreach ($types[$excursionType]['legislation_special_files']() as $file)
                     <li>
-                        <a class="hover:underline text-blue-600"
+                        <a class="hover:underline text-brand"
                             href="{{ str_replace('+', '%2B', Storage::disk('public')->url($file)) }}"
                             target="_blank">{{ basename($file) }}<i class="fas fa-download"></i></a>
                     </li>
@@ -99,7 +99,7 @@
                     αίτημα διαβιβάζεται μέσω της ΔΔΕ.</b><br>
                 Δείτε πρώτα τη διαδικασία που περιγράφεται στο/στα σχετικά αρχεία:<br>
                 @foreach ($types[$excursionType]['legislation_special_files']() as $file)
-                    <a class="hover:underline text-blue-600"
+                    <a class="hover:underline text-brand"
                         href="{{ str_replace('+', '%2B', Storage::disk('public')->url($file)) }}"
                         target="_blank">{{ basename($file) }}<i class="fas fa-download"></i></a><br>
                 @endforeach
