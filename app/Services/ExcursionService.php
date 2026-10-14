@@ -483,7 +483,7 @@ class ExcursionService
 
     public function validateEscort(Excursion $excursion): bool
     {
-        if ($excursion->eidos_ekdromis === 'Σχολικός Περίπατος') {
+        if ($excursion->eidos_ekdromis === 'Σχολικός Περίπατος' || $excursion->eidos_ekdromis === 'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1') {
             return true;
         }
 
