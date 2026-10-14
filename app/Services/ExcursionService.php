@@ -509,6 +509,10 @@ class ExcursionService
 
     public function validateExcursionNumber(Excursion $excursion): bool
     {
+        if ($excursion->eidos_ekdromis === 'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1') {
+            return true;
+        }
+
         $existing = Excursion::query()
             ->submitted()
             ->forYear($this->currentYear)
