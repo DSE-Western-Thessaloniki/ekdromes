@@ -149,13 +149,13 @@ class PdfService
                     'filename' => $excursion->id.'A_Αίτηση.pdf',
                 ],
             ],
-            'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' => [
+            'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+' => [
                 [
                     'view' => 'pdf.erasmus2.application',
                     'filename' => $excursion->id.'A_Αίτηση.pdf',
                 ],
             ],
-            'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' => [
+            'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+' => [
                 [
                     'view' => 'pdf.erasmus1.application',
                     'filename' => $excursion->id.'A_Αίτηση.pdf',

@@ -177,12 +177,12 @@ class ExcursionFieldMap
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
             'participation' => ['ar_metakinoumenon', 'plithos_synodoi'],
         ],
-        'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' => [
+        'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+' => [
             'general' => ['eidos_programmatos', 'titlos_programmatos', 'ar_pr_egrisis_programmatosdde', 'erasmus_ar_simbasis', 'ar_pr_anartisisprok', 'praji_epilogi_praktoreiou', 'erasmus_ar_prajis_syllogou_sigrotisi', 'erasmus_ar_prajis_syllogou_anasigrotisi', 'ar_prajis_syllogou', 'erasmus_ar_prajis_syllogon_sinainesi', 'erasmus_ar_prot_beb_dieythinton', 'asf_symbolaio', 'proorismos', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
             'participation' => ['erasmus_lista_kathig_kaieidikotita'],
         ],
-        'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' => [
+        'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+' => [
             'general' => ['eidos_programmatos', 'titlos_programmatos', 'ar_pr_egrisis_programmatosdde', 'erasmus_ar_simbasis', 'ar_pr_anartisisprok', 'praji_epilogi_praktoreiou', 'erasmus_ar_prajis_syllogou_sigrotisi', 'erasmus_ar_prajis_syllogou_anasigrotisi', 'ar_prajis_syllogou', 'erasmus_ar_prajis_syllogon_sinainesi', 'erasmus_ar_prot_beb_dieythinton', 'asf_symbolaio', 'proorismos', 'metaforika_mesa'],
             'dates' => ['hmera_ekdromis_anaxorisis', 'hmera_epistrofis', 'diarkeia_hmeres', 'ora_anaxorisis', 'ora_afijis', 'ora_apoxorisis', 'ora_epistrofis'],
             'participation' => ['plithos_synodoi', 'onoma_arxigos', 'erasmus_lista_kathig_kaieidikotita', 'erasmus_lista_anaplirkathig_kaieid', 'erasmus_lista_mathites_kaitaji'],

@@ -233,14 +233,14 @@ class ExcursionService
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/'),
                 'legislation_special_files' => fn () => $this->getExcursionTypeFiles('nomoi/europ/eidika/'),
             ],
-            'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' => [
+            'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+' => [
                 'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
                 'min_files' => 5,
                 'legislation' => 'Άρθρο 12 της Υ.Α. 109113/ΓΔ4/19-8-2026, (ΦΕΚ 5237/τ.Β\'/19-08-2026)',
                 'legislation_files' => fn () => $this->getExcursionTypeFiles('nomoi/erasmus2/'),
             ],
-            'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' => [
+            'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+' => [
                 'category' => '',
                 'school_types' => ['ΓΥΜΝΑΣΙΟ', 'ΛΥΚΕΙΟ', 'ΕΠΑΛ', 'ΕΚ'],
                 'min_files' => 5,
@@ -461,8 +461,8 @@ class ExcursionService
             'Πιλοτικών προγραμμάτων διεθνών σχολικών δικτύων που εγκρίνονται ή συντονίζονται από το Υπουργείο Παιδείας',
             'Επισκέψεων σε ερευνητικά κέντρα, εκπαιδευτικά ιδρύματα, πανεπιστήμια, κέντρα πολιτισμού και/ή αθλητισμού',
             'Επισκέψεων σε ευρωπαϊκούς θεσμούς/διεθνείς οργανώσεις κατόπιν σχετικής πρόσκλησης και αποδοχής τυχόν αιτήματος από το διεθνή οργανισμό' => 'excursion.form.europ',
-            'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' => 'excursion.form.erasmus2',
-            'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' => 'excursion.form.erasmus1',
+            'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+' => 'excursion.form.erasmus2',
+            'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+' => 'excursion.form.erasmus1',
             'Συμμετοχή μαθητών/τριών σε Σχολικές Αθλητικές Δραστηριότητες - Αγώνες' => 'excursion.form.athletic',
             default => '',
         };
@@ -484,7 +484,7 @@ class ExcursionService
     public function validateEscort(Excursion $excursion): bool
     {
         if ($excursion->eidos_ekdromis === 'Σχολικός Περίπατος' ||
-            $excursion->eidos_ekdromis === 'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' ||
+            $excursion->eidos_ekdromis === 'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+' ||
             $excursion->eidos_ekdromis === 'Εκπαιδευτικές επισκέψεις στο εξωτερικό στο πλαίσιο ευρωπαϊκών προγραμμάτων, διεθνών προγραμμάτων και λοιπών εκπαιδευτικών δράσεων') {
             return true;
         }
@@ -511,7 +511,7 @@ class ExcursionService
 
     public function validateExcursionNumber(Excursion $excursion): bool
     {
-        if ($excursion->eidos_ekdromis === 'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1') {
+        if ($excursion->eidos_ekdromis === 'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+') {
             return true;
         }
 
@@ -543,8 +543,8 @@ class ExcursionService
             $excursion->eidos_ekdromis === 'Πιλοτικών προγραμμάτων διεθνών σχολικών δικτύων που εγκρίνονται ή συντονίζονται από το Υπουργείο Παιδείας' ||
             $excursion->eidos_ekdromis === 'Επισκέψεων σε ερευνητικά κέντρα, εκπαιδευτικά ιδρύματα, πανεπιστήμια, κέντρα πολιτισμού και/ή αθλητισμού' ||
             $excursion->eidos_ekdromis === 'Επισκέψεων σε ευρωπαϊκούς θεσμούς/διεθνείς οργανώσεις κατόπιν σχετικής πρόσκλησης και αποδοχής τυχόν αιτήματος από το διεθνή οργανισμό' ||
-            $excursion->eidos_ekdromis === 'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ2' ||
-            $excursion->eidos_ekdromis === 'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+ΚΑ1' ||
+            $excursion->eidos_ekdromis === 'Μετακίνηση μαθητών-τριών και εκπαιδευτικών με πρόγραμμα ERASMUS+' ||
+            $excursion->eidos_ekdromis === 'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+' ||
             $excursion->eidos_ekdromis === 'Συμμετοχή μαθητών/τριών σε Σχολικές Αθλητικές Δραστηριότητες - Αγώνες' ||
             $excursion->eidos_ekdromis === self::ARTICLE_11_GENERAL_TITLE) {
             return true;
