@@ -6,7 +6,9 @@
             label="Πράξη συλλόγου βάσει της οποίας γίνεται η μετακίνηση" :value="$excursion->ar_prajis_syllogou ?? ''"
             placeholder="Αριθμός και ημερομηνία" />
         <x-excursion.form.ui.input fieldName="asf_symbolaio"
-            label="Αριθμός ασφαλιστηρίου συμβολαίου για τη διάρκεια του ταξιδιού και της διαμονής" :value="$excursion->asf_symbolaio ?? ''" />
+            label="Ασφαλιστηρίου Συμβολαίου Επαγγελματικής - Αστικής Ευθύνης" :value="$excursion->asf_symbolaio ?? ''" />
+        <x-excursion.form.ui.input fieldName="ar_taxidiotikis_asfalisis" label="Αριθμός Ταξιδιωτικής Ασφάλισης"
+            :value="$excursion->ar_taxidiotikis_asfalisis ?? ''" />
         <x-excursion.form.ui.input fieldName="praji_epilogi_praktoreiou"
             label="Πράξη διευθυντή για την επιλογή του τουριστικού γραφείου" :value="$excursion->praji_epilogi_praktoreiou ?? ''"
             placeholder="Αριθμός και ημερομηνία" />
@@ -14,7 +16,6 @@
             label="Αρ. πρ. και ημερομηνία διαβίβασης αιτήματος ανάρτησης προκήρυξης" :value="$excursion->ar_pr_anartisisprok ?? ''" />
         <x-excursion.form.ui.input fieldName="a_arithmos" readonly="true"
             label="Αύξων αριθμός εκδρομής αυτού του είδους (επιτρέπεται μόνο 1 ανά τάξη)" value="1" />
-        <div></div>
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
         <x-excursion.form.ui.input fieldName="onoma_jenodoxeio" label="Όνομα ξενοδοχείου" :value="$excursion->onoma_jenodoxeio ?? ''" />
         <x-excursion.form.ui.input fieldName="onoma_praktoreio" label="Όνομα πρακτορείου" :value="$excursion->onoma_praktoreio ?? ''" />

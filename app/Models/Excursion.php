@@ -66,6 +66,7 @@ class Excursion extends Model
         'erasmus_lista_anaplirkathig_kaieid',
         'stoxoi',
         'eidos_arthrou_11',
+        'ar_taxidiotikis_asfalisis',
         'dianyktereush',
         'aa_programmatos',
     ];

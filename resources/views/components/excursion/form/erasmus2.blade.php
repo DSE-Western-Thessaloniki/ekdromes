@@ -50,8 +50,9 @@
         </div>
         <div></div>
         <x-excursion.form.ui.input fieldName="asf_symbolaio"
-            label="Αριθμός ασφαλιστηρίου συμβολαίου αστικής-επαγγελματικής ευθύνης για τη διάρκεια του ταξιδιού και της διαμονής"
-            :value="$excursion->asf_symbolaio ?? ''" />
+            label="Ασφαλιστηρίου Συμβολαίου Επαγγελματικής - Αστικής Ευθύνης" :value="$excursion->asf_symbolaio ?? ''" />
+        <x-excursion.form.ui.input fieldName="ar_taxidiotikis_asfalisis" label="Αριθμός Ταξιδιωτικής Ασφάλισης"
+            :value="$excursion->ar_taxidiotikis_asfalisis ?? ''" />
         <x-excursion.form.ui.input fieldName="proorismos" label="Προορισμός" :value="$excursion->proorismos ?? ''" />
         <x-excursion.form.ui.input fieldName="metaforika_mesa" label="Μεταφορικά μέσα" :value="$excursion->metaforika_mesa ?? ''" />
         @php

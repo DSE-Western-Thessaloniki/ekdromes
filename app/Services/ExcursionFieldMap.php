@@ -238,6 +238,7 @@ class ExcursionFieldMap
         'stoxoi.*' => ['string'],
         'dianyktereush' => ['string', 'nullable'],
         'aa_programmatos' => ['string', 'nullable'],
+        'ar_taxidiotikis_asfalisis' => ['string', 'nullable'],
     ];
 
     public function getSections(string $type): array

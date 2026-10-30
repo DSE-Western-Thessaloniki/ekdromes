@@ -6,7 +6,9 @@
             label="Πράξη συλλόγου βάσει της οποίας γίνεται η μετακίνηση" :value="$excursion->ar_prajis_syllogou ?? ''"
             placeholder="Αριθμός και ημερομηνία" />
         <x-excursion.form.ui.input fieldName="asf_symbolaio"
-            label="Αριθμός ασφαλιστηρίου συμβολαίου για τη διάρκεια του ταξιδιού και της διαμονής" :value="$excursion->asf_symbolaio ?? ''" />
+            label="Ασφαλιστηρίου Συμβολαίου Επαγγελματικής - Αστικής Ευθύνης" :value="$excursion->asf_symbolaio ?? ''" />
+        <x-excursion.form.ui.input fieldName="ar_taxidiotikis_asfalisis" label="Αριθμός Ταξιδιωτικής Ασφάλισης"
+            :value="$excursion->ar_taxidiotikis_asfalisis ?? ''" />
         <x-excursion.form.ui.input fieldName="praji_epilogi_praktoreiou"
             label="Πράξη διευθυντή για την επιλογή του τουριστικού γραφείου" :value="$excursion->praji_epilogi_praktoreiou ?? ''"
             placeholder="Αριθμός και ημερομηνία" />

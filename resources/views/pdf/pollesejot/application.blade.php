@@ -38,8 +38,9 @@
     Αριθμός και ημερομηνία πράξης του διευθυντή για την επιλογή του τουριστικού γραφείου:
     {{ $excursion->praji_epilogi_praktoreiou }}<br>
     Αρ. Πρ. &amp; ημ. διαβίβασης αιτήματος ανάρτησης προκήρυξης: {{ $excursion->ar_pr_anartisisprok }}<br>
-    Αριθμός ασφαλιστηρίου συμβολαίου για τη διάρκεια του ταξιδιού και της διαμονής:
+    Αριθμός Ασφαλιστηρίου Συμβολαίου Επαγγελματικής - Αστικής Ευθύνης:
     {{ $excursion->asf_symbolaio }}<br>
+    Αριθμός Ταξιδιωτικής Ασφάλισης: {{ $excursion->ar_taxidiotikis_asfalisis }}<br>
     Όνομα ξενοδοχείου: {{ $excursion->onoma_jenodoxeio }} Όνομα πρακτορείου: {{ $excursion->onoma_praktoreio }}
     <br> <br>
     Ημερομηνία Αναχώρησης: {{ $excursion->hmera_ekdromis_anaxorisis?->format('d-m-Y') }} Ημερομηνία Επιστροφής:
