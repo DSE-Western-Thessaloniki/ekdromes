@@ -20,7 +20,8 @@
                 </div>
                 <div>
                     <label for="email_username" class="block text-sm font-medium mb-1">Email ΠΣΔ</label>
-                    <div class="flex rounded border border-gray-300 focus-within:border-brand focus-within:ring-2 focus-within:ring-brand">
+                    <div
+                        class="flex rounded border border-gray-300 focus-within:border-brand focus-within:ring-2 focus-within:ring-brand">
                         <input id="email_username" name="email_username" type="text" inputmode="email"
                             value="{{ old('email_username') }}" maxlength="248" required
                             class="min-w-0 flex-1 rounded-l px-3 py-2 outline-none">
@@ -34,7 +35,8 @@
                     @enderror
                 </div>
                 <div class="sm:col-span-2">
-                    <button type="submit" class="rounded bg-brand px-4 py-2 font-semibold text-white hover:bg-brand-dark">
+                    <button type="submit"
+                        class="rounded bg-brand px-4 py-2 font-semibold text-white hover:bg-brand-dark">
                         Προσθήκη διαχειριστή
                     </button>
                 </div>
@@ -62,12 +64,14 @@
                                             onsubmit="return confirm('Να διαγραφεί ο διαχειριστής;')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">
+                                            <button type="submit"
+                                                class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">
                                                 Διαγραφή
                                             </button>
                                         </form>
                                     @else
-                                        <span class="text-sm text-gray-600">Ο τελευταίος διαχειριστής δεν διαγράφεται</span>
+                                        <span class="text-sm text-gray-600">Ο τελευταίος διαχειριστής δεν
+                                            διαγράφεται</span>
                                     @endif
                                 </td>
                             </tr>
@@ -78,18 +82,4 @@
         </section>
     </div>
 
-    <x-slot:scripts>
-        <script>
-            $(document).ready(function() {
-                $('#usersTable').DataTable({
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Greek.json'
-                    },
-                    order: [
-                        [0, 'asc']
-                    ]
-                });
-            });
-        </script>
-    </x-slot:scripts>
 </x-layouts.app>

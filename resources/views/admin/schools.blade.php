@@ -5,7 +5,8 @@
         <div class="bg-brand text-white px-6 py-4 rounded-lg shadow-md">
             <h3 class="text-xl font-semibold">
                 Σχολικές μονάδες - {{ $currentYear->sxoliko_etos }}
-                <span class="ml-2 inline-block bg-white/20 text-white text-xs px-2 py-1 rounded-full">{{ count($schools) }}</span>
+                <span
+                    class="ml-2 inline-block bg-white/20 text-white text-xs px-2 py-1 rounded-full">{{ count($schools) }}</span>
             </h3>
         </div>
 
@@ -16,7 +17,8 @@
                     @csrf
                     <div class="grid gap-4 sm:grid-cols-2">
                         <div>
-                            <label for="kodikos_sxoleiou" class="block text-sm font-medium mb-1">Κωδικός σχολείου</label>
+                            <label for="kodikos_sxoleiou" class="block text-sm font-medium mb-1">Κωδικός
+                                σχολείου</label>
                             <input id="kodikos_sxoleiou" name="kodikos_sxoleiou" value="{{ old('kodikos_sxoleiou') }}"
                                 maxlength="10" required class="w-full rounded border border-gray-300 px-3 py-2">
                             @error('kodikos_sxoleiou')
@@ -50,22 +52,23 @@
                     <div class="grid gap-4 sm:grid-cols-2">
                         <div>
                             <label for="phonenumbers" class="block text-sm font-medium mb-1">Τηλέφωνο</label>
-                            <input id="phonenumbers" name="phonenumbers" value="{{ old('phonenumbers') }}" maxlength="20"
-                                class="w-full rounded border border-gray-300 px-3 py-2">
+                            <input id="phonenumbers" name="phonenumbers" value="{{ old('phonenumbers') }}"
+                                maxlength="20" class="w-full rounded border border-gray-300 px-3 py-2">
                             @error('phonenumbers')
                                 <p class="text-sm text-red-700 mt-1">{{ $message }}</p>
                             @enderror
                         </div>
                         <div>
                             <label for="email" class="block text-sm font-medium mb-1">Email</label>
-                            <input id="email" name="email" type="email" value="{{ old('email') }}" maxlength="255"
-                                class="w-full rounded border border-gray-300 px-3 py-2">
+                            <input id="email" name="email" type="email" value="{{ old('email') }}"
+                                maxlength="255" class="w-full rounded border border-gray-300 px-3 py-2">
                             @error('email')
                                 <p class="text-sm text-red-700 mt-1">{{ $message }}</p>
                             @enderror
                         </div>
                     </div>
-                    <button type="submit" class="rounded bg-brand px-4 py-2 font-semibold text-white hover:bg-brand-dark">
+                    <button type="submit"
+                        class="rounded bg-brand px-4 py-2 font-semibold text-white hover:bg-brand-dark">
                         Προσθήκη
                     </button>
                 </form>
@@ -76,7 +79,8 @@
                 <form action="{{ route('admin.schools.copy') }}" method="POST" class="space-y-4">
                     @csrf
                     <div>
-                        <label for="source_school_year_id" class="block text-sm font-medium mb-1">Από σχολικό έτος</label>
+                        <label for="source_school_year_id" class="block text-sm font-medium mb-1">Από σχολικό
+                            έτος</label>
                         <select id="source_school_year_id" name="source_school_year_id" required
                             class="w-full rounded border border-gray-300 px-3 py-2">
                             <option value="">-- Επιλέξτε έτος --</option>
@@ -91,7 +95,8 @@
                         @enderror
                     </div>
                     <div>
-                        <label for="target_school_year_id" class="block text-sm font-medium mb-1">Σε σχολικό έτος</label>
+                        <label for="target_school_year_id" class="block text-sm font-medium mb-1">Σε σχολικό
+                            έτος</label>
                         <select id="target_school_year_id" name="target_school_year_id" required
                             class="w-full rounded border border-gray-300 px-3 py-2">
                             <option value="">-- Επιλέξτε έτος --</option>
@@ -105,8 +110,10 @@
                             <p class="text-sm text-red-700 mt-1">{{ $message }}</p>
                         @enderror
                     </div>
-                    <p class="text-sm text-gray-600">Οι μονάδες που υπάρχουν ήδη στο έτος προορισμού δεν θα τροποποιηθούν.</p>
-                    <button type="submit" class="rounded bg-brand px-4 py-2 font-semibold text-white hover:bg-brand-dark">
+                    <p class="text-sm text-gray-600">Οι μονάδες που υπάρχουν ήδη στο έτος προορισμού δεν θα
+                        τροποποιηθούν.</p>
+                    <button type="submit"
+                        class="rounded bg-brand px-4 py-2 font-semibold text-white hover:bg-brand-dark">
                         Αντιγραφή
                     </button>
                 </form>
@@ -140,7 +147,8 @@
                                             onsubmit="return confirm('Να διαγραφεί η σχολική μονάδα;')">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">
+                                            <button type="submit"
+                                                class="rounded bg-red-600 px-3 py-1 text-white hover:bg-red-700">
                                                 Διαγραφή
                                             </button>
                                         </form>
@@ -159,22 +167,7 @@
                     </tbody>
                 </table>
             </div>
-        </div>
+        </section>
     </div>
-
-    <x-slot:scripts>
-        <script>
-            $(document).ready(function() {
-                $('#schoolsTable').DataTable({
-                    language: {
-                        url: '//cdn.datatables.net/plug-ins/1.10.24/i18n/Greek.json'
-                    },
-                    order: [
-                        [2, 'asc']
-                    ]
-                });
-            });
-        </script>
-    </x-slot:scripts>
 
 </x-layouts.app>
