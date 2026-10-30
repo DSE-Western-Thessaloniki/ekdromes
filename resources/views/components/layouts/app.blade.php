@@ -24,7 +24,7 @@
                         <i class="fas fa-plane-departure mr-3 text-2xl text-sky-100" aria-hidden="true"></i>
                         Σχ. Εκδρομές
                     </a>
-                    <span class="relative flex min-w-0 items-center truncate ps-2 text-xs sm:text-sm"
+                    <span class="relative flex min-w-0 items-center truncate ps-2 text-xs sm:text-sm text-blue-200"
                         x-data="{ open: false }" @click.outside="open = false">
                         <i class="fas fa-graduation-cap"></i>
                         @if ($isAdmin)
