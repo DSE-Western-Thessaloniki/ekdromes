@@ -24,16 +24,23 @@
                         <i class="fas fa-plane-departure mr-3 text-2xl text-sky-100" aria-hidden="true"></i>
                         Σχ. Εκδρομές
                     </a>
-                    <span class="relative flex min-w-0 items-center truncate ps-2 text-xs sm:text-sm text-blue-200"
-                        x-data="{ open: false }" @click.outside="open = false">
-                        <i class="fas fa-graduation-cap"></i>
-                        @if ($isAdmin)
-                            <button type="button" @click="open = !open" aria-controls="school-year-menu"
-                                :aria-expanded="open.toString()"
-                                class="rounded-sm text-brand-light underline hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                    <span class="relative flex min-w-0 items-center ps-2 text-xs sm:text-sm text-blue-200"
+                        x-data="{ openSchoolYearMenu: false }" @click.outside="openSchoolYearMenu = false">
+                        <span class="flex min-w-0 items-center truncate">
+                            <i class="fas fa-graduation-cap"></i>
+                            @if ($isAdmin)
+                                <button type="button" @click="openSchoolYearMenu = !openSchoolYearMenu"
+                                    aria-controls="school-year-menu" :aria-expanded="openSchoolYearMenu.toString()"
+                                    class="rounded-sm text-brand-light underline hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
+                                    {{ $currentYear['sxoliko_etos'] ?? '' }}
+                                </button>
+                            @else
                                 {{ $currentYear['sxoliko_etos'] ?? '' }}
-                            </button>
-                            <div id="school-year-menu" x-show="open" x-transition
+                                - {{ $currentSchool?->displayname }}
+                            @endif
+                        </span>
+                        @if ($isAdmin)
+                            <div id="school-year-menu" x-cloak x-show="openSchoolYearMenu" x-transition
                                 class="absolute left-0 top-full z-20 mt-2 max-w-[calc(100vw-2rem)] rounded-md border border-gray-200 bg-white p-3 shadow-lg">
                                 <form method="POST" action="{{ route('admin.session-switch-year') }}">
                                     @csrf
@@ -50,9 +57,6 @@
                                     </select>
                                 </form>
                             </div>
-                        @else
-                            {{ $currentYear['sxoliko_etos'] ?? '' }}
-                            - {{ $currentSchool?->displayname }}
                         @endif
                     </span>
                 </div>
