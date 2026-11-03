@@ -512,7 +512,8 @@ class ExcursionService
     public function validateExcursionNumber(Excursion $excursion): bool
     {
         if ($excursion->eidos_ekdromis === 'Μετακίνηση εκπαιδευτικών με πρόγραμμα ERASMUS+' ||
-            $excursion->eidos_ekdromis === 'Συμμετοχή μαθητών/τριών σε διαγωνισμούς/εκδηλώσεις εσωτερικού') {
+            $excursion->eidos_ekdromis === 'Συμμετοχή μαθητών/τριών σε διαγωνισμούς/εκδηλώσεις εσωτερικού' ||
+            $excursion->eidos_ekdromis === 'Εκπαιδευτικές επισκέψεις στο εξωτερικό στο πλαίσιο ευρωπαϊκών προγραμμάτων, διεθνών προγραμμάτων και λοιπών εκπαιδευτικών δράσεων') {
             return true;
         }
 
