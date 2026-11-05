@@ -17,8 +17,8 @@
             <div class="text-sm">[δε γίνεται ανάρτηση όταν οι μετακινούμενοι είναι έως 10 μαζί με τους Εκπ/κούς]</div>
         </div>
         <div>
-            <x-excursion.form.ui.input fieldName="ar_pr_anartisisprok"
-                label="Πράξη του διευθυντή για την επιλογή του τουριστικού γραφείου" :value="$excursion->ar_pr_anartisisprok ?? ''"
+            <x-excursion.form.ui.input fieldName="praji_epilogi_praktoreiou"
+                label="Πράξη του διευθυντή για την επιλογή του τουριστικού γραφείου" :value="$excursion->praji_epilogi_praktoreiou ?? ''"
                 placeholder="Αριθμός και ημερομηνία" />
             <div class="text-sm">[δε γίνεται όταν οι μετακινούμενοι είναι έως 10 μαζί με τους Εκπ/κούς]</div>
         </div>
