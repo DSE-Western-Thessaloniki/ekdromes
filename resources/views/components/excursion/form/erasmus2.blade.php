@@ -71,7 +71,8 @@
             :value="$excursion?->hmera_ekdromis_anaxorisis?->format('Y-m-d')" />
         <x-excursion.form.ui.date fieldName="hmera_epistrofis" label="Ημερομηνία επιστροφής" :value="$excursion?->hmera_epistrofis?->format('Y-m-d')" />
         <x-excursion.form.ui.duration />
-        <div></div>
+        <div class="text-sm col-span-2">[Αν είναι άνω των τεσσάρων (4) εργάσιμων ημερών, πραγματοποιούνται σε συνδυασμό
+            με τουλάχιστον μία (1) ημέρα Σαββατοκύριακου ή αργίας]</div>
         <x-excursion.form.ui.time fieldName="ora_anaxorisis"
             label="Ώρα αναχώρησης από το σχολείο ή από άλλο καθορισμένο χώρο" :value="$excursion?->ora_anaxorisis?->format('H:i') ?? ''" />
         <x-excursion.form.ui.time fieldName="ora_afijis"
